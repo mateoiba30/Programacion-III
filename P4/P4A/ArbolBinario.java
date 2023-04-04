@@ -89,8 +89,11 @@ public class ArbolBinario<T> {
 	public void printPreorden() {
 		if(this.getDato()!=null){
 			System.out.println(this.getDato()+"  ");
-			this.hijoIzquierdo.printPreorden();
-			this.hijoDerecho.printPreorden();
+			if (this.hijoIzquierdo!=null)
+				this.hijoIzquierdo.printPreorden();
+			if (this.hijoDerecho!=null)
+				this.hijoDerecho.printPreorden();
+			
 		}
 		
 	}
@@ -98,18 +101,22 @@ public class ArbolBinario<T> {
 	// imprime el arbol en postorden
 	public void printInorden() {
 		if(this.getDato()!=null){
-			this.hijoIzquierdo.printInorden();
+			if (this.hijoIzquierdo!=null)
+				this.hijoIzquierdo.printInorden();
 			System.out.println(this.getDato()+"  ");
-			this.hijoDerecho.printInorden();
+			if (this.hijoDerecho!=null)
+				this.hijoDerecho.printInorden();
 		}
 		
 	}
 	
 	// imprime el arbol en postorden
 	public void printPostorden() {
-		if(this.getDato()!=null){		
-			this.hijoIzquierdo.printPostorden();
-			this.hijoDerecho.printPostorden();
+		if(this.getDato()!=null){	
+			if (this.hijoIzquierdo!=null)	
+				this.hijoIzquierdo.printPostorden();
+			if (this.hijoDerecho!=null)
+				this.hijoDerecho.printPostorden();
 			System.out.println(this.getDato()+"  ");
 		}
 		
@@ -131,19 +138,20 @@ public class ArbolBinario<T> {
 	
 	
 	
-	public int contarHojas() {
+	public int contarHojas(int cont) {
 
-		int contador=0;
-
-		if(this.getDato()!=null){
-			System.out.println(this.getDato()+"  ");
-			this.hijoIzquierdo.printPreorden();
-			this.hijoDerecho.printPreorden();
-		}
+		if (this.esHoja())
+			return cont+1;//si uso cont++ devuelve su valor original antes de aumentarse, puedo usar 
+			//              tmb ++cont;
 		else
-			contador++;		
+			if(this.getDato()!=null){
+				if (this.hijoIzquierdo!=null)
+					cont=this.hijoIzquierdo.contarHojas(cont);
+				if (this.hijoDerecho!=null)
+					cont=this.hijoDerecho.contarHojas(cont);
+			}
 
-		return contador;
+		return cont;
 	}
 
 }

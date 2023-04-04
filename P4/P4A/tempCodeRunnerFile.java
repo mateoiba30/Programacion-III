@@ -1,0 +1,1 @@
+System.out.println("cantidad de hojas: "+arbolBinarioA.contarHojas());

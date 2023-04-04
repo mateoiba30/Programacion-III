@@ -10,14 +10,20 @@ public class ArbolBinarioTest {
 		hijoIzquierdo.agregarHijoDerecho(new ArbolBinario<Integer>(4));		
 		ArbolBinario<Integer> hijoDerecho=new ArbolBinario<Integer>(5);
 		hijoDerecho.agregarHijoIzquierdo(new ArbolBinario<Integer>(6));
-		hijoDerecho.agregarHijoDerecho(new ArbolBinario<Integer>(7));
+	//	hijoDerecho.agregarHijoDerecho(new ArbolBinario<Integer>(7));
 		arbolBinarioA.agregarHijoIzquierdo(hijoIzquierdo);
 		arbolBinarioA.agregarHijoDerecho(hijoDerecho);
 
+		System.out.println("Pre Orden");
 		arbolBinarioA.printPreorden();
+		System.out.println("In Orden");
 		arbolBinarioA.printInorden();
+		System.out.println("Post Orden");
 		arbolBinarioA.printPostorden();
 
+		int contador=0;
+		contador=arbolBinarioA.contarHojas(contador);
+		System.out.println("cantidad de hojas: "+contador);
 	}
 
 }
