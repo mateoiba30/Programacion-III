@@ -127,12 +127,29 @@ public class ArbolBinario<T> {
 		
 	}
 
-	
-
-	public ListaGenerica<T> frontera() {
+	public ListaGenerica<T> frontera(){
 		ListaGenerica<T> l = new ListaGenericaEnlazada<T>();
-
+		l.comenzar();
+		frontera_2(l);
 		return l;
+//hay que inicializar 1 vez, y no cada vez que entro a la recursion
+	}
+
+	public void frontera_2(ListaGenerica<T> l) {//uso preorden porque va en orden de hojas de izq a der
+
+		if(this.esHoja()){
+			System.out.println(this.getDato()+"-");
+			l.agregarFinal(this.getDato());//el agregar al final me mantiene el orden
+		}
+			
+		else if(this.getDato()!=null){
+			if (this.hijoIzquierdo!=null)
+				this.hijoIzquierdo.frontera_2(l);
+			if (this.hijoDerecho!=null)
+				this.hijoDerecho.frontera_2(l);
+			
+		}
+
 	}
 
 	

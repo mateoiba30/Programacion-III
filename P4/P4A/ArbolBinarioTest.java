@@ -10,7 +10,7 @@ public class ArbolBinarioTest {
 		hijoIzquierdo.agregarHijoDerecho(new ArbolBinario<Integer>(4));		
 		ArbolBinario<Integer> hijoDerecho=new ArbolBinario<Integer>(5);
 		hijoDerecho.agregarHijoIzquierdo(new ArbolBinario<Integer>(6));
-	//	hijoDerecho.agregarHijoDerecho(new ArbolBinario<Integer>(7));
+		hijoDerecho.agregarHijoDerecho(new ArbolBinario<Integer>(7));
 		arbolBinarioA.agregarHijoIzquierdo(hijoIzquierdo);
 		arbolBinarioA.agregarHijoDerecho(hijoDerecho);
 
@@ -24,6 +24,10 @@ public class ArbolBinarioTest {
 		int contador=0;
 		contador=arbolBinarioA.contarHojas(contador);
 		System.out.println("cantidad de hojas: "+contador);
+
+		ListaGenerica<Integer> l = new ListaGenericaEnlazada<Integer>();
+		l=arbolBinarioA.frontera();
+		System.out.println("hojas=  "+l.toString());
 	}
 
 }
