@@ -28,6 +28,8 @@ public class ArbolBinarioTest {
 		ListaGenerica<Integer> l = new ListaGenericaEnlazada<Integer>();
 		l=arbolBinarioA.frontera();
 		System.out.println("hojas=  "+l.toString());
+
+		System.out.println("arbol lleno=  "+arbolBinarioA.esLleno());
 	}
 
 }

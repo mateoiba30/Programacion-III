@@ -76,7 +76,16 @@ public class ArbolBinario<T> {
 
 	
 
-	public boolean esLleno() {
+	public boolean esLleno() {//todos los nodos con 2 hijos menos las hojas
+		if (this.esHoja())
+			return true;//si uso cont++ devuelve su valor original antes de aumentarse, puedo usar 
+			//              tmb ++cont;
+		else
+			if(this.tieneHijoIzquierdo() && this.tieneHijoDerecho()){//analizo en caso de que sea lleno
+					return (this.hijoDerecho.esLleno() && this.hijoIzquierdo.esLleno());
+					//devuelve true solo si ambos subramas fueron true
+			}
+
 		return false;
 	}
 
@@ -138,7 +147,7 @@ public class ArbolBinario<T> {
 	public void frontera_2(ListaGenerica<T> l) {//uso preorden porque va en orden de hojas de izq a der
 
 		if(this.esHoja()){
-			System.out.println(this.getDato()+"-");
+		//	System.out.println(this.getDato()+"-"); pa debugear
 			l.agregarFinal(this.getDato());//el agregar al final me mantiene el orden
 		}
 			
