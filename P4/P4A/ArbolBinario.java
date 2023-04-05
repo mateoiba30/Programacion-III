@@ -91,6 +91,12 @@ public class ArbolBinario<T> {
 
 	 boolean esCompleto() {
 		return false;
+		//haría un recorrido por niveles (no recursivo) y chequearía que si un nodo no tiene
+		// hijo derecho, no haya ningún nodo más a excepcion del hermano izquierdo de este, y si solo
+		// le falta hijo izquierdo, me aseguro que no haya nadie más en el nivel
+		// en cuanto un nodo no tenga algún hijo, ese debe ser el último nivel
+		//tmb puedo mediate un recorrido cualquira obtener la altura y desp´al estar en el recorrido
+		//por niveles, al llegar al final chequear de que estén completados de izquierda a derecha
 	}
 
 	
