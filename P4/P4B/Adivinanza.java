@@ -21,15 +21,22 @@ public class Adivinanza {
             }
     
             return lista_max;
-    
+            // hijo=null;
+            // while (!lista_max.esVacia() && !lista_max.elemento(0).equals(raiz)) {
+            //     hijo = lista_max.elemento(0);
+            //     padre = buscarPadre(abinario, hijo);
+            //     lista_max.agregarInicio(padre);
+            // }
+        
+            // return lista_max;
         }
     
         public String buscarHojaLejana(ArbolBinario<String> abinario){
             String respuesta = new String();
-    
             ArbolBinario<String> nodo_act=null;//no olvidar de inicializarlo
             ColaGenerica<ArbolBinario<String>> cola = new ColaGenerica<ArbolBinario<String>>();
     
+            respuesta="";
             cola.encolar(abinario);//encol raiz
             cola.encolar(null);//paso de nivel
     
@@ -47,6 +54,10 @@ public class Adivinanza {
                         cola.encolar(null);//para el salto del inea
                 }
             }
+            
+            if (respuesta.isEmpty())
+                respuesta = nodo_act.getDato();
+
             return respuesta;
         }
     //no lo uso pa nada pero anda
@@ -69,8 +80,8 @@ public class Adivinanza {
         public String buscarPadre(ArbolBinario<String> abinario, String hijo){//como buscar hoja, pero comparo a que sea distinto de un string en vez de un null
             String respuesta = new String();
     
-            if((abinario!=null)&&(abinario.esHoja()==false))//chequeo si le puedo preguntar si es padre
-                if( (abinario.tieneHijoIzquierdo()&&(abinario.getHijoIzquierdo().getDato().equals(hijo))) || (abinario.tieneHijoDerecho()&&(abinario.getHijoDerecho().getDato().equals(hijo))) ){//if es padre
+         //   if(abinario!=null)//chequeo si le puedo preguntar si es padre-> no necesario
+            if( (abinario.tieneHijoIzquierdo()&&(abinario.getHijoIzquierdo().getDato().equals(hijo))) || (abinario.tieneHijoDerecho()&&(abinario.getHijoDerecho().getDato().equals(hijo))) ){//if es padre
                     return abinario.getDato();//si es el padre lo devuelvo
             }
             else if(abinario.getDato()!=null){//sinó sigo buscando, asegurandome de no llegar a null
@@ -114,9 +125,8 @@ public class Adivinanza {
         //         listaCopia.agregarFinal(listaOriginal.proximo());
         //     }
         // }
-    }
 
     
-    
+        }
     
     
