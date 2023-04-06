@@ -169,6 +169,7 @@ public class ListaGenericaEnlazada<T> extends ListaGenerica<T> {
 		return this.tamanio() == 0;
 	}
 	
+// TENIA QUE SER RECURSIVA
 //	public ListaGenericaEnlazada<T> invertir(){
 //		ListaGenericaEnlazada<T> lista_invertida = new ListaGenericaEnlazada<T> ();
 //		int longitud, i;

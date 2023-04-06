@@ -14,5 +14,6 @@ public class UtilesTest {
         int cont=0;
         cont=ut.sumaMaximaVertical(arbolBinarioA);
         System.out.println("suma vertical maxima: "+cont);
+		cont=ut.sumaHorizontalMax(arbolBinarioA);
     }
 }

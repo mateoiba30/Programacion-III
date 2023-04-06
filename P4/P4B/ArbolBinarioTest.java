@@ -14,22 +14,24 @@ public class ArbolBinarioTest {
 		arbolBinarioA.agregarHijoIzquierdo(hijoIzquierdo);
 		arbolBinarioA.agregarHijoDerecho(hijoDerecho);
 
-		System.out.println("Pre Orden");
-		arbolBinarioA.printPreorden();
-		System.out.println("In Orden");
-		arbolBinarioA.printInorden();
-		System.out.println("Post Orden");
-		arbolBinarioA.printPostorden();
+		// System.out.println("Pre Orden");
+		// arbolBinarioA.printPreorden();
+		// System.out.println("In Orden");
+		// arbolBinarioA.printInorden();
+		// System.out.println("Post Orden");
+		// arbolBinarioA.printPostorden();
 
-		int contador=0;
-		contador=arbolBinarioA.contarHojas(contador);
-		System.out.println("cantidad de hojas: "+contador);
+		// int contador=0;
+		// contador=arbolBinarioA.contarHojas(contador);
+		// System.out.println("cantidad de hojas: "+contador);
 
-		ListaGenerica<Integer> l = new ListaGenericaEnlazada<Integer>();
-		l=arbolBinarioA.frontera();
-		System.out.println("hojas=  "+l.toString());
+		// ListaGenerica<Integer> l = new ListaGenericaEnlazada<Integer>();
+		// l=arbolBinarioA.frontera();
+		// System.out.println("hojas=  "+l.toString());
 
-		System.out.println("arbol lleno=  "+arbolBinarioA.esLleno());
+		// System.out.println("arbol lleno=  "+arbolBinarioA.esLleno());
+
+		arbolBinarioA.recorridoPorNiveles();
 	}
 
 }
