@@ -3,7 +3,7 @@ public class Adivinanza {
 //volver a recorrer el arbol hasta encontrar a un nodo que en uno de sus hijos tenga al último elemento de la lista
 //repetir hasta que mande a la lista la raíz
     public ListaGenericaEnlazada<String> secuenciaConMasPreguntas(ArbolBinario<String> abinario){
-
+        String raiz= new String();
         String padre= new String();
         String hijo= new String();
         ListaGenericaEnlazada<String> l = new ListaGenericaEnlazada<String>();
@@ -13,14 +13,20 @@ public class Adivinanza {
 
         // l=abinario.frontera();//tengo lista de las hojas
         // lista_max.agregarInicio(l.elemento(0));//tengo una hoja
-        //forma mas eficiente de encontrar una hoja:
-        lista_max.agregarInicio(buscarHoja(abinario));
-        hijo=lista_max.elemento(0);
-        padre=buscarPadre(abinario, hijo);
-        lista_max.agregarInicio(padre);
+        //no busco con frontera ni de otra forma porque solo me sirven las hojas del ultimo nivel, recorrido por niveles
+        raiz=abinario.getDato();
+        lista_max.agregarInicio(buscarHoja(abinario));//agrego hoja
+        
+
+        while(hijo!=raiz){//voy agregando elementos a la lista hasta que llegue a la raiz
+            hijo=lista_max.elemento(0);
+            padre=buscarPadre(abinario, hijo);
+            lista_max.agregarInicio(padre);
+        }
 
         System.out.println(lista_max.toString());
         return lista_max;
+
     }
 
     public String buscarHoja(ArbolBinario<String> abinario){
