@@ -15,8 +15,7 @@ public class Adivinanza {
         // lista_max.agregarInicio(l.elemento(0));//tengo una hoja
         //no busco con frontera ni de otra forma porque solo me sirven las hojas del ultimo nivel, recorrido por niveles
         raiz=abinario.getDato();
-        lista_max.agregarInicio(buscarHoja(abinario));//agrego hoja
-        
+        lista_max.agregarInicio(buscarHojaLejana(abinario));//agrego hoja
 
         while(hijo!=raiz){//voy agregando elementos a la lista hasta que llegue a la raiz
             hijo=lista_max.elemento(0);
@@ -27,6 +26,33 @@ public class Adivinanza {
         System.out.println(lista_max.toString());
         return lista_max;
 
+    }
+
+    public String buscarHojaLejana(ArbolBinario<String> abinario){
+        String respuesta = new String();
+
+        ArbolBinario<String> nodo_act=null;//no olvidar de inicializarlo
+        ColaGenerica<ArbolBinario<String>> cola = new ColaGenerica<ArbolBinario<String>>();
+
+        cola.encolar(abinario);//encol raiz
+        cola.encolar(null);//paso de nivel
+
+        while(cola.esVacia()==false){
+            nodo_act=cola.desencolar();
+            if(nodo_act!=null){
+                if(nodo_act.tieneHijoIzquierdo())
+                    cola.encolar(nodo_act.getHijoIzquierdo());
+                if(nodo_act.tieneHijoDerecho())
+                    cola.encolar(nodo_act.getHijoDerecho());
+                respuesta=nodo_act.getDato();//voy cargando el elmento del nivel en el que estoy, el último cargado es del ultimo nivel
+            }
+            else{
+                System.out.println(" // ");
+                if (cola.esVacia()==false)
+                    cola.encolar(null);//para el salto del inea
+            }
+		}
+        return respuesta;
     }
 
     public String buscarHoja(ArbolBinario<String> abinario){
@@ -49,7 +75,7 @@ public class Adivinanza {
         String respuesta = new String();
 
         if((abinario!=null)&&(abinario.esHoja()==false))//chequeo si le puedo preguntar si es padre
-            if(( (abinario.getHijoIzquierdo().getDato()==hijo)||(abinario.getHijoDerecho().getDato()==hijo) ) )//if es padre
+            if( ((abinario.getHijoIzquierdo()!=null)&&(abinario.getHijoIzquierdo().getDato()==hijo)) || ((abinario.getHijoDerecho()!=null)&&(abinario.getHijoDerecho().getDato()==hijo)) )//if es padre
                 return abinario.getDato();//si es el padre lo devuelvo
         
         else if(abinario.getDato()!=null){//sinó sigo buscando, asegurandome de no llegar a null
