@@ -37,7 +37,7 @@ public class utiles {
         //iterativo no recursivo
         //la cola debe ser de arboles de numeros, no de los numeros
         //una cola es una lista, que tiene métodos que me facilitan las acciones que busco
-        int cont=0, cont_nivel=0;
+        int cont=0, cont_nivel=-1;//el primer nivel es el cero, el de la raiz
         ColaGenerica<ArbolBinario<Integer>> cola = new ColaGenerica<ArbolBinario<Integer>>();
         ArbolBinario<Integer> nodo_act = new ArbolBinario<Integer>();
 

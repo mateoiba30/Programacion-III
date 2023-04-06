@@ -166,8 +166,8 @@ public class ArbolBinario<T> {
 		}
     }
 
-	public ListaGenerica<T> frontera(){
-		ListaGenerica<T> l = new ListaGenericaEnlazada<T>();
+	public ListaGenericaEnlazada<T> frontera(){
+		ListaGenericaEnlazada<T> l = new ListaGenericaEnlazada<T>();
 		l.comenzar();
 		frontera_2(l);
 		return l;
