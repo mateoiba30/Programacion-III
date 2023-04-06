@@ -37,9 +37,9 @@ public class utiles {
         //iterativo no recursivo
         //la cola debe ser de arboles de numeros, no de los numeros
         //una cola es una lista, que tiene métodos que me facilitan las acciones que busco
-        int cont=0;
-        ArbolBinario<Integer> nodo_act=null;//no olvidar de inicializarlo
+        int cont=0, cont_nivel=0;
         ColaGenerica<ArbolBinario<Integer>> cola = new ColaGenerica<ArbolBinario<Integer>>();
+        ArbolBinario<Integer> nodo_act = new ArbolBinario<Integer>();
 
         cola.encolar(arbol);//encol raiz
         cola.encolar(null);//paso de nivel
@@ -47,18 +47,23 @@ public class utiles {
         while(cola.esVacia()==false){
             nodo_act=cola.desencolar();
             if(nodo_act!=null){
-                System.out.println(nodo_act.getDato());
-                if(arbol.tieneHijoIzquierdo())
+                cont=cont+nodo_act.getDato();
+                if(nodo_act.tieneHijoIzquierdo())
                     cola.encolar(nodo_act.getHijoIzquierdo());
                 if(nodo_act.tieneHijoDerecho())
                     cola.encolar(nodo_act.getHijoDerecho());
             }
-            else{
-                System.out.println(" // ");
-                if (cola.esVacia()==false)
-                    cola.encolar(null);//para el salto del inea
+            else{//cambio de nivel
+                cont_nivel++;
+                System.out.println("suma nivel "+cont_nivel+" = "+cont);
+                cont=0;               
+                if (cola.esVacia()==false)//si siguen habiendo niveles sigo encolando
+                    cola.encolar(null);
             }
+		}
+
         return cont;
     }
+
 
 }

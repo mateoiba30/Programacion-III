@@ -136,12 +136,6 @@ public class ArbolBinario<T> {
 		}
 		
 	}
-
-
-	public void recorridoPorNiveles() {
-		
-	}
-
 	public ListaGenerica<T> frontera(){
 		ListaGenerica<T> l = new ListaGenericaEnlazada<T>();
 		l.comenzar();
@@ -185,5 +179,35 @@ public class ArbolBinario<T> {
 
 		return cont;
 	}
+
+	
+
+    public void recorridoPorNiveles(){
+        //iterativo no recursivo
+        //la cola debe ser de arboles de, no de los elementos
+        //una cola es una lista, que tiene métodos que me facilitan las acciones que busco
+        ArbolBinario<T> nodo_act=null;//no olvidar de inicializarlo
+        ColaGenerica<ArbolBinario<T>> cola = new ColaGenerica<ArbolBinario<T>>();
+
+        cola.encolar(this);//encol raiz
+        cola.encolar(null);//paso de nivel
+
+        while(cola.esVacia()==false){
+            nodo_act=cola.desencolar();
+            if(nodo_act!=null){
+                System.out.println(nodo_act.getDato());
+                if(nodo_act.tieneHijoIzquierdo())
+                    cola.encolar(nodo_act.getHijoIzquierdo());
+                if(nodo_act.tieneHijoDerecho())
+                    cola.encolar(nodo_act.getHijoDerecho());
+            }
+            else{
+                System.out.println(" // ");
+                if (cola.esVacia()==false)
+                    cola.encolar(null);//para el salto del inea
+            }
+		}
+    }
+
 
 }
