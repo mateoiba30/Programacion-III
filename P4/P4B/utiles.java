@@ -18,13 +18,12 @@ public class utiles {
             return cont;
         
         cont=cont + arbol.getDato();
-        if(arbol.esHoja())//si es hoja, al sumar su valor ya terminamos
+        if(arbol.esHoja())//si es hoja, al sumar su valor ya terminamos porque no hay hijos
             return cont;
 
-        if(arbol.getHijoIzquierdo()!=null)
-            contIzq=sumaMaximaVertical(arbol.getHijoIzquierdo());
-        if(arbol.getHijoDerecho()!=null)
-            contDer=sumaMaximaVertical(arbol.getHijoIzquierdo());
+        contIzq=sumaMaximaVertical(arbol.getHijoIzquierdo());//no hace falta preguntar si es null porque la misma funcion filtra los null
+        contDer=sumaMaximaVertical(arbol.getHijoDerecho());//tmb podría llamar a la funcion 2, llevando en este caso a contDer
+
         if(contIzq<=contDer)//si no tiene uno de estos hijos no hay drama porque el contador será cero
             cont=cont+contDer;
         else
