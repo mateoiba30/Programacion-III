@@ -11,10 +11,10 @@ public class Adivinanza {
             // lista_max.agregarInicio(l.elemento(0));//tengo una hoja
             //no busco con frontera ni de otra forma porque solo me sirven las hojas del ultimo nivel, recorrido por niveles
             raiz=abinario.getDato();
-            lista_max.agregarInicio(buscarHojaLejana(abinario));//agrego hoja
-            hijo=null;
+            hijo=buscarHojaLejana(abinario);
+            lista_max.agregarInicio(hijo);//agrego hoja
     
-            while(hijo!=raiz){//voy agregando elementos a la lista hasta que llegue a la raiz
+            while(hijo!=null && !hijo.equals(raiz)){//voy agregando elementos a la lista hasta que llegue a la raiz
                 hijo=lista_max.elemento(0);
                 padre=buscarPadre(abinario, hijo);
                 lista_max.agregarInicio(padre);
@@ -49,30 +49,30 @@ public class Adivinanza {
             }
             return respuesta;
         }
-    
-        public String buscarHoja(ArbolBinario<String> abinario){
-            String respuesta = new String();
-            if(abinario.esHoja()){
-                return abinario.getDato();
-            }
+    //no lo uso pa nada pero anda
+        // public String buscarHoja(ArbolBinario<String> abinario){
+        //     String respuesta = new String();
+        //     if(abinario.esHoja()){
+        //         return abinario.getDato();
+        //     }
                 
-            else if(abinario.getDato()!=null){
-                if (abinario.getHijoIzquierdo()!=null)
-                    respuesta= buscarHoja(abinario.getHijoIzquierdo());
-                if (abinario.getHijoDerecho()!=null)
-                    respuesta= buscarHoja(abinario.getHijoDerecho());
+        //     else if(abinario.getDato()!=null){
+        //         if (abinario.getHijoIzquierdo()!=null)
+        //             respuesta= buscarHoja(abinario.getHijoIzquierdo());
+        //         if (abinario.getHijoDerecho()!=null)
+        //             respuesta= buscarHoja(abinario.getHijoDerecho());
                 
-            }
-            return respuesta;
-        }
+        //     }
+        //     return respuesta;
+        // }
     
         public String buscarPadre(ArbolBinario<String> abinario, String hijo){//como buscar hoja, pero comparo a que sea distinto de un string en vez de un null
             String respuesta = new String();
     
             if((abinario!=null)&&(abinario.esHoja()==false))//chequeo si le puedo preguntar si es padre
-                if( ((abinario.getHijoIzquierdo()!=null)&&(abinario.getHijoIzquierdo().getDato()==hijo)) || ((abinario.getHijoDerecho()!=null)&&(abinario.getHijoDerecho().getDato()==hijo)) )//if es padre
+                if( (abinario.tieneHijoIzquierdo()&&(abinario.getHijoIzquierdo().getDato().equals(hijo))) || (abinario.tieneHijoDerecho()&&(abinario.getHijoDerecho().getDato().equals(hijo))) ){//if es padre
                     return abinario.getDato();//si es el padre lo devuelvo
-            
+            }
             else if(abinario.getDato()!=null){//sinó sigo buscando, asegurandome de no llegar a null
                 if (abinario.getHijoIzquierdo()!=null)
                     respuesta= buscarPadre(abinario.getHijoIzquierdo(), hijo);
@@ -83,7 +83,7 @@ public class Adivinanza {
             return respuesta;
         }
     
-
+        //version de chapgpt que no anda
         // public ListaGenericaEnlazada<String> secuenciaConMasPreguntas2(ArbolBinario<String> abinario) {
         //     ListaGenericaEnlazada<String> secuenciaActual = new ListaGenericaEnlazada<>();
         //     ListaGenericaEnlazada<String> secuenciaMaxima = new ListaGenericaEnlazada<>();
