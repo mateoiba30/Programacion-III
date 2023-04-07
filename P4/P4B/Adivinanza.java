@@ -147,25 +147,27 @@ public class Adivinanza {
             return lista;
         }
 
-        public ListaGenericaEnlazada<String> secuenciaConMasPreguntasVersion2(ArbolBinario<String> abinario){
-            String hijo= new String();
-            String raiz= new String();
-            ListaGenericaEnlazada<String> lista_max = new ListaGenericaEnlazada<String>();
+        public ListaGenericaEnlazada<ListaGenericaEnlazada<String>> secuenciaConMasPreguntasVersion2(ArbolBinario<String> abinario){
+            ListaGenericaEnlazada<ListaGenericaEnlazada<String>> lista_secuencias = new ListaGenericaEnlazada<ListaGenericaEnlazada<String>>();
             ListaGenericaEnlazada<String> lista_hojas = new ListaGenericaEnlazada<String>();
+            int tamanio, i;
 
-            raiz=abinario.getDato();
-            hijo=buscarHojaLejana(abinario);
-            lista_max.agregarInicio(hijo);//agrego hoja
-            lista_hojas=listaHojaLejana
-
-            return listaDesdeRaiz(abinario, buscarHojaLejana(abinario));
+            listaHojaLejana(abinario, lista_hojas);//lista hojas tiene las hojas lejanas
+            tamanio=lista_hojas.tamanio();
+            for(i=0; i<tamanio; i++){//voy cargando la lista de listas de recorridos
+                lista_secuencias.agregarFinal( listaDesdeRaiz(abinario, lista_hojas.elemento(i)) );
+                System.out.println("secuencia de la hoja "+lista_hojas.elemento(i)+" = "+listaDesdeRaiz(abinario, lista_hojas.elemento(i)) );
+            }
+            return lista_secuencias;
         }
 
-        public ListaGenericaEnlazada<String> listaHojaLejana(ArbolBinario<String> abinario){
-            ListaGenericaEnlazada<String> lista_hojas = new ListaGenericaEnlazada<String>();
+        public ListaGenericaEnlazada<String> listaHojaLejana(ArbolBinario<String> abinario,ListaGenericaEnlazada<String> lista_hojas){
             ArbolBinario<String> nodo_act=null;//no olvidar de inicializarlo
             ColaGenerica<ArbolBinario<String>> cola = new ColaGenerica<ArbolBinario<String>>();
-    
+            int profundidad_max=0;
+
+            profundidad_max=calcularProfundidadMax(abinario) - 1;
+            System.out.println("max prof "+profundidad_max);
             cola.encolar(abinario);//encol raiz
             cola.encolar(null);//paso de nivel
     
@@ -176,7 +178,10 @@ public class Adivinanza {
                         cola.encolar(nodo_act.getHijoIzquierdo());
                     if(nodo_act.tieneHijoDerecho())
                         cola.encolar(nodo_act.getHijoDerecho());
+                    if(calcularProfundidad(abinario, nodo_act.getDato())==profundidad_max){
                         lista_hojas.agregarFinal(nodo_act.getDato());//voy cargando el elmento del nivel en el que estoy, el último cargado es del ultimo nivel
+                        System.out.println("nodo lejano: "+nodo_act.getDato());
+                    }
                 }
                 else{
                     if (cola.esVacia()==false)
@@ -186,6 +191,59 @@ public class Adivinanza {
 
 
             return lista_hojas;
+        }
+
+        public int calcularProfundidadMax(ArbolBinario<String> arbol){
+            int profundidad=0;
+            ArbolBinario<String> nodo_act=null;//no olvidar de inicializarlo
+            ColaGenerica<ArbolBinario<String>> cola = new ColaGenerica<ArbolBinario<String>>();
+    
+            cola.encolar(arbol);//encol raiz
+            cola.encolar(null);//paso de nivel
+    
+            while(cola.esVacia()==false){
+                nodo_act=cola.desencolar();
+                if(nodo_act!=null){
+                    if(nodo_act.tieneHijoIzquierdo())
+                        cola.encolar(nodo_act.getHijoIzquierdo());
+                    if(nodo_act.tieneHijoDerecho())
+                        cola.encolar(nodo_act.getHijoDerecho());
+                }
+                else{
+                    profundidad++;
+                    if (cola.esVacia()==false)
+                        cola.encolar(null);//para el salto del inea
+                }
+            }
+    
+            return profundidad;
+        }
+    
+
+        public int calcularProfundidad(ArbolBinario<String> arbol, String dato){
+            int profundidad=0;
+            ArbolBinario<String> nodo_act=null;//no olvidar de inicializarlo
+            ColaGenerica<ArbolBinario<String>> cola = new ColaGenerica<ArbolBinario<String>>();
+    
+            cola.encolar(arbol);//encol raiz
+            cola.encolar(null);//paso de nivel
+    
+            while(cola.esVacia()==false && (nodo_act==null || nodo_act.getDato()!=dato)){
+                nodo_act=cola.desencolar();
+                if(nodo_act!=null){
+                    if(nodo_act.tieneHijoIzquierdo())
+                        cola.encolar(nodo_act.getHijoIzquierdo());
+                    if(nodo_act.tieneHijoDerecho())
+                        cola.encolar(nodo_act.getHijoDerecho());
+                }
+                else{
+                    profundidad++;
+                    if (cola.esVacia()==false)
+                        cola.encolar(null);//para el salto del inea
+                }
+            }
+    
+            return profundidad;
         }
 }
     
