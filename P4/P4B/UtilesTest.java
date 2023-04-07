@@ -18,7 +18,7 @@ public class UtilesTest {
 
         ListaGenericaEnlazada<Integer> lista_trayectoria = new ListaGenericaEnlazada<Integer>();
 		lista_trayectoria=ut.trayectoriaPesada(arbolBinarioA);
-		System.out.println("trayecorias pesadas: "+lista_trayectoria.toString());
+		System.out.println("trayecorias pesadas (hojas de derecha a izquierda): "+lista_trayectoria.toString());
 
 
     }

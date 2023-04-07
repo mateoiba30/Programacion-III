@@ -68,66 +68,48 @@ public class utiles {
     public ListaGenericaEnlazada<Integer> trayectoriaPesada(ArbolBinario<Integer> arbol){
         ListaGenericaEnlazada<Integer> lista_hojas = new ListaGenericaEnlazada<Integer>();
         ListaGenericaEnlazada<Integer> lista_trayectoria = new ListaGenericaEnlazada<Integer>();
-        int i, raiz, padre, hijo, nivel, trayectoria=0;
-
+        int i, trayectoria;
         lista_hojas=arbol.frontera();
-        raiz=arbol.getDato();
+        //la raiz en todos casos es la misma, por eso mando arbol
         for(i=0; i<lista_hojas.tamanio(); i++){
-            hijo=lista_hojas.elemento(i);
-            lista_trayectoria.agregarInicio(hijo);//agrego hoja
-            nivel=0;
-            trayectoria=0;
-            while(hijo!=raiz){//voy agregando elementos a la lista hasta que llegue a la raiz
-                hijo=lista_trayectoria.elemento(0);
-                padre=buscarPadre(arbol, hijo);
-                trayectoria=trayectoria+ padre*nivel;
-                nivel++;
-                System.out.println(trayectoria);
-            }
+            trayectoria=CalculoTrayectoria(arbol, lista_hojas.elemento(i));
+            System.out.println("hoja: "+lista_hojas.elemento(i)+" con trayectoria: "+trayectoria);
             lista_trayectoria.agregarInicio(trayectoria);
-
         }
 
         return lista_trayectoria;
     }
 
-    // public Integer buscarPadre(ArbolBinario<Integer> abinario, Integer hijo){//como buscar hoja, pero comparo a que sea distinto de un string en vez de un null
-    //     int respuesta=0;
+    public int CalculoTrayectoria(ArbolBinario<Integer> raiz, int dato){
+        int cont=0;
+        return CalculoTrayectoriaRecursivo(cont, raiz, dato);
+    }
 
-    //  //   if(abinario!=null)//chequeo si le puedo preguntar si es padre-> no necesario
-    //     if( (abinario.tieneHijoIzquierdo()&&(abinario.getHijoIzquierdo().getDato()==hijo)) || (abinario.tieneHijoDerecho()&&(abinario.getHijoDerecho().getDato()==hijo)) ){//if es padre
-    //             return abinario.getDato();//si es el padre lo devuelvo
-    //     }
-    //     else if(abinario.getDato()!=null){//sinó sigo buscando, asegurandome de no llegar a null
-    //         if (abinario.getHijoIzquierdo()!=null)
-    //             respuesta= buscarPadre(abinario.getHijoIzquierdo(), hijo);
-    //         if (abinario.getHijoDerecho()!=null)
-    //             respuesta= buscarPadre(abinario.getHijoDerecho(), hijo);
-            
-    //     }
-    //     return respuesta;
-    // }
-
-    public ListaGenericaEnlazada<Integer> listaDesdeRaiz(ArbolBinario<Integer> raiz, int dato) {
-        ListaGenericaEnlazada<Integer> lista = new ListaGenericaEnlazada<Integer>();
+    //conviene mientras recorro ya ir aumentando el contador, en lugar de hacer una lista del recorrido 
+    //y luego ir contando
+    public int CalculoTrayectoriaRecursivo(int cont, ArbolBinario<Integer> raiz, int dato) {
+        int contIzq=0, contDer=0;
         if (raiz == null) {
-            return lista;
+            return cont;
         }
         if (raiz.getDato() == dato) {
-            lista.agregarFinal(raiz.getDato());
-            return lista;
+            cont=cont +1;//indica que encontró
+            return cont;
         }
-        ListaGenericaEnlazada<Integer> listaIzquierda = listaDesdeRaiz(raiz.getHijoIzquierdo(), dato);
-        if (!listaIzquierda.esVacia()) {
-            listaIzquierda.agregarEn(0, raiz.getDato());
-            return listaIzquierda;
+         contIzq = CalculoTrayectoriaRecursivo(contIzq, raiz.getHijoIzquierdo(), dato);
+        if (contIzq>0) {//solo aumenta si es del recorrido que encontró al dato
+            contIzq=contIzq+raiz.getDato();
+           // System.out.println(contIzq);
+            return contIzq;
         }
-        ListaGenericaEnlazada<Integer> listaDerecha = listaDesdeRaiz(raiz.getHijoDerecho(), dato);
-        if (!listaDerecha.esVacia()) {
-            listaDerecha.agregarEn(0, raiz.getDato());
-            return listaDerecha;
+         contDer = CalculoTrayectoriaRecursivo(contDer, raiz.getHijoDerecho(), dato);
+        if (contDer>0) {
+            contDer=contDer+raiz.getDato();
+          //  System.out.println(contDer);
+            return contDer;
         }
-        return lista;
+        cont--;//resto lo que cargué para indicar que encontró
+        return cont;
     }
 
 }

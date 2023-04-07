@@ -119,17 +119,22 @@ public class Adivinanza {
         //     }
         // }
 
+        //recibe un dato y el arbol donde se encuentra, devuelve la lista del recorrido
         public ListaGenericaEnlazada<String> listaDesdeRaiz(ArbolBinario<String> raiz, String dato) {
             ListaGenericaEnlazada<String> lista = new ListaGenericaEnlazada<String>();
-            if (raiz == null) {
+            if (raiz == null) {//si no hay nada devuelvo lista vacia
                 return lista;
             }
-            if (raiz.getDato().equals(dato)) {
+            if (raiz.getDato().equals(dato)) {//si la raiz y el daot son lo mismo devuelvo solo la raiz
                 lista.agregarFinal(raiz.getDato());
                 return lista;
             }
+            //voy mandando el subarbol izq y der, se van acumulando pero solo agrego cuando el nodo es igual
+            // al dato, sinó busca en su izq y apila el caso de la derecha
+            //al final, el único caso base es cuando un camino de los apilados encuentra el dato
+            //y en el camino fui guardando su recorrido
             ListaGenericaEnlazada<String> listaIzquierda = listaDesdeRaiz(raiz.getHijoIzquierdo(), dato);
-            if (!listaIzquierda.esVacia()) {
+            if (!listaIzquierda.esVacia()) {//solo agrega elementos a la lista que encontró al dato
                 listaIzquierda.agregarEn(raiz.getDato(), 0);
                 return listaIzquierda;
             }
