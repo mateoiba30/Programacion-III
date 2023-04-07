@@ -70,22 +70,23 @@ public class Adivinanza {
         //     return respuesta;
         // }
     
-        public String buscarPadre(ArbolBinario<String> abinario, String hijo){//como buscar hoja, pero comparo a que sea distinto de un string en vez de un null
-            String respuesta = new String();
+        //al final esta no la uso porque anda mal
+        // public String buscarPadre(ArbolBinario<String> abinario, String hijo){//como buscar hoja, pero comparo a que sea distinto de un string en vez de un null
+        //     String respuesta = new String();
     
-         //   if(abinario!=null)//chequeo si le puedo preguntar si es padre-> no necesario
-            if( (abinario.tieneHijoIzquierdo()&&(abinario.getHijoIzquierdo().getDato().equals(hijo))) || (abinario.tieneHijoDerecho()&&(abinario.getHijoDerecho().getDato().equals(hijo))) ){//if es padre
-                    return abinario.getDato();//si es el padre lo devuelvo
-            }
-            else if(abinario.getDato()!=null){//sinó sigo buscando, asegurandome de no llegar a null
-                if (abinario.getHijoIzquierdo()!=null)
-                    respuesta= buscarPadre(abinario.getHijoIzquierdo(), hijo);
-                if (abinario.getHijoDerecho()!=null)
-                    respuesta= buscarPadre(abinario.getHijoDerecho(), hijo);
+        //  //   if(abinario!=null)//chequeo si le puedo preguntar si es padre-> no necesario
+        //     if( (abinario.tieneHijoIzquierdo()&&(abinario.getHijoIzquierdo().getDato().equals(hijo))) || (abinario.tieneHijoDerecho()&&(abinario.getHijoDerecho().getDato().equals(hijo))) ){//if es padre
+        //             return abinario.getDato();//si es el padre lo devuelvo
+        //     }
+        //     else if(abinario.getDato()!=null){//sinó sigo buscando, asegurandome de no llegar a null
+        //         if (abinario.getHijoIzquierdo()!=null)
+        //             respuesta= buscarPadre(abinario.getHijoIzquierdo(), hijo);
+        //         if (abinario.getHijoDerecho()!=null)
+        //             respuesta= buscarPadre(abinario.getHijoDerecho(), hijo);
                 
-            }
-            return respuesta;
-        }
+        //     }
+        //     return respuesta;
+        // }
     
         //version de chapgpt que no anda
         // public ListaGenericaEnlazada<String> secuenciaConMasPreguntas2(ArbolBinario<String> abinario) {
@@ -145,6 +146,47 @@ public class Adivinanza {
             }
             return lista;
         }
+
+        public ListaGenericaEnlazada<String> secuenciaConMasPreguntasVersion2(ArbolBinario<String> abinario){
+            String hijo= new String();
+            String raiz= new String();
+            ListaGenericaEnlazada<String> lista_max = new ListaGenericaEnlazada<String>();
+            ListaGenericaEnlazada<String> lista_hojas = new ListaGenericaEnlazada<String>();
+
+            raiz=abinario.getDato();
+            hijo=buscarHojaLejana(abinario);
+            lista_max.agregarInicio(hijo);//agrego hoja
+            lista_hojas=listaHojaLejana
+
+            return listaDesdeRaiz(abinario, buscarHojaLejana(abinario));
         }
+
+        public ListaGenericaEnlazada<String> listaHojaLejana(ArbolBinario<String> abinario){
+            ListaGenericaEnlazada<String> lista_hojas = new ListaGenericaEnlazada<String>();
+            ArbolBinario<String> nodo_act=null;//no olvidar de inicializarlo
+            ColaGenerica<ArbolBinario<String>> cola = new ColaGenerica<ArbolBinario<String>>();
+    
+            cola.encolar(abinario);//encol raiz
+            cola.encolar(null);//paso de nivel
+    
+            while(cola.esVacia()==false){
+                nodo_act=cola.desencolar();
+                if(nodo_act!=null){
+                    if(nodo_act.tieneHijoIzquierdo())
+                        cola.encolar(nodo_act.getHijoIzquierdo());
+                    if(nodo_act.tieneHijoDerecho())
+                        cola.encolar(nodo_act.getHijoDerecho());
+                        lista_hojas.agregarFinal(nodo_act.getDato());//voy cargando el elmento del nivel en el que estoy, el último cargado es del ultimo nivel
+                }
+                else{
+                    if (cola.esVacia()==false)
+                        cola.encolar(null);//para el salto del inea
+                }
+            }
+
+
+            return lista_hojas;
+        }
+}
     
     

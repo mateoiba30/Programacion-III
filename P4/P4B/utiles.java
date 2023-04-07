@@ -149,4 +149,37 @@ public class utiles {
         return cont;
     }
 
+    // version del infa es muchisimo mas corta
+
+    // public ListaDeEnterosEnlazada trayectoriaPesada (ArbolBinario<Integer> ab ){
+	// 	ListaDeEnterosEnlazada l = new ListaDeEnterosEnlazada();
+	// 	trayectoriaPesadaRecursiva(ab,l,0,0);
+	// 	return l;
+	// }
+
+
+	// public void trayectoriaPesadaRecursiva (ArbolBinario<Integer> ab, ListaDeEnterosEnlazada lista, int suma, int nivel ){
+
+    //     int nuevaSuma = suma + (int)ab.getDato()*nivel;
+	// 	nivel++;//voy incrementando el nivel a medida que avanzo
+        
+    //     if (ab.getHijoIzquierdo() == null && ab.getHijoDerecho() == null) { //si es hoja
+	// 		lista.agregarFinal(ab.getDato()); // le agrego en que hoja me encuentro!
+	// 		lista.agregarFinal(nuevaSuma); //sumo lo calculado
+	// 		nuevaSuma=0;
+	// 		nivel=0;
+    //     }
+        
+    //    if (ab.tieneHijoIzquierdo()){//si no es hoja mando a seguir recorriendo el arbol recursivamente donde achiqué el arbol
+        // //, quedó aumentado el nivel y guardó la suma
+	// 	trayectoriaPesadaRecursiva(ab.getHijoIzquierdo(), lista, nuevaSuma, nivel);
+	//    }
+	//    if (ab.tieneHijoDerecho()){
+	// 	trayectoriaPesadaRecursiva(ab.getHijoDerecho(), lista, nuevaSuma, nivel);
+	//    }
+
+
+	// }
+
+	// }
 }
