@@ -11,9 +11,15 @@ public class UtilesTest {
 		arbolBinarioA.agregarHijoDerecho(hijoDerecho);
 
         utiles ut = new utiles();
-        int cont=0;
-        cont=ut.sumaMaximaVertical(arbolBinarioA);
-        System.out.println("suma vertical maxima: "+cont);
-		cont=ut.sumaHorizontalMax(arbolBinarioA);
+        // int cont=0;
+        // cont=ut.sumaMaximaVertical(arbolBinarioA);
+        // System.out.println("suma vertical maxima: "+cont);
+		// cont=ut.sumaHorizontalMax(arbolBinarioA);
+
+        ListaGenericaEnlazada<Integer> lista_trayectoria = new ListaGenericaEnlazada<Integer>();
+		lista_trayectoria=ut.trayectoriaPesada(arbolBinarioA);
+		System.out.println("trayecorias pesadas: "+lista_trayectoria.toString());
+
+
     }
 }

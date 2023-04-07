@@ -65,5 +65,69 @@ public class utiles {
         return cont;
     }
 
+    public ListaGenericaEnlazada<Integer> trayectoriaPesada(ArbolBinario<Integer> arbol){
+        ListaGenericaEnlazada<Integer> lista_hojas = new ListaGenericaEnlazada<Integer>();
+        ListaGenericaEnlazada<Integer> lista_trayectoria = new ListaGenericaEnlazada<Integer>();
+        int i, raiz, padre, hijo, nivel, trayectoria=0;
+
+        lista_hojas=arbol.frontera();
+        raiz=arbol.getDato();
+        for(i=0; i<lista_hojas.tamanio(); i++){
+            hijo=lista_hojas.elemento(i);
+            lista_trayectoria.agregarInicio(hijo);//agrego hoja
+            nivel=0;
+            trayectoria=0;
+            while(hijo!=raiz){//voy agregando elementos a la lista hasta que llegue a la raiz
+                hijo=lista_trayectoria.elemento(0);
+                padre=buscarPadre(arbol, hijo);
+                trayectoria=trayectoria+ padre*nivel;
+                nivel++;
+                System.out.println(trayectoria);
+            }
+            lista_trayectoria.agregarInicio(trayectoria);
+
+        }
+
+        return lista_trayectoria;
+    }
+
+    // public Integer buscarPadre(ArbolBinario<Integer> abinario, Integer hijo){//como buscar hoja, pero comparo a que sea distinto de un string en vez de un null
+    //     int respuesta=0;
+
+    //  //   if(abinario!=null)//chequeo si le puedo preguntar si es padre-> no necesario
+    //     if( (abinario.tieneHijoIzquierdo()&&(abinario.getHijoIzquierdo().getDato()==hijo)) || (abinario.tieneHijoDerecho()&&(abinario.getHijoDerecho().getDato()==hijo)) ){//if es padre
+    //             return abinario.getDato();//si es el padre lo devuelvo
+    //     }
+    //     else if(abinario.getDato()!=null){//sinó sigo buscando, asegurandome de no llegar a null
+    //         if (abinario.getHijoIzquierdo()!=null)
+    //             respuesta= buscarPadre(abinario.getHijoIzquierdo(), hijo);
+    //         if (abinario.getHijoDerecho()!=null)
+    //             respuesta= buscarPadre(abinario.getHijoDerecho(), hijo);
+            
+    //     }
+    //     return respuesta;
+    // }
+
+    public ListaGenericaEnlazada<Integer> listaDesdeRaiz(ArbolBinario<Integer> raiz, int dato) {
+        ListaGenericaEnlazada<Integer> lista = new ListaGenericaEnlazada<Integer>();
+        if (raiz == null) {
+            return lista;
+        }
+        if (raiz.getDato() == dato) {
+            lista.agregarFinal(raiz.getDato());
+            return lista;
+        }
+        ListaGenericaEnlazada<Integer> listaIzquierda = listaDesdeRaiz(raiz.getHijoIzquierdo(), dato);
+        if (!listaIzquierda.esVacia()) {
+            listaIzquierda.agregarEn(0, raiz.getDato());
+            return listaIzquierda;
+        }
+        ListaGenericaEnlazada<Integer> listaDerecha = listaDesdeRaiz(raiz.getHijoDerecho(), dato);
+        if (!listaDerecha.esVacia()) {
+            listaDerecha.agregarEn(0, raiz.getDato());
+            return listaDerecha;
+        }
+        return lista;
+    }
 
 }

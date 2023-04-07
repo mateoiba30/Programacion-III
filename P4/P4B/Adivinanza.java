@@ -14,21 +14,14 @@ public class Adivinanza {
             hijo=buscarHojaLejana(abinario);
             lista_max.agregarInicio(hijo);//agrego hoja
     
-            while(hijo!=null && !hijo.equals(raiz)){//voy agregando elementos a la lista hasta que llegue a la raiz
-                hijo=lista_max.elemento(0);
-                padre=buscarPadre(abinario, hijo);
-                lista_max.agregarInicio(padre);
-            }
-    
-            return lista_max;
-            // hijo=null;
-            // while (!lista_max.esVacia() && !lista_max.elemento(0).equals(raiz)) {
-            //     hijo = lista_max.elemento(0);
-            //     padre = buscarPadre(abinario, hijo);
+            // while(hijo!=null && !hijo.equals(raiz)){//voy agregando elementos a la lista hasta que llegue a la raiz
+            //     hijo=lista_max.elemento(0);
+            //     padre=buscarPadre(abinario, hijo);
             //     lista_max.agregarInicio(padre);
             // }
-        
+    
             // return lista_max;
+            return listaDesdeRaiz(abinario, buscarHojaLejana(abinario));
         }
     
         public String buscarHojaLejana(ArbolBinario<String> abinario){
@@ -126,7 +119,27 @@ public class Adivinanza {
         //     }
         // }
 
-    
+        public ListaGenericaEnlazada<String> listaDesdeRaiz(ArbolBinario<String> raiz, String dato) {
+            ListaGenericaEnlazada<String> lista = new ListaGenericaEnlazada<String>();
+            if (raiz == null) {
+                return lista;
+            }
+            if (raiz.getDato().equals(dato)) {
+                lista.agregarFinal(raiz.getDato());
+                return lista;
+            }
+            ListaGenericaEnlazada<String> listaIzquierda = listaDesdeRaiz(raiz.getHijoIzquierdo(), dato);
+            if (!listaIzquierda.esVacia()) {
+                listaIzquierda.agregarEn(raiz.getDato(), 0);
+                return listaIzquierda;
+            }
+            ListaGenericaEnlazada<String> listaDerecha = listaDesdeRaiz(raiz.getHijoDerecho(), dato);
+            if (!listaDerecha.esVacia()) {
+                listaDerecha.agregarEn(raiz.getDato(), 0);
+                return listaDerecha;
+            }
+            return lista;
+        }
         }
     
     
