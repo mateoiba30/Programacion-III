@@ -73,7 +73,7 @@ public class utiles {
         //la raiz en todos casos es la misma, por eso mando arbol
         for(i=0; i<lista_hojas.tamanio(); i++){
             trayectoria=CalculoTrayectoria(arbol, lista_hojas.elemento(i));
-            System.out.println("hoja: "+lista_hojas.elemento(i)+" con trayectoria: "+trayectoria);
+           // System.out.println("hoja: "+lista_hojas.elemento(i)+" con trayectoria: "+trayectoria); //pa debuguear
             lista_trayectoria.agregarInicio(trayectoria);
         }
 
@@ -93,7 +93,7 @@ public class utiles {
             return cont;
         }
         if (raiz.getDato() == dato) {
-            cont=cont +1;//indica que encontró
+            cont=cont+dato;//indica que encontró
             return cont;
         }
          contIzq = CalculoTrayectoriaRecursivo(contIzq, raiz.getHijoIzquierdo(), dato);
@@ -108,7 +108,6 @@ public class utiles {
           //  System.out.println(contDer);
             return contDer;
         }
-        cont--;//resto lo que cargué para indicar que encontró
         return cont;
     }
 
