@@ -68,11 +68,18 @@ public class utiles {
     public ListaGenericaEnlazada<Integer> trayectoriaPesada(ArbolBinario<Integer> arbol){
         ListaGenericaEnlazada<Integer> lista_hojas = new ListaGenericaEnlazada<Integer>();
         ListaGenericaEnlazada<Integer> lista_trayectoria = new ListaGenericaEnlazada<Integer>();
-        int i, trayectoria;
+        puntero profundidad = new puntero();
+//puedo hacer una lista de vectores, donde tiene el valor de la hoja y su profundidad
+//o puedo recorrer otra vez pára calcular la profundidad
+
+        int i, trayectoria, hoja_actual;
         lista_hojas=arbol.frontera();
         //la raiz en todos casos es la misma, por eso mando arbol
         for(i=0; i<lista_hojas.tamanio(); i++){
-            trayectoria=CalculoTrayectoria(arbol, lista_hojas.elemento(i));
+            hoja_actual=lista_hojas.elemento(i);
+            profundidad.setDato( calcularProfundidad(arbol,hoja_actual) );
+            // System.out.println("profundidad de "+hoja_actual+" : "+profundidad);
+            trayectoria=CalculoTrayectoria(profundidad, arbol, hoja_actual);
            // System.out.println("hoja: "+lista_hojas.elemento(i)+" con trayectoria: "+trayectoria); //pa debuguear
             lista_trayectoria.agregarInicio(trayectoria);
         }
@@ -80,31 +87,62 @@ public class utiles {
         return lista_trayectoria;
     }
 
-    public int CalculoTrayectoria(ArbolBinario<Integer> raiz, int dato){
+    //es como un recorrido por niveles
+    public int calcularProfundidad(ArbolBinario<Integer> arbol, int dato){
+        int profundidad=0;
+        ArbolBinario<Integer> nodo_act=null;//no olvidar de inicializarlo
+        ColaGenerica<ArbolBinario<Integer>> cola = new ColaGenerica<ArbolBinario<Integer>>();
+
+        cola.encolar(arbol);//encol raiz
+        cola.encolar(null);//paso de nivel
+
+        while(cola.esVacia()==false && (nodo_act==null || nodo_act.getDato()!=dato)){
+            nodo_act=cola.desencolar();
+            if(nodo_act!=null){
+                if(nodo_act.tieneHijoIzquierdo())
+                    cola.encolar(nodo_act.getHijoIzquierdo());
+                if(nodo_act.tieneHijoDerecho())
+                    cola.encolar(nodo_act.getHijoDerecho());
+            }
+            else{
+                profundidad++;
+                if (cola.esVacia()==false)
+                    cola.encolar(null);//para el salto del inea
+            }
+		}
+
+        return profundidad;
+    }
+
+    public int CalculoTrayectoria(puntero profundidad, ArbolBinario<Integer> raiz, int dato){
         int cont=0;
-        return CalculoTrayectoriaRecursivo(cont, raiz, dato);
+        return CalculoTrayectoriaRecursivo(profundidad, cont, raiz, dato);
     }
 
     //conviene mientras recorro ya ir aumentando el contador, en lugar de hacer una lista del recorrido 
     //y luego ir contando
-    public int CalculoTrayectoriaRecursivo(int cont, ArbolBinario<Integer> raiz, int dato) {
+    //tiene que modificar la profundidad, necesito
+    public int CalculoTrayectoriaRecursivo(puntero profundidad, int cont, ArbolBinario<Integer> raiz, int dato) {
         int contIzq=0, contDer=0;
         if (raiz == null) {
             return cont;
         }
         if (raiz.getDato() == dato) {
-            cont=cont+dato;//indica que encontró
+            cont=cont+dato*profundidad.getDato();//indica que encontró
+            profundidad.setDato(profundidad.getDato() -1) ;
             return cont;
         }
-         contIzq = CalculoTrayectoriaRecursivo(contIzq, raiz.getHijoIzquierdo(), dato);
+         contIzq = CalculoTrayectoriaRecursivo(profundidad, contIzq, raiz.getHijoIzquierdo(), dato);
         if (contIzq>0) {//solo aumenta si es del recorrido que encontró al dato
-            contIzq=contIzq+raiz.getDato();
+            contIzq=contIzq+(raiz.getDato()*profundidad.getDato());
+            profundidad.setDato(profundidad.getDato() -1) ;
            // System.out.println(contIzq);
             return contIzq;
         }
-         contDer = CalculoTrayectoriaRecursivo(contDer, raiz.getHijoDerecho(), dato);
+         contDer = CalculoTrayectoriaRecursivo(profundidad, contDer, raiz.getHijoDerecho(), dato);
         if (contDer>0) {
-            contDer=contDer+raiz.getDato();
+            contDer=contDer+(raiz.getDato()*profundidad.getDato());
+            profundidad.setDato(profundidad.getDato() -1) ;
           //  System.out.println(contDer);
             return contDer;
         }
