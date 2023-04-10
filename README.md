@@ -8,6 +8,7 @@ Este repositorio contiene las prácticas realizadas en la materia **Programació
 - [Practica 2](P2/)
 - [Practica 3](P3/)
 - [Practica 4](P4/)
+- [Practica 5](P5/)
 
 ## Licencia
 
