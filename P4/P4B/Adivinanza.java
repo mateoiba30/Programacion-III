@@ -166,7 +166,7 @@ public class Adivinanza {
             ColaGenerica<ArbolBinario<String>> cola = new ColaGenerica<ArbolBinario<String>>();
             int profundidad_max=0;
 
-            profundidad_max=calcularProfundidadMax(abinario) - 1;
+            profundidad_max=calcularProfundidadMax(abinario) - 1;//lo podría haber e¿hecho en el recorrido por niveles
             System.out.println("max prof "+profundidad_max);
             cola.encolar(abinario);//encol raiz
             cola.encolar(null);//paso de nivel

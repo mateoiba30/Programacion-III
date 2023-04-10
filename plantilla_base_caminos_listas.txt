@@ -2,7 +2,8 @@ TIPICA SOLUCION PARA CAMNIOS
 
 recorro una vez de manera recurisva
 
-no llamar  ala clase con el nombre puntero
+no llamar  ala clase con el nombre puntero, aunque es normal crear un objeto con 
+maximos y otros resultados para no perderlos
 
  public ListaGenericaEnlazada<String> listaDesdeRaiz(ArbolBinario<String> raiz, String dato) {
             ListaGenericaEnlazada<String> lista = new ListaGenericaEnlazada<String>();

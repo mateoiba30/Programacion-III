@@ -70,11 +70,6 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 		return null;
 	}
 
-	public Integer ancho() {
-		// Falta implementar..
-		return 0;
-	}
-
 	public int altura() {
 	    ColaGenerica<ArbolGeneral<T>> cola= new ColaGenerica<ArbolGeneral<T>>();
 		ArbolGeneral<T> arbol_aux;
@@ -168,6 +163,77 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 			niveles=-1;
 
 		return niveles;
+	   }
+// NIVEL VERSION INFA
+	//    public Integer nivel(T dato) {
+	// 	ArbolGeneral<T> elem;
+	// 	int niveles=0;
+		
+	// 		if (this.dato.equals(dato)){
+	// 			return niveles;
+	// 		}
+	// 		if (!this.equals(dato) && this.esHoja()){
+	// 			return -1;
+	// 		}
+	
+
+	// 	ColaGenerica<ArbolGeneral<T>> cola= new ColaGenerica<ArbolGeneral<T>>();
+ 	// 	ArbolGeneral<T> arbol_aux;
+	// 	cola.encolar(this);
+ 	// 	while (!cola.esVacia()) {
+	// 	arbol_aux = cola.desencolar();
+ 	// 	if (arbol_aux.tieneHijos()) {
+ 	// 	ListaGenerica<ArbolGeneral<T>> hijos = arbol_aux.getHijos();
+ 	// 	hijos.comenzar();
+	// 	niveles++;
+ 	// 		while (!hijos.fin()) {
+	// 			elem=hijos.proximo(); //guardo el elemento de hijos en elem ya que hijos apunta a lo que viene
+	// 			if (elem.dato.equals(dato)){
+	// 				return niveles;
+
+	// 			}
+	// 			cola.encolar(elem);
+	// 		 }
+		
+	//  	}
+
+	//  }
+
+	// 	return -1;
+	// }
+	   public int ancho(){
+		ColaGenerica<ArbolGeneral<T>> cola= new ColaGenerica<ArbolGeneral<T>>();
+		ArbolGeneral<T> arbol_aux;
+    	ListaGenerica<ArbolGeneral<T>> hijos =new ListaGenericaEnlazada<ArbolGeneral<T>>();
+		int ancho_max=-1, ancho_act=0;
+
+		if(this.esHoja())
+			return 1;
+
+		hijos=this.getHijos();
+	    cola.encolar(this);
+		cola.encolar(null);
+		while (!cola.esVacia()) {
+			arbol_aux = cola.desencolar();
+	
+			if (arbol_aux!=null && arbol_aux.tieneHijos()) {
+				hijos=arbol_aux.getHijos();//paso los hijos a la lista
+				hijos.comenzar();//empezar a recorrer por el inicio
+				ancho_act=0;
+				while (!hijos.fin()) {
+					ancho_act++;
+					cola.encolar(hijos.proximo());//voy encolando los hijos del actual
+				}
+				ancho_act--;//le saco de cuando contó el null
+			//	System.out.println("ancho actual: "+ancho_act);
+				cola.encolar(null);//cambio de nivel
+				if(ancho_act>=ancho_max)
+					ancho_max=ancho_act;
+			}
+			
+		}
+		
+		return ancho_max;
 	   }
 	   
 }
