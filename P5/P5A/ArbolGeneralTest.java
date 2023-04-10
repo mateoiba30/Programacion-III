@@ -28,10 +28,12 @@ public class ArbolGeneralTest {
         arbol_raiz.agregarHijo(arbol_hijo3);
         arbol_hijo1.agregarHijo(arbol_hijo3);//puedo cargar de la otra manera que está comentada tmb
 
-       // System.out.println("altura: "+arbol_raiz.altura());
+        // System.out.println("altura: "+arbol_raiz.altura());3
        System.out.println("Ingrese un dato a buscar");
        int x=in.nextInt();
-       System.out.println("el arbol tiene a "+x+" ? "+arbol_raiz.include(x));
+    //    System.out.println("el arbol tiene a "+x+" ? "+arbol_raiz.include(x));
+        System.out.println("el arbol tiene a "+x+" en el nivel "+arbol_raiz.nivel(x));
+
 
         in.close();
     }

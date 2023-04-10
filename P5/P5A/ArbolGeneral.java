@@ -70,11 +70,6 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 		return null;
 	}
 
-	public Integer nivel(T dato) {
-		// falta implementar
-		return -1;
-	}
-
 	public Integer ancho() {
 		// Falta implementar..
 		return 0;
@@ -135,6 +130,44 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 		}
 
 		return result;
+	   }
+
+	   public int nivel(T elemen){
+		boolean result = false;
+		ColaGenerica<ArbolGeneral<T>> cola= new ColaGenerica<ArbolGeneral<T>>();
+		ArbolGeneral<T> arbol_aux;
+    	ListaGenerica<ArbolGeneral<T>> hijos =new ListaGenericaEnlazada<ArbolGeneral<T>>();
+		int niveles=0;
+
+		if(this.esHoja() && this.getDato()==elemen)
+			return 0;
+		else if(this.esHoja())
+			return -1;
+
+		hijos=this.getHijos();
+	    cola.encolar(this);
+		cola.encolar(null);
+		while (!cola.esVacia() && result==false) {
+			arbol_aux = cola.desencolar();
+			if (arbol_aux!=null && arbol_aux.getDato()==elemen)
+				result=true;
+			else{
+				if (arbol_aux!=null && arbol_aux.tieneHijos()) {
+					hijos=arbol_aux.getHijos();//paso los hijos a la lista
+					hijos.comenzar();//empezar a recorrer por el inicio
+					while (!hijos.fin()) {
+						cola.encolar(hijos.proximo());//voy encolando los hijos del actual
+					}
+					cola.encolar(null);//cambio de nivel
+				}
+				else
+					niveles++;//si no era la raiz incremento el nivel
+			}
+		}
+		if (result==false)//puede no haberlo encontrado
+			niveles=-1;
+
+		return niveles;
 	   }
 	   
 }
