@@ -106,5 +106,35 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 
 		return niveles;
 	   }
+
+	   public boolean include(T elemen){
+		boolean result = false;
+		ColaGenerica<ArbolGeneral<T>> cola= new ColaGenerica<ArbolGeneral<T>>();
+		ArbolGeneral<T> arbol_aux;
+    	ListaGenerica<ArbolGeneral<T>> hijos =new ListaGenericaEnlazada<ArbolGeneral<T>>();
+
+		if(this.esHoja())
+			return result;
+
+		hijos=this.getHijos();
+	    cola.encolar(this);
+		while (!cola.esVacia() && result==false) {
+			arbol_aux = cola.desencolar();
+			if (arbol_aux.getDato()==elemen)
+				return true;
+			else{
+				if (arbol_aux.tieneHijos()) {
+					hijos=arbol_aux.getHijos();//paso los hijos a la lista
+					hijos.comenzar();//empezar a recorrer por el inicio
+					while (!hijos.fin()) {
+						cola.encolar(hijos.proximo());//voy encolando los hijos del actual
+					}
+				}
+
+			}
+		}
+
+		return result;
+	   }
 	   
 }
