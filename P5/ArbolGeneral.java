@@ -1,11 +1,6 @@
-package prog3.arbolgeneral;
+public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefinida
 
-import prog3.listagenerica.ListaGenerica;
-import prog3.listagenerica.ListaGenericaEnlazada;
-
-public class ArbolGeneral<T> {
-
-	private T dato;
+	private T dato;//es la raíz
 
 	private ListaGenerica<ArbolGeneral<T>> hijos = new ListaGenericaEnlazada<ArbolGeneral<T>>();
 
@@ -21,17 +16,24 @@ public class ArbolGeneral<T> {
 		this.hijos = hijos;
 	}
 
-	public ArbolGeneral(T dato) {
+	//ArbolGeneral() inicializa con la raíz null
+
+	public ArbolGeneral(){
+
+	}
+
+	public ArbolGeneral(T dato) {//le llega la raíz
 		this.dato = dato;
 		this.hijos = new ListaGenericaEnlazada<ArbolGeneral<T>>();
 	}
 
-	public ArbolGeneral(T dato, ListaGenerica<ArbolGeneral<T>> hijos) {
-		this(dato);
+	public ArbolGeneral(T dato, ListaGenerica<ArbolGeneral<T>> hijos) {//lista de
+		// árboles generales
+		this(dato);//guardo los datos de los nodos, no los nodos en sí
 		this.hijos = hijos;
 	}
 
-	public ListaGenerica<ArbolGeneral<T>> getHijos() {
+	public ListaGenerica<ArbolGeneral<T>> getHijos() {//lista de los hijos de la raíz
 		return this.hijos;
 	}
 
@@ -67,11 +69,6 @@ public class ArbolGeneral<T> {
 	public ListaGenericaEnlazada<T> preOrden() {
 		return null;
 	}
-	
-	public Integer altura() {
-		// Falta implementar..
-		return 0;
-	}
 
 	public Integer nivel(T dato) {
 		// falta implementar
@@ -83,4 +80,31 @@ public class ArbolGeneral<T> {
 		return 0;
 	}
 
+	public int altura() {
+	    ColaGenerica<ArbolGeneral<T>> cola= new ColaGenerica<ArbolGeneral<T>>();
+		ArbolGeneral<T> arbol_aux;
+    	ListaGenerica<ArbolGeneral<T>> hijos =new ListaGenericaEnlazada<ArbolGeneral<T>>();
+		int niveles=0;
+
+		if(this.esHoja())
+			return 0;
+
+		hijos=this.getHijos();
+	    cola.encolar(this);
+		while (!cola.esVacia()) {
+			arbol_aux = cola.desencolar();
+			if (arbol_aux.tieneHijos()) {
+				hijos=arbol_aux.getHijos();//paso los hijos a la lista
+				hijos.comenzar();//empezar a recorrer por el inicio
+				while (!hijos.fin()) {
+					cola.encolar(hijos.proximo());//voy encolando los hijos del actual
+				}
+				niveles++;//aumento al cambiar de lista
+
+			}
+		}
+
+		return niveles;
+	   }
+	   
 }
