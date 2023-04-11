@@ -69,6 +69,7 @@ public class Empresa {
             }
             // else
             //     niveles++;//si no era la raiz incremento el nivel
+            // acá ya es tarde para cambiar de nivel
             
         }
 
