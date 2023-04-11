@@ -2,6 +2,36 @@ public class Adivinanza {
     //elegir a alquien del ultimo nivel y poenrlo en la lista al inicio
     //volver a recorrer el arbol hasta encontrar a un nodo que en uno de sus hijos tenga al último elemento de la lista
     //repetir hasta que mande a la lista la raíz
+
+    // //VERSION MATEO, es mejor resolver así, es como hacer todo en el listaderaiz
+    // public static ListaGenericaEnlazada<String> secuenciaConMasPreguntas(ArbolBinario<String> abinario) {
+    //     ListaGenericaEnlazada<String> izq= new ListaGenericaEnlazada<String>();
+    //     ListaGenericaEnlazada<String> der= new ListaGenericaEnlazada<String>();
+    //     if (abinario.esHoja()) {
+    //       ListaGenericaEnlazada<String> res = new ListaGenericaEnlazada<String>();
+    //       res.agregarInicio(abinario.getDato());
+    //       return res;
+    //     }
+    //     //tengo todos los recorridos, recorriendo recursivamente
+    //     if (abinario.tieneHijoIzquierdo()) {
+    //       izq = secuenciaConMasPreguntas(abinario.getHijoIzquierdo());
+    //     }
+    //     if (abinario.tieneHijoDerecho()) {
+    //       der = secuenciaConMasPreguntas(abinario.getHijoDerecho());
+    //     }
+
+    //     if (izq.tamanio() >= der.tamanio()) {
+    //     //   izq.agregarInicio("Si");
+    //       izq.agregarInicio(abinario.getDato());
+    //       return izq;
+    //     } else {
+    //     //   der.agregarInicio("No");
+    //       der.agregarInicio(abinario.getDato());
+    //       return der;
+    //     }
+    //     //devuelvo la rama más larga de cada raíz
+    //   }
+
         public ListaGenericaEnlazada<String> secuenciaConMasPreguntas(ArbolBinario<String> abinario){
             String raiz= new String();
             String padre= new String();
@@ -87,38 +117,6 @@ public class Adivinanza {
         //     }
         //     return respuesta;
         // }
-    
-        //version de chapgpt que no anda
-        // public ListaGenericaEnlazada<String> secuenciaConMasPreguntas2(ArbolBinario<String> abinario) {
-        //     ListaGenericaEnlazada<String> secuenciaActual = new ListaGenericaEnlazada<>();
-        //     ListaGenericaEnlazada<String> secuenciaMaxima = new ListaGenericaEnlazada<>();
-        //     secuenciaConMasPreguntas2Aux(abinario, secuenciaActual, secuenciaMaxima);
-        //     return secuenciaMaxima;
-        // }
-        
-        // private void secuenciaConMasPreguntas2Aux(ArbolBinario<String> abinario, ListaGenericaEnlazada<String> secuenciaActual, ListaGenericaEnlazada<String> secuenciaMaxima) {
-        //     if (abinario.esVacio()) {
-        //         return;
-        //     }
-        //     secuenciaActual.agregarFinal(abinario.getDato());
-        //     if (abinario.esHoja()) {
-        //         if (secuenciaActual.tamanio() > secuenciaMaxima.tamanio()) {
-        //             clonar(secuenciaMaxima, secuenciaActual);
-        //         }
-        //     } else {
-        //         secuenciaConMasPreguntas2Aux(abinario.getHijoIzquierdo(), secuenciaActual, secuenciaMaxima);
-        //         secuenciaConMasPreguntas2Aux(abinario.getHijoDerecho(), secuenciaActual, secuenciaMaxima);
-        //     }
-        //     secuenciaActual.eliminarEn(secuenciaActual.tamanio());
-        // }
-
-        // public void clonar(ListaGenericaEnlazada<String> listaOriginal, ListaGenericaEnlazada<String> listaCopia) {
-        //     int tamanio, i;
-        //     tamanio=listaOriginal.tamanio();
-        //     for(i=0; i<tamanio; i++){
-        //         listaCopia.agregarFinal(listaOriginal.proximo());
-        //     }
-        // }
 
         //recibe un dato y el arbol donde se encuentra, devuelve la lista del recorrido
         public ListaGenericaEnlazada<String> listaDesdeRaiz(ArbolBinario<String> raiz, String dato) {
@@ -147,6 +145,72 @@ public class Adivinanza {
             return lista;
         }
 
+        
+//version de Mateo, es mejor resolver así
+  public static ListaGenericaEnlazada<ListaGenericaEnlazada<String>> secuenciaConMasPreguntas2(ArbolBinario<String> abinario) {
+    ListaGenericaEnlazada<ListaGenericaEnlazada<String>> izq = new ListaGenericaEnlazada<ListaGenericaEnlazada<String>>();
+    ListaGenericaEnlazada<ListaGenericaEnlazada<String>> der = new ListaGenericaEnlazada<ListaGenericaEnlazada<String>>();
+    ListaGenericaEnlazada<ListaGenericaEnlazada<String>> res = new ListaGenericaEnlazada<ListaGenericaEnlazada<String>>();
+    //todos son lista de caminos
+
+    if (abinario.esHoja()) {
+      ListaGenericaEnlazada<String> res1 = new ListaGenericaEnlazada<String>();
+      res1.agregarInicio(abinario.getDato());
+      res.agregarInicio(res1);//cargo lista de listas
+      return res;
+    }
+    if (abinario.tieneHijoIzquierdo()) {
+      izq = secuenciaConMasPreguntas2(abinario.getHijoIzquierdo());
+    }
+    if (abinario.tieneHijoDerecho()) {
+      der = secuenciaConMasPreguntas2(abinario.getHijoDerecho());
+    }
+//hasta acá igual que antes, tengo todos los recorridos almacenados
+
+    izq.comenzar();
+    der.comenzar();
+
+    //para agregar la raíz a las listas
+    //si no son null y la izq es mayor en su 1er camino
+    if ((izq.elemento(0)!=null && der.elemento(0)!=null) && (izq.elemento(0).tamanio() > der.elemento(0).tamanio())) {
+      int i = 0;
+      while (izq.elemento(i)!=null) {
+        // izq.elemento(i).agregarInicio("Si");//no es necesario cargarle el "si"
+        izq.elemento(i).agregarInicio(abinario.getDato());
+        i++;
+      }
+      return izq;
+      
+      //si no son null y la der es mayor en su 1er camino
+    } else if ((izq.elemento(0)!=null && der.elemento(0)!=null) && (izq.elemento(0).tamanio() < der.elemento(0).tamanio())){
+        int i = 0;
+        while (der.elemento(i)!=null) {
+        //   der.elemento(i).agregarInicio("Si");
+          der.elemento(i).agregarInicio(abinario.getDato());
+          i++;
+        }
+        return der;
+      } 
+
+      //si son iguales o null
+      else {
+        int i = 0;
+        while (izq.elemento(i) != null) {
+         // izq.elemento(i).agregarInicio("Si"); los si no son necesarios, pero siempre el camino más largo es por la respuesta si
+          izq.elemento(i).agregarInicio(abinario.getDato());//voy cargando las raíces, que en la recursion son los padres
+          res.agregarFinal(izq.elemento(i));//en res voy cargando los caminos
+          i++;
+        }
+        i = 0;
+        while (der.elemento(i)!=null) {
+       //   der.elemento(i).agregarInicio("Si");
+          der.elemento(i).agregarInicio(abinario.getDato());//voy cargando las raíces, que en la recursion son los padres
+          res.agregarFinal(der.elemento(i));//en res voy cargando los caminos
+          i++;
+        }
+      return res;//devuelve res que tiene tanto a der como izq
+    }
+  }
         public ListaGenericaEnlazada<ListaGenericaEnlazada<String>> secuenciaConMasPreguntasVersion2(ArbolBinario<String> abinario){
             ListaGenericaEnlazada<ListaGenericaEnlazada<String>> lista_secuencias = new ListaGenericaEnlazada<ListaGenericaEnlazada<String>>();
             ListaGenericaEnlazada<String> lista_hojas = new ListaGenericaEnlazada<String>();
