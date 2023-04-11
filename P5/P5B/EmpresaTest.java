@@ -65,11 +65,12 @@ public class EmpresaTest {
         // int aux=emp1.getEmpleados().ancho();
         // System.out.println("el ancho maximo de la empresa es: "+aux);
 
-        System.out.println("categoria a contar: ");
-        int x=in.nextInt();
-        int cont= emp1.empleadosPorCategoria(x);
-        System.out.println("la categoria tiene "+cont+" empleados");
+        // System.out.println("categoria a contar: ");
+        // int x=in.nextInt();
+        // int cont= emp1.empleadosPorCategoria(x);
+        // System.out.println("la categoria tiene "+cont+" empleados");
 
+        System.out.println("la categoria con mas empleados es: "+emp1.categoriaConMasEmpleados());
 
         in.close();
     }
