@@ -40,7 +40,7 @@ public class Empresa {
         int niveles=0, contador=0;
         categoria--;//para que coincida con el nivel
 
-        if(categoria==1)
+        if(categoria==0)
             return 1;
 		if(this.empleados.esHoja())
             return 0;
@@ -54,6 +54,7 @@ public class Empresa {
             if (arbol_aux!=null && arbol_aux.tieneHijos()) {
                 hijos=arbol_aux.getHijos();//paso los hijos a la lista
                 hijos.comenzar();//empezar a recorrer por el inicio
+                niveles++;//acá es donde paso de nivel, al saber que tiene hijos y los pienso cargar
                 if(categoria==niveles)
                     while (!hijos.fin()) {
                         contador++;
@@ -66,8 +67,8 @@ public class Empresa {
                 cola.encolar(null);//cambio de nivel
                 
             }
-            else
-                niveles++;//si no era la raiz incremento el nivel
+            // else
+            //     niveles++;//si no era la raiz incremento el nivel
             
         }
 
