@@ -61,6 +61,8 @@ public class EmpresaTest {
         //      subgerente --------------------> subgerente2 -> null
         //      /                               /
         //      emp1 -> emp2 -> null           emp3 -> emp4 -> null
+        //      /       /                       /      /
+        //      null    null                    null   null
         
         // int aux=emp1.getEmpleados().ancho();
         // System.out.println("el ancho maximo de la empresa es: "+aux);

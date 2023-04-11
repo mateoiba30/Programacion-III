@@ -1,3 +1,5 @@
+import javax.swing.plaf.basic.BasicComboBoxUI.ListDataHandler;
+
 public class Empresa {
     private ArbolGeneral<Empleado> empleados;
 
@@ -57,7 +59,22 @@ public class Empresa {
 
 
     public void reemplazarPresidente(){
+        //al usar agregarHijo agrego al final, entonces el empleado más viejo es el 1ro en la lista
+        //basicamente hay que pasar el 1er hijo a la raiz mientras voy recorriendo
+        //si reemplazo y ahora quiere ir null no lo debo dejar
+        ArbolGeneral<Empleado> arbol_nuevo = new ArbolGeneral<Empleado>();
+        arbol_nuevo=null;
 
+        if(!this.empleados.esHoja()){//si es hoja hago nada
+            arbol_nuevo=this.empleados;
+
+            //le copio el valor del 1er hijo
+            //elimino el 1er dato en la listas de hijos
+            //repito mientras no sea hoja
+
+            
+
+        }
     }
 
     public int categoriaConMasEmpleados(){
