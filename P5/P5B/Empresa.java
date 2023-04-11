@@ -20,8 +20,41 @@ public class Empresa {
     }
 
     public int cantidadTotalDeEmpleados(){
-        return 0;
-    }   
+        
+        ListaGenerica<ArbolGeneral<Empleado>> hijos =new ListaGenericaEnlazada<ArbolGeneral<Empleado>>();
+        ColaGenerica<ArbolGeneral<Empleado>> cola= new ColaGenerica<ArbolGeneral<Empleado>>();
+		ArbolGeneral<Empleado> arbol_aux;
+        int contador=0;//para que coincida con el nivel
+
+		if(this.empleados.esHoja())
+            return 0;
+
+        cola.encolar(this.empleados);
+        cola.encolar(null);
+        while (!cola.esVacia()) {
+            arbol_aux = cola.desencolar();
+            if(arbol_aux!=null){
+                contador++;
+                if (arbol_aux.tieneHijos()) {
+                    hijos=arbol_aux.getHijos();//paso los hijos a la lista
+                    hijos.comenzar();//empezar a recorrer por el inicio
+                    while (!hijos.fin())
+                        cola.encolar(hijos.proximo());//voy encolando los hijos del actual
+                    //si tengo dos subgerentes no tiene sentido encolar el null, lo hago luego
+                }  
+            }
+            else {
+                    if(!cola.esVacia())//si no es vacía sigo operando
+                        cola.encolar(null);//cambio de nivel
+            }
+            
+        }
+
+        return contador;
+    }
+    
+    
+
 
     public void reemplazarPresidente(){
 
@@ -29,7 +62,6 @@ public class Empresa {
 
     public int categoriaConMasEmpleados(){
 
-        
         ListaGenerica<ArbolGeneral<Empleado>> hijos =new ListaGenericaEnlazada<ArbolGeneral<Empleado>>();
         ColaGenerica<ArbolGeneral<Empleado>> cola= new ColaGenerica<ArbolGeneral<Empleado>>();
 		ArbolGeneral<Empleado> arbol_aux;
@@ -55,14 +87,14 @@ public class Empresa {
             else {
                     if(!cola.esVacia())//si no es vacía sigo operando
                         cola.encolar(null);//cambio de nivel
-                        
+
                     //aunque sea vacía debo aumentar el nivel para ver si este último es el máximo
                     niveles++;//acá es donde paso de nivel, al saber que tiene hijos y los pienso cargar
 
                     if (contador>cont_max){
                         cont_max=contador;
                         cat_max=niveles;//el nivel de la ríz es 0, mientras que su catogoría es 1, por eso antes aumento el nivel
-                        System.out.println("nueva cat max: "+cat_max+" con "+cont_max+" empleados");
+                      //  System.out.println("nueva cat max: "+cat_max+" con "+cont_max+" empleados");
                     }
                     
                     contador=0;

@@ -70,8 +70,9 @@ public class EmpresaTest {
         // int cont= emp1.empleadosPorCategoria(x);
         // System.out.println("la categoria tiene "+cont+" empleados");
 
-        System.out.println("la categoria con mas empleados es: "+emp1.categoriaConMasEmpleados());
+        // System.out.println("la categoria con mas empleados es: "+emp1.categoriaConMasEmpleados());
 
+        System.out.println("cantidad total de empleados: "+emp1.cantidadTotalDeEmpleados());
         in.close();
     }
     
