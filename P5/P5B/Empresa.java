@@ -49,7 +49,8 @@ public class Empresa {
         while (!cola.esVacia()) {
             arbol_aux = cola.desencolar();
             if(arbol_aux!=null){
-                contador++;
+                if(niveles==categoria)//cuento solo si estoy en la categoría que me piden
+                    contador++;
                 if (arbol_aux.tieneHijos()) {
                     hijos=arbol_aux.getHijos();//paso los hijos a la lista
                     hijos.comenzar();//empezar a recorrer por el inicio
