@@ -1,4 +1,4 @@
-import javax.swing.plaf.basic.BasicComboBoxUI.ListDataHandler;
+// import javax.swing.plaf.basic.BasicComboBoxUI.ListDataHandler;
 
 public class Empresa {
     private ArbolGeneral<Empleado> empleados;
@@ -152,9 +152,10 @@ public class Empresa {
                     //si tengo dos subgerentes no tiene sentido encolar el null, lo hago luego
                 }  
             }
-            else if(!cola.esVacia()){//si no es vacía sigo operando
-                cola.encolar(null);//cambio de nivel
-
+            else{
+                if(!cola.esVacia())//si no es vacía sigo operando
+                    cola.encolar(null);//cambio de nivel
+                //aunque haya terminado debo analizar el último nivel, por eso el if de arriba solo incluye a la acción de encolar
                 if (niveles == categoria)
                     return contador;
                 niveles++;//acá es donde paso de nivel, al saber que tiene hijos y los pienso cargar
