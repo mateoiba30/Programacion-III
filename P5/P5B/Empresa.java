@@ -54,27 +54,22 @@ public class Empresa {
 
         return contador;
     }
-    
-    
-
 
     public void reemplazarPresidente(){
         //al usar agregarHijo agrego al final, entonces el empleado más viejo es el 1ro en la lista
         //basicamente hay que pasar el 1er hijo a la raiz mientras voy recorriendo
         //si reemplazo y ahora quiere ir null no lo debo dejar
         ArbolGeneral<Empleado> arbol_nuevo = new ArbolGeneral<Empleado>();
-        arbol_nuevo=null;
+        ListaGenerica<ArbolGeneral<Empleado>> lista_hijos = new ListaGenericaEnlazada<ArbolGeneral<Empleado>>();
 
-        if(!this.empleados.esHoja()){//si es hoja hago nada
-            arbol_nuevo=this.empleados;
+        arbol_nuevo=this.empleados;
 
-            //le copio el valor del 1er hijo
-            //elimino el 1er dato en la listas de hijos
-            //repito mientras no sea hoja
-
-            
-
+        while(!arbol_nuevo.esHoja()){//si es hoja hago nada
+            lista_hijos=arbol_nuevo.getHijos();
+            arbol_nuevo.setDato( lista_hijos.elemento(0).getDato() );//no olvidar hacer el getDato dentro!!! //le copio el valor del 1er hijo
+            arbol_nuevo=lista_hijos.elemento(0);//repito mientras no sea hoja, haciendo que ahora analice en el 1ro de sus hijos (antes era el 2do)
         }
+        lista_hijos.eliminarEn(0);//elimino el ultimo que dupliqué, que es hoja
     }
 
     public int categoriaConMasEmpleados(){

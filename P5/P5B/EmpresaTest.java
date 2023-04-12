@@ -20,7 +20,9 @@ public class EmpresaTest {
 
         //declaro elemento dentro de nodos
         Empleado e1=new Empleado();
+        e1.setNombre("1er_presi");
         Empleado e2=new Empleado();
+        e2.setNombre("2do_presi");
         Empleado e3=new Empleado();
         Empleado e4=new Empleado();
         Empleado e5=new Empleado();
@@ -38,8 +40,6 @@ public class EmpresaTest {
         nodo_empleado3.setDato(e7);
         nodo_empleado4.setDato(e8);
 
-
-
         //junto nodos, creo arbol de empleados
         nodo_presidente.agregarHijo(nodo_gerente);
         nodo_gerente.agregarHijo(nodo_subgerente);
@@ -48,8 +48,6 @@ public class EmpresaTest {
         nodo_subgerente.agregarHijo(nodo_empleado2);
         nodo_subgerente2.agregarHijo(nodo_empleado3);
         nodo_subgerente2.agregarHijo(nodo_empleado4);
-
-
 
         //llevo el arbol a la empresa
         emp1.setEmpleados(nodo_presidente);
@@ -67,15 +65,20 @@ public class EmpresaTest {
         // int aux=emp1.getEmpleados().ancho();
         // System.out.println("el ancho maximo de la empresa es: "+aux);
 
+        // System.out.println("la categoria con mas empleados es: "+emp1.categoriaConMasEmpleados());
+
+        // System.out.println("cantidad total de empleados: "+emp1.cantidadTotalDeEmpleados());
+        // in.close();
+
+        emp1.reemplazarPresidente();
+        System.out.println("nuevo presidente: "+emp1.getEmpleados().getDato().getNombre());
+
         System.out.println("categoria a contar: ");
         int x=in.nextInt();
         int cont= emp1.empleadosPorCategoria(x);
         System.out.println("la categoria tiene "+cont+" empleados");
 
-        // System.out.println("la categoria con mas empleados es: "+emp1.categoriaConMasEmpleados());
-
-        // System.out.println("cantidad total de empleados: "+emp1.cantidadTotalDeEmpleados());
-        // in.close();
+        in.close();
     }
     
 }
