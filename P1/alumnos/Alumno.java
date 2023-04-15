@@ -3,7 +3,7 @@ public class Alumno {
 	String legajo;
 	String nombre;
 	String apellido;
-	int dni;
+	int dni;//comentario
 	String email;
 	
 	public String getApellido() {
