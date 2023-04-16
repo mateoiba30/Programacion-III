@@ -22,6 +22,7 @@ public class RedAguaPotableTest {
         //   x -> null
         //  /
         // x  -> x -> x-> null
+// 
 
         red1.recibirConfiguracion(n, arbol_raiz);
         // System.out.println("el ancho maximo del arbol "+red1.getRed().ancho() );
