@@ -6,7 +6,7 @@ public class RedAguaPotableTest {
 
         RedAguaPotable red1 = new RedAguaPotable();
 
-        float n=1000;
+        float n=500;
 
         ArbolGeneral<Float> arbol_raiz = new ArbolGeneral<Float>();
         ArbolGeneral<Float> arbol_hijo1 = new ArbolGeneral<Float>();

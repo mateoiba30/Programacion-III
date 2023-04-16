@@ -2,30 +2,30 @@ public class RedAguaPotable {
     private float litros;
     private ArbolGeneral<Float> red = new ArbolGeneral<Float>();
 
-     
-public void setLitros(float litros){
+    public void setLitros(float litros){
 
-    this.litros=litros;
+        this.litros=litros;
+    
+    }
+    
+    public float getLitros(){
+    
+        return litros;
+    
+    }
+    
+    public void setRed(ArbolGeneral<Float> red){
+    
+        this.red=red;
+    
+    }
+    
+    public ArbolGeneral<Float> getRed(){
+    
+        return red;
+    
+    }
 
-}
-
-public float getLitros(){
-
-    return litros;
-
-}
-
-public void setRed(ArbolGeneral<Float> red){
-
-    this.red=red;
-
-}
-
-public ArbolGeneral<Float> getRed(){
-
-    return red;
-
-}
 
 public void recibirConfiguracion(float n, ArbolGeneral<Float> configuracion){
     this.setRed(configuracion);
@@ -39,20 +39,23 @@ public void recibirConfiguracion(float n, ArbolGeneral<Float> configuracion){
     ArbolGeneral<Float> arbol_aux  = new ArbolGeneral<Float>();
     ListaGenerica<ArbolGeneral<Float>> hijos =new ListaGenericaEnlazada<ArbolGeneral<Float>>();
     int elementos=0;
-    float x=10;
 
     if(this.red.esHoja())
         this.red.setDato(n);
     else{
 		hijos=this.red.getHijos();
 	    cola.encolar(this.red);
-        this.red.setDato(x);
+        this.red.setDato(n);
 		cola.encolar(null);
+        n/=hijos.tamanio();
 
 		while (!cola.esVacia()) {
 			arbol_aux = cola.desencolar();
-            if (arbol_aux!=null && arbol_aux.tieneHijos()) {//encolo hijos y null
-                arbol_aux.setDato(x);
+            if(arbol_aux!=null)
+                arbol_aux.setDato(n); 
+            else
+                n/=elementos; 
+            if (arbol_aux!=null && arbol_aux.tieneHijos()) {//encolo hijos y null, no cargar datos acá, porque se fija además si tiene hijos
                 hijos=arbol_aux.getHijos();
                 hijos.comenzar();
                 elementos=0;
@@ -62,8 +65,8 @@ public void recibirConfiguracion(float n, ArbolGeneral<Float> configuracion){
                 }
                 cola.encolar(null);//cambio de nivel
             }
-            else
-                n/=elementos;//leí null, cambié de nivel
+            // else
+            //     n/=elementos;//leí null, cambié de nivel
 			}
 		}
     }
