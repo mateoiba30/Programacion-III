@@ -293,5 +293,31 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 		}
 	}
 	   
+	private void todosLosCaminos(ListaGenerica<ListaGenerica<Character>> lista_caminos){
+		ListaGenerica<ArbolGeneral<Character>> hijos =new ListaGenericaEnlazada<ArbolGeneral<Character>>();
+
+		if(this.esHoja()){//caso base que sea hoja
+			return;
+		}
+		else{
+			hijos=this.getHijos();
+			int reps=hijos.tamanio();
+
+			for(int i=0; i<reps; i++){
+				lista_caminos.agregarFinal(hijos.elemento(i).getDato());
+			}//hago un while que recorro la lista de hijos para hacerlo con el arbol general
+
+		}
+
+		// if(this.tieneHijoIzquierdo()){//1ro izquierdo y luego el derecho
+		// 	caminoActual.agregarFinal(arbol.getHijoIzquierdo().getDato());
+		// 	caminoMasLargoRec(caminoActual, caminoMaximo, arbol.getHijoIzquierdo());
+		// 	caminoActual.eliminarEn(caminoActual.tamanio()-1);
+		// }
+		// if(arbol.tieneHijoDerecho()){//1ro izquierdo y luego el derecho
+		// 	caminoActual.agregarFinal(arbol.getHijoDerecho().getDato());
+		// 	caminoMasLargoRec(caminoActual, caminoMaximo, arbol.getHijoDerecho());
+		// 	caminoActual.eliminarEn(caminoActual.tamanio()-1);
+	}
 
 }
