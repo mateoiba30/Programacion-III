@@ -235,37 +235,59 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 		return ancho_max;
 	   }
 
-	   
-	   public void imprimirNiveles(){
-		ColaGenerica<ArbolGeneral<T>> cola= new ColaGenerica<ArbolGeneral<T>>();
-		ArbolGeneral<T> arbol_aux  = new ArbolGeneral<T>();
-		ListaGenerica<ArbolGeneral<T>> hijos =new ListaGenericaEnlazada<ArbolGeneral<T>>();
+	// PORQUÉ ESTÁ MAL?    
+	//    public void imprimirNiveles(){
+	// 	ColaGenerica<ArbolGeneral<T>> cola= new ColaGenerica<ArbolGeneral<T>>();
+	// 	ArbolGeneral<T> arbol_aux  = new ArbolGeneral<T>();
+	// 	ListaGenerica<ArbolGeneral<T>> hijos =new ListaGenericaEnlazada<ArbolGeneral<T>>();
 	
-		if(this.esHoja())
-			System.out.println(this.getDato());
-		else{
-			hijos=this.getHijos();
-			cola.encolar(this);
-			cola.encolar(null);
+	// 	if(this.esHoja())
+	// 		System.out.println(this.getDato());
+	// 	else{
+	// 		hijos=this.getHijos();
+	// 		cola.encolar(this);
+	// 		cola.encolar(null);
 	
-			while (!cola.esVacia()) {
-				arbol_aux = cola.desencolar();
-				if(arbol_aux!=null)
-					System.out.print(arbol_aux.getDato()+" ");
-				else
-					System.out.println();//leí null, cambié de nivel
+	// 		while (!cola.esVacia()) {
+	// 			arbol_aux = cola.desencolar();
+	// 			if(arbol_aux!=null)
+	// 				System.out.print(arbol_aux.getDato()+" ");
+	// 			else
+	// 				System.out.println();//leí null, cambié de nivel
 
-				if (arbol_aux!=null && arbol_aux.tieneHijos()) {//encolo hijos y null
-					hijos=arbol_aux.getHijos();
-					hijos.comenzar();
-					while (!hijos.fin()) {
-						cola.encolar(hijos.proximo());//voy encolando los hijos del actual
-					}
-					// if(!cola.esVacia())
-					cola.encolar(null);//cambio de nivel al terminar de cargar los hijos
+	// 			if (arbol_aux!=null && arbol_aux.tieneHijos()) {//encolo hijos y null
+	// 				hijos=arbol_aux.getHijos();
+	// 				hijos.comenzar();
+	// 				while (!hijos.fin()) {
+	// 					cola.encolar(hijos.proximo());//voy encolando los hijos del actual
+	// 				}
+	// 				// if(!cola.esVacia())
+	// 				cola.encolar(null);//cambio de nivel al terminar de cargar los hijos
+	// 			}
+	// 		}
+	// }
+
+}
+	public void ImprimirPorNiveles() {
+		ColaGenerica<ArbolGeneral<T>> cola = new ColaGenerica<ArbolGeneral<T>>();
+		ArbolGeneral<T> ar;
+		cola.encolar(this);
+		cola.encolar(null);
+
+		while (!cola.esVacia()) {
+			ar = cola.desencolar();
+			if (ar != null) {
+				System.out.print(ar.getDato() + " ");
+				for (int i = 0; i<ar.getHijos().tamanio(); i++) {
+					cola.encolar(ar.getHijos().elemento(i));
 				}
 			}
+			else if (!cola.esVacia()) {
+				System.out.println();
+				cola.encolar(null);
+			}
+		}
 	}
 	   
-}
+
 }
