@@ -32,13 +32,14 @@ public class Trie extends ArbolGeneral<Character>{
         hijos=nodo_act.getHijos();//lista de hijos
         tamanio=hijos.tamanio();//uso el tamanio para no llegar a null
 
+        hijos.comenzar();
         while(i<tamanio && hijos.elemento(i).getDato()!=char_act)//cada vez que quiero ver un dato en una lista, primero ver que no sea null o asegurar me de no pasarme del tamanio
             i++;
 
         if(i==tamanio){//no encontre, debo crear
-            Trie nuevo_nodo = new Trie();
+            ArbolGeneral<Character> nuevo_nodo = new ArbolGeneral<Character>();//o le pongo Trie que es lo mismo
             nuevo_nodo.setDato(char_act);//agergo caracter porque no estaba
-            nodo_act.agregarHijo(nuevo_nodo);//creo el padre
+            hijos.agregarFinal(nuevo_nodo);//si en hijos no está, en hijos agrego
             nodo_act=nuevo_nodo;//actualizo el nodo padre
         }
         else
@@ -47,5 +48,8 @@ public class Trie extends ArbolGeneral<Character>{
         pos_act++;//avanzo de caracter
         agregarPalabraRecursivo(nodo_act, pos_act, palabra, long_palabra);
     }
-}
+        
+    }
+
+
 
