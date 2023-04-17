@@ -30,7 +30,7 @@ public class RedAguaPotableTest {
         red1.getRed().imprimirNiveles();
         //el buscar dato no va a andar porque los float no son precisos
         // System.out.println("el arbol tiene a "+x+" en el nivel "+red1.getRed().nivel(x));
-
+        System.out.println(" el minimo caudal es de: "+red1.minimo());
         in.close();
     }
 }

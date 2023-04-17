@@ -190,9 +190,6 @@ public class ArbolBinario<T> {
 		}
 
 	}
-
-	
-	
 	
 	public int contarHojas(int cont) {
 
