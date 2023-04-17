@@ -25,7 +25,7 @@ public class Trie extends ArbolGeneral<Character>{
         int tamanio, i=0;
         ListaGenerica<ArbolGeneral<Character>> hijos = new ListaGenericaEnlazada<ArbolGeneral<Character>>();
 
-        if(pos_act>=long_palabra)//caso base termine con la palabra
+        if(pos_act>=long_palabra )//caso base termine con la palabra
             return;
 
         char_act=palabra.charAt(pos_act);//veo caracter actual
@@ -33,16 +33,23 @@ public class Trie extends ArbolGeneral<Character>{
         tamanio=hijos.tamanio();//uso el tamanio para no llegar a null
 
         hijos.comenzar();
-        while(i<tamanio && hijos.elemento(i).getDato() != char_act)//cada vez que quiero ver un dato en una lista, primero ver que no sea null o asegurar me de no pasarme del tamanio
+        while(i<tamanio && hijos.elemento(i).getDato() < char_act)//cada vez que quiero ver un dato en una lista, primero ver que no sea null o asegurar me de no pasarme del tamanio
             i++;
 
-        if(i==tamanio){//no encontre, debo crear
+        if(i<tamanio && hijos.elemento(i).getDato() != char_act){//no encontre, debo crear
             ArbolGeneral<Character> nuevo_nodo = new ArbolGeneral<Character>();//o le pongo Trie que es lo mismo
             nuevo_nodo.setDato(char_act);//agergo caracter porque no estaba
-            hijos.agregarFinal(nuevo_nodo);//si en hijos no está, en hijos agrego
+            hijos.agregarEn(nuevo_nodo, i);//si en hijos no está, en hijos agrego
             nodo_act=nuevo_nodo;//actualizo el nodo padre
         }
         else
+            if(i==tamanio){
+                ArbolGeneral<Character> nuevo_nodo = new ArbolGeneral<Character>();//o le pongo Trie que es lo mismo
+                nuevo_nodo.setDato(char_act);//agergo caracter porque no estaba
+                hijos.agregarFinal(nuevo_nodo);//si en hijos no está, en hijos agrego
+                nodo_act=nuevo_nodo;//actualizo el nodo padre   
+            }
+
             nodo_act=hijos.elemento(i);//encontre, me quedo con ese padre
 
         pos_act++;//avanzo de caracter

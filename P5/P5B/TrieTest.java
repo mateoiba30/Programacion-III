@@ -11,11 +11,11 @@ public class TrieTest {    public static void main(String[] args) {
 
 
     arbol_raiz.setDato('x');
-    arbol_hijo1.setDato('b');
+    arbol_hijo1.setDato('a');
     arbol_hijo2.setDato('c');
     arbol_hijo3.setDato('d');
     arbol_hijo4.setDato('e');
-    arbol_hijo5.setDato('a');
+    arbol_hijo5.setDato('b');
 
 
     arbol_raiz.agregarHijo(arbol_hijo1);
@@ -30,15 +30,13 @@ public class TrieTest {    public static void main(String[] args) {
     // arbol_raiz.setHijos(hijos);
     //      x (no cuenta)
     //     /
-    //   b -> a
+    //   a -> b
     //  /
     // c  -> d -> e-> null
 
-
-    trie1.agregarPalabra("mateo");//falla caundo el dato (que no es el 1ro de la palabra) no se encuentra en el nivel, y el nivel no está vacío
+    trie1.agregarPalabra("aateo");//falla caundo el dato (que no es el 1ro de la palabra) no se encuentra en el nivel, y el nivel no está vacío
 
     arbol_raiz.imprimirNiveles();
-
 
     in.close();
 }
