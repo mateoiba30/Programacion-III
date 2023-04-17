@@ -11,14 +11,21 @@ public class Trie extends ArbolGeneral<Character>{
     }
 
     
-    public ListaGenerica<StringBuilder> palabrasQueEmpiezanCon(String prefijo)
+    public ListaGenerica<StringBuilder> palabrasQueEmpiezanCon(String prefijo){
 
-        //tengo un nodo, verifico si el caracter que estoy analizando se encuentra entre sus hijos
-        //si se encuentra avanzo de caracter y llamo a la función con el nodo padre, si no encontré el padre lo creo
-        //recursion con nodo act, pos de la palabra, palabra
+        ListaGenerica<ListaGenerica<Character>> lista_caminos = new ListaGenericaEnlazada<ListaGenerica<Character>>();
+        ListaGenerica<StringBuilder> lista_palabras= new ListaGenericaEnlazada<StringBuilder>();
+        palabrasQueEmpiezanConRecursivo(this.arbol, 0, prefijo,  prefijo.length());
+        
+        int reps = lista_caminos.tamanio();
+        for(int i=0; i<reps; i++){
+            int caracts= lista_caminos.proximo().tamanio(); 
+            for(int j=0; j<caracts; j++){
+                lista_palabras.elemento(i).append(lista_caminos.elemento(j));
+            }
+        }
 
-        // System.out.println(palabra.length());
-        agregarPalabraRecursivo(this.arbol, 0, prefijo,  prefijo.length());
+        return lista_palabras;
     }
     
     public ListaGenerica<ListaGenerica<Character>> palabrasQueEmpiezanConRecursivo(ArbolGeneral<Character> nodo_act, int pos_act, String palabra, int long_palabra){
@@ -26,11 +33,10 @@ public class Trie extends ArbolGeneral<Character>{
         char char_act;
         int tamanio, i=0;
         ListaGenerica<ArbolGeneral<Character>> hijos = new ListaGenericaEnlazada<ArbolGeneral<Character>>();
+        ListaGenerica<ListaGenerica<Character>> lista_caminos = new ListaGenericaEnlazada<ListaGenerica<Character>>();
 
         if(pos_act>=long_palabra){//encontre todos los prefijos, debo mandar todas las palabras
-
-		    ListaGenerica<ListaGenerica<Character>> lista_caminos = new ListaGenericaEnlazada<ListaGenerica<Character>>();
-            nodo_act.todosLosCaminos(lista_caminos);
+            lista_caminos=nodo_act.todosLosCaminos();
             return lista_caminos;
         }
 
@@ -46,28 +52,12 @@ public class Trie extends ArbolGeneral<Character>{
             nodo_act=hijos.elemento(i);//encontre, me quedo con ese padre y sigo terminando el prefijo
         }
         else
-            return;//si no encuentro el prefijo me vuelvo
+            return lista_caminos;//si no encuentro el prefijo me vuelvo
 
         pos_act++;//avanzo de caracter
-        agregarPalabraRecursivo(nodo_act, pos_act, palabra, long_palabra);
+        palabrasQueEmpiezanConRecursivo(nodo_act, pos_act, palabra, long_palabra);
+        return lista_caminos;//sacar?
     }
-        
-    
-    // public ListaGenerica<StringBuilder> palabrasQueEmpiezanCon(String prefijo){
-
-    //     ListaGenerica<StringBuilder> lista_palabras = new ListaGenericaEnlazada<StringBuilder>();
-    //     StringBuilder x = new StringBuilder();
-    //     x.append("");
-    //     lista_palabras.agregarInicio(x);
-
-
-    //     return lista_palabras;
-    // }
-
-    // private ListaGenerica<StringBuilder> palabrasQueEmpiezanConRec(String prefijo){
-
-
-    // }
 
     public void agregarPalabra(String palabra){
         //tengo un nodo, verifico si el caracter que estoy analizando se encuentra entre sus hijos

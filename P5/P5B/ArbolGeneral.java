@@ -292,32 +292,36 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 			}
 		}
 	}
-	   
-	private void todosLosCaminos(ListaGenerica<ListaGenerica<Character>> lista_caminos){
-		ListaGenerica<ArbolGeneral<Character>> hijos =new ListaGenericaEnlazada<ArbolGeneral<Character>>();
+
+	public ListaGenerica<ListaGenerica<T>> todosLosCaminos(){
+		ListaGenerica<ListaGenerica<T>> lista_caminos = new ListaGenericaEnlazada<ListaGenerica<T>>();
+		ListaGenerica<T> camino_act=new ListaGenericaEnlazada<T>();
+
+		if(this!=null && !this.esVacio()){
+			camino_act.agregarFinal(this.getDato());
+			this.todosLosCaminosRec(camino_act, lista_caminos);
+		}
+
+		return lista_caminos;
+	}
+
+	private void todosLosCaminosRec( ListaGenerica<T> camino_act, ListaGenerica<ListaGenerica<T>> lista_caminos){
+        //this es el arbol general con el que llamo la funcion
+		ListaGenerica<ArbolGeneral<T>> hijos =new ListaGenericaEnlazada<ArbolGeneral<T>>();
 
 		if(this.esHoja()){//caso base que sea hoja
+            lista_caminos.agregarFinal(camino_act);//guardo el camino actual
 			return;
 		}
 		else{
 			hijos=this.getHijos();
 			int reps=hijos.tamanio();
+            for(int i=0; i<reps; i++){
+                camino_act.agregarFinal(hijos.elemento(i).getDato());
+                hijos.elemento(i).todosLosCaminosRec(camino_act, lista_caminos);
+            }
+		}//hago un while o for que recorro la lista de hijos para hacerlo con el arbol general
 
-			for(int i=0; i<reps; i++){
-				lista_caminos.agregarFinal(hijos.elemento(i).getDato());
-			}//hago un while que recorro la lista de hijos para hacerlo con el arbol general
-
-		}
-
-		// if(this.tieneHijoIzquierdo()){//1ro izquierdo y luego el derecho
-		// 	caminoActual.agregarFinal(arbol.getHijoIzquierdo().getDato());
-		// 	caminoMasLargoRec(caminoActual, caminoMaximo, arbol.getHijoIzquierdo());
-		// 	caminoActual.eliminarEn(caminoActual.tamanio()-1);
-		// }
-		// if(arbol.tieneHijoDerecho()){//1ro izquierdo y luego el derecho
-		// 	caminoActual.agregarFinal(arbol.getHijoDerecho().getDato());
-		// 	caminoMasLargoRec(caminoActual, caminoMaximo, arbol.getHijoDerecho());
-		// 	caminoActual.eliminarEn(caminoActual.tamanio()-1);
 	}
 
-}
+	}

@@ -34,9 +34,11 @@ public class TrieTest {    public static void main(String[] args) {
     //  /
     // c  -> d -> e-> null
 
-    trie1.agregarPalabra("aateo");//falla caundo el dato (que no es el 1ro de la palabra) no se encuentra en el nivel, y el nivel no está vacío
-
-    arbol_raiz.imprimirNiveles();
+    // trie1.agregarPalabra("aateo");//falla caundo el dato (que no es el 1ro de la palabra) no se encuentra en el nivel, y el nivel no está vacío
+    // arbol_raiz.imprimirNiveles();
+    ListaGenerica<StringBuilder> lista_palabras = new ListaGenericaEnlazada<StringBuilder>();
+    lista_palabras=trie1.palabrasQueEmpiezanCon("a");
+    System.out.println(lista_palabras.toString());
 
     in.close();
 }
