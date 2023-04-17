@@ -204,13 +204,16 @@ public class ArbolBinario<T> {
 					cont=this.hijoDerecho.contarHojas(cont);
 			}
 
-		return cont;
+		return cont; 
 	}
 
 	//el primer camino mas largo que encontre
+	//si es static lo puedo llamar desde el main
 	public static ListaGenerica<Character> caminoMasLargo(ArbolBinario<Character> arbol){
+
 		ListaGenerica<Character> caminoActual = new ListaGenericaEnlazada<Character>();
 		ListaGenerica<Character> caminoMaximo = new ListaGenericaEnlazada<Character>();
+
 		if(arbol!=null && !arbol.esVacio()){
 			caminoActual.agregarFinal(arbol.getDato());
 			caminoMasLargoRec(caminoActual,caminoMaximo,arbol);
@@ -224,22 +227,23 @@ public class ArbolBinario<T> {
 
 	private static void caminoMasLargoRec(ListaGenerica<Character> caminoActual, ListaGenerica<Character> caminoMaximo,  ArbolBinario<Character> arbol){
 
-		if(arbol.esHoja())
+		if(arbol.esHoja()){//caso base que sea hoja
 			if(caminoActual.tamanio()>caminoMaximo.tamanio())//si le pongo igual me devuelve el último camino más largo
 				copiarLista(caminoActual,caminoMaximo);
-			else{
-				if(arbol.tieneHijoIzquierdo()){//1ro izquierdo y luego el derecho
-					caminoActual.agregarFinal(arbol.getHijoIzquierdo().getDato());
-					caminoMasLargoRec(caminoActual, caminoMaximo, arbol.getHijoIzquierdo());
-					caminoActual.eliminarEn(caminoActual.tamanio()-1);
-				}
-				if(arbol.tieneHijoDerecho()){//1ro izquierdo y luego el derecho
-					caminoActual.agregarFinal(arbol.getHijoDerecho().getDato());
-					caminoMasLargoRec(caminoActual, caminoMaximo, arbol.getHijoDerecho());
-					caminoActual.eliminarEn(caminoActual.tamanio()-1);
-				}//hago un while que recorro la lista de hijos para hacerlo con el arbol general
-
+		}
+		else{
+			if(arbol.tieneHijoIzquierdo()){//1ro izquierdo y luego el derecho
+				caminoActual.agregarFinal(arbol.getHijoIzquierdo().getDato());
+				caminoMasLargoRec(caminoActual, caminoMaximo, arbol.getHijoIzquierdo());
+				caminoActual.eliminarEn(caminoActual.tamanio()-1);
 			}
+			if(arbol.tieneHijoDerecho()){//1ro izquierdo y luego el derecho
+				caminoActual.agregarFinal(arbol.getHijoDerecho().getDato());
+				caminoMasLargoRec(caminoActual, caminoMaximo, arbol.getHijoDerecho());
+				caminoActual.eliminarEn(caminoActual.tamanio()-1);
+			}//hago un while que recorro la lista de hijos para hacerlo con el arbol general
+
+		}
 
 
 	}

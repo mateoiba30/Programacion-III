@@ -1,5 +1,4 @@
 
-
 public class ArbolBinarioTest {
 
 	public static void main(String[] args) {
@@ -31,7 +30,23 @@ public class ArbolBinarioTest {
 
 		// System.out.println("arbol lleno=  "+arbolBinarioA.esLleno());
 
-		arbolBinarioA.recorridoPorNiveles();
+		// arbolBinarioA.recorridoPorNiveles();
+
+
+		ArbolBinario<Character> arbolBinarioB=new ArbolBinario<Character>('1');		
+		ArbolBinario<Character> hijoIzquierdoB=new ArbolBinario<Character>('2');
+		hijoIzquierdoB.agregarHijoIzquierdo(new ArbolBinario<Character>('3'));
+		hijoIzquierdoB.agregarHijoDerecho(new ArbolBinario<Character>('4'));		
+		ArbolBinario<Character> hijoDerechoB=new ArbolBinario<Character>('5');
+		hijoDerechoB.agregarHijoIzquierdo(new ArbolBinario<Character>('6'));
+		hijoDerechoB.agregarHijoDerecho(new ArbolBinario<Character>('7'));
+		arbolBinarioB.agregarHijoIzquierdo(hijoIzquierdoB);
+		arbolBinarioB.agregarHijoDerecho(hijoDerechoB);
+
+		ListaGenerica<Character> caminoLargo = new ListaGenericaEnlazada<Character>();
+		caminoLargo = ArbolBinario.caminoMasLargo(arbolBinarioB);//como es static no necesito un objeto, pero aclaro de que clase viene
+		
+		System.out.println(caminoLargo.toString());
 	}
 
 }
