@@ -37,6 +37,9 @@ public class TrieTest {    public static void main(String[] args) {
 
     trie1.agregarPalabra("mateo");//falla caundo el dato (que no es el 1ro de la palabra) no se encuentra en el nivel, y el nivel no está vacío
     arbol_raiz.ImprimirPorNiveles();
+    System.out.println("-----------------");
+    arbol_raiz.imprimirNiveles();
+
 
     in.close();
 }
