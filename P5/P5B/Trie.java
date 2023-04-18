@@ -14,25 +14,25 @@ public class Trie extends ArbolGeneral<Character>{
     }
 
     
-    public ListaGenerica<StringBuilder> palabrasQueEmpiezanCon(String prefijo){
+    public ListaGenerica<ListaGenerica<Character>> palabrasQueEmpiezanCon(String prefijo){
 
-        ListaGenerica<StringBuilder> lista_palabras = new ListaGenericaEnlazada<StringBuilder>();
         ListaGenerica<ListaGenerica<Character>> lista_caminos= new ListaGenericaEnlazada<ListaGenerica<Character>>();
-
         lista_caminos=palabrasQueEmpiezanConRecursivo(this.arbol, 0, prefijo,  prefijo.length());
-        // System.out.println(lista_caminos.toString());
+        // System.out.println(lista_caminos.toString());//hasta acá me devuelve todos los caminos que empiezan con el prefijo
 
-        int reps = lista_caminos.tamanio();
-        for(int i=0; i<reps; i++){
-            int caracts= lista_caminos.proximo().tamanio(); 
-            StringBuilder palabra=new StringBuilder("");
-            for(int j=0; j<caracts; j++){
-                palabra.append(lista_caminos.elemento(i).elemento(j));
-            }
-            lista_palabras.elemento(i).append(palabra);
-        }
+        // ListaGenerica<StringBuilder> lista_palabras = new ListaGenericaEnlazada<StringBuilder>();
 
-        return lista_palabras;
+        // int reps = lista_caminos.tamanio();
+        // for(int i=0; i<reps; i++){
+        //     int caracts= lista_caminos.proximo().tamanio(); 
+        //     StringBuilder palabra=new StringBuilder("");
+        //     for(int j=0; j<caracts; j++){
+        //         palabra.append(lista_caminos.elemento(i).elemento(j));
+        //     }
+        //     lista_palabras.elemento(i).append(palabra);
+        // }
+
+        return lista_caminos;
     }
     
     public ListaGenerica<ListaGenerica<Character>> palabrasQueEmpiezanConRecursivo(ArbolGeneral<Character> nodo_act, int pos_act, String palabra, int long_palabra){
@@ -61,9 +61,9 @@ public class Trie extends ArbolGeneral<Character>{
                 return lista_caminos;//si no encuentro el prefijo me vuelvo
 
             pos_act++;//avanzo de caracter
-            palabrasQueEmpiezanConRecursivo(nodo_act, pos_act, palabra, long_palabra);
+            lista_caminos=palabrasQueEmpiezanConRecursivo(nodo_act, pos_act, palabra, long_palabra);
         }
-        
+
     return lista_caminos;
     }
 

@@ -319,7 +319,7 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
             for(int i=0; i<reps; i++){
 				ListaGenerica<T> nuevo_camino = camino_act.copiar();
                 nuevo_camino.agregarFinal(hijos.elemento(i).getDato());//mando una nueva lista
-                hijos.elemento(i).todosLosCaminosRec(nuevo_camino, lista_caminos);
+                hijos.elemento(i).todosLosCaminosRec(nuevo_camino, lista_caminos);//para que me queden varios caminos diferentes debo hacer copias de las lsitas
             }
 		}//hago un while o for que recorro la lista de hijos para hacerlo con el arbol general
 

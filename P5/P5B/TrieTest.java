@@ -8,6 +8,10 @@ public class TrieTest {    public static void main(String[] args) {
     ArbolGeneral<Character> arbol_hijo3 = new ArbolGeneral<Character>();
     ArbolGeneral<Character> arbol_hijo4 = new ArbolGeneral<Character>();
     ArbolGeneral<Character> arbol_hijo5 = new ArbolGeneral<Character>();
+    ArbolGeneral<Character> arbol_hijo6 = new ArbolGeneral<Character>();
+    ArbolGeneral<Character> arbol_hijo7 = new ArbolGeneral<Character>();
+
+
 
 
     arbol_raiz.setDato('x');
@@ -16,6 +20,10 @@ public class TrieTest {    public static void main(String[] args) {
     arbol_hijo3.setDato('d');
     arbol_hijo4.setDato('e');
     arbol_hijo5.setDato('b');
+    arbol_hijo6.setDato('f');
+    arbol_hijo6.setDato('g');
+
+
 
 
     arbol_raiz.agregarHijo(arbol_hijo1);
@@ -23,6 +31,10 @@ public class TrieTest {    public static void main(String[] args) {
     arbol_hijo1.agregarHijo(arbol_hijo2);
     arbol_hijo1.agregarHijo(arbol_hijo3);
     arbol_hijo1.agregarHijo(arbol_hijo4);
+    arbol_hijo2.agregarHijo(arbol_hijo6);
+    arbol_hijo2.agregarHijo(arbol_hijo7);
+
+
 
     Trie trie1 = new Trie();
     trie1.setArbol(arbol_raiz);
@@ -33,19 +45,21 @@ public class TrieTest {    public static void main(String[] args) {
     //   a -> b
     //  /
     // c  -> d -> e-> null
+    // /
+    // f -> g
 
     // trie1.agregarPalabra("aateo");//falla caundo el dato (que no es el 1ro de la palabra) no se encuentra en el nivel, y el nivel no está vacío
     // arbol_raiz.imprimirNiveles();
 
-    // ListaGenerica<StringBuilder> lista_palabras = new ListaGenericaEnlazada<StringBuilder>();
-    // lista_palabras=trie1.palabrasQueEmpiezanCon("a");
-    // System.out.println(lista_palabras.toString());
+    ListaGenerica<ListaGenerica<Character>> lista_palabras = new ListaGenericaEnlazada<ListaGenerica<Character>>();
+    lista_palabras=trie1.palabrasQueEmpiezanCon("a");
+    System.out.println(lista_palabras.toString());
 
-   ListaGenerica<ListaGenerica<Character>> prueba = new ListaGenericaEnlazada<ListaGenerica<Character>>();
-    prueba=arbol_raiz.todosLosCaminos();
-    int reps= prueba.tamanio();
-    for(int i=0; i<reps; i++)
-        System.out.println(prueba.elemento(i).toString());
+//    ListaGenerica<ListaGenerica<Character>> prueba = new ListaGenericaEnlazada<ListaGenerica<Character>>();
+//     prueba=arbol_raiz.todosLosCaminos();
+//     int reps= prueba.tamanio();
+//     for(int i=0; i<reps; i++)
+//         System.out.println(prueba.elemento(i).toString());
  
     in.close();
 }
