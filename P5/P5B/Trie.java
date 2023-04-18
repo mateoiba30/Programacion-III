@@ -32,6 +32,14 @@ public class Trie extends ArbolGeneral<Character>{
         //     lista_palabras.elemento(i).append(palabra);
         // }
 
+        int longitud=prefijo.length() -2;//resto uno para obtener la pos, y rtesto otro porque el ultimo me lo informa
+
+        int reps=lista_caminos.tamanio();
+        for(int i=0; i<reps; i++){
+            for(int j=longitud; j>=0; j--)
+                lista_caminos.elemento(i).agregarInicio(prefijo.charAt(j));
+        }
+
         return lista_caminos;
     }
     

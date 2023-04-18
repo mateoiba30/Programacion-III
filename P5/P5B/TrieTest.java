@@ -10,6 +10,8 @@ public class TrieTest {    public static void main(String[] args) {
     ArbolGeneral<Character> arbol_hijo5 = new ArbolGeneral<Character>();
     ArbolGeneral<Character> arbol_hijo6 = new ArbolGeneral<Character>();
     ArbolGeneral<Character> arbol_hijo7 = new ArbolGeneral<Character>();
+    ArbolGeneral<Character> arbol_hijo8 = new ArbolGeneral<Character>();
+
 
 
 
@@ -21,7 +23,9 @@ public class TrieTest {    public static void main(String[] args) {
     arbol_hijo4.setDato('e');
     arbol_hijo5.setDato('b');
     arbol_hijo6.setDato('f');
-    arbol_hijo6.setDato('g');
+    arbol_hijo7.setDato('g');
+    arbol_hijo8.setDato('h');
+
 
 
 
@@ -33,6 +37,8 @@ public class TrieTest {    public static void main(String[] args) {
     arbol_hijo1.agregarHijo(arbol_hijo4);
     arbol_hijo2.agregarHijo(arbol_hijo6);
     arbol_hijo2.agregarHijo(arbol_hijo7);
+    arbol_hijo7.agregarHijo(arbol_hijo8);
+
 
 
 
@@ -47,12 +53,15 @@ public class TrieTest {    public static void main(String[] args) {
     // c  -> d -> e-> null
     // /
     // f -> g
+    //     /
+    //    h
 
     // trie1.agregarPalabra("aateo");//falla caundo el dato (que no es el 1ro de la palabra) no se encuentra en el nivel, y el nivel no está vacío
     // arbol_raiz.imprimirNiveles();
 
     ListaGenerica<ListaGenerica<Character>> lista_palabras = new ListaGenericaEnlazada<ListaGenerica<Character>>();
-    lista_palabras=trie1.palabrasQueEmpiezanCon("a");
+    lista_palabras=trie1.palabrasQueEmpiezanCon("acg");//pierde todos los caraqcteres del prefijo excepto el último
+
     System.out.println(lista_palabras.toString());
 
 //    ListaGenerica<ListaGenerica<Character>> prueba = new ListaGenericaEnlazada<ListaGenerica<Character>>();
