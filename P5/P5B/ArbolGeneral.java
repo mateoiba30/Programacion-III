@@ -310,15 +310,16 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 		ListaGenerica<ArbolGeneral<T>> hijos =new ListaGenericaEnlazada<ArbolGeneral<T>>();
 
 		if(this.esHoja()){//caso base que sea hoja
-            lista_caminos.agregarFinal(camino_act);//guardo el camino actual
+            lista_caminos.agregarFinal(camino_act.copiar());//guardo el camino actual en una nueva lista
 			return;
 		}
 		else{
 			hijos=this.getHijos();
 			int reps=hijos.tamanio();
             for(int i=0; i<reps; i++){
-                camino_act.agregarFinal(hijos.elemento(i).getDato());
-                hijos.elemento(i).todosLosCaminosRec(camino_act, lista_caminos);
+				ListaGenerica<T> nuevo_camino = camino_act.copiar();
+                nuevo_camino.agregarFinal(hijos.elemento(i).getDato());//mando una nueva lista
+                hijos.elemento(i).todosLosCaminosRec(nuevo_camino, lista_caminos);
             }
 		}//hago un while o for que recorro la lista de hijos para hacerlo con el arbol general
 

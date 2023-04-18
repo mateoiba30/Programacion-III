@@ -91,4 +91,5 @@ public abstract class ListaGenerica<Tipo> {
 	 * */
 	public abstract int tamanio();
 
+	public abstract ListaGenerica<Tipo> copiar();
 }

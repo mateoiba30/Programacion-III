@@ -203,4 +203,16 @@ public class ListaGenericaEnlazada<T> extends ListaGenerica<T> {
 		}
 			
 	}
+
+	public ListaGenerica<T> copiar() {
+		ListaGenerica<T> nueva_lista = new ListaGenericaEnlazada<T>();
+	
+		NodoGenerico<T> actual = this.inicio;
+		while (actual != null) {
+			nueva_lista.agregarFinal(actual.getDato());
+			actual = actual.getSiguiente();
+		}
+	
+		return nueva_lista;
+	}
 }

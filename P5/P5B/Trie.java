@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class Trie extends ArbolGeneral<Character>{
 
     private ArbolGeneral<Character> arbol;// lo más sencillo es hacer un dato del tipo arbolgral de char
@@ -13,16 +16,20 @@ public class Trie extends ArbolGeneral<Character>{
     
     public ListaGenerica<StringBuilder> palabrasQueEmpiezanCon(String prefijo){
 
-        ListaGenerica<ListaGenerica<Character>> lista_caminos = new ListaGenericaEnlazada<ListaGenerica<Character>>();
-        ListaGenerica<StringBuilder> lista_palabras= new ListaGenericaEnlazada<StringBuilder>();
-        palabrasQueEmpiezanConRecursivo(this.arbol, 0, prefijo,  prefijo.length());
-        
+        ListaGenerica<StringBuilder> lista_palabras = new ListaGenericaEnlazada<StringBuilder>();
+        ListaGenerica<ListaGenerica<Character>> lista_caminos= new ListaGenericaEnlazada<ListaGenerica<Character>>();
+
+        lista_caminos=palabrasQueEmpiezanConRecursivo(this.arbol, 0, prefijo,  prefijo.length());
+        // System.out.println(lista_caminos.toString());
+
         int reps = lista_caminos.tamanio();
         for(int i=0; i<reps; i++){
             int caracts= lista_caminos.proximo().tamanio(); 
+            StringBuilder palabra=new StringBuilder("");
             for(int j=0; j<caracts; j++){
-                lista_palabras.elemento(i).append(lista_caminos.elemento(j));
+                palabra.append(lista_caminos.elemento(i).elemento(j));
             }
+            lista_palabras.elemento(i).append(palabra);
         }
 
         return lista_palabras;
@@ -37,26 +44,27 @@ public class Trie extends ArbolGeneral<Character>{
 
         if(pos_act>=long_palabra){//encontre todos los prefijos, debo mandar todas las palabras
             lista_caminos=nodo_act.todosLosCaminos();
-            return lista_caminos;
         }
+        else{
+            char_act=palabra.charAt(pos_act);//veo caracter actual
+            hijos=nodo_act.getHijos();//lista de hijos
+            tamanio=hijos.tamanio();//uso el tamanio para no llegar a null
 
-        char_act=palabra.charAt(pos_act);//veo caracter actual
-        hijos=nodo_act.getHijos();//lista de hijos
-        tamanio=hijos.tamanio();//uso el tamanio para no llegar a null
+            hijos.comenzar();
+            while(i<tamanio && hijos.elemento(i).getDato() != char_act)//cada vez que quiero ver un dato en una lista, primero ver que no sea null o asegurar me de no pasarme del tamanio
+                i++;
 
-        hijos.comenzar();
-        while(i<tamanio && hijos.elemento(i).getDato() != char_act)//cada vez que quiero ver un dato en una lista, primero ver que no sea null o asegurar me de no pasarme del tamanio
-            i++;
+            if(i<tamanio){//encontre, debo seguir
+                nodo_act=hijos.elemento(i);//encontre, me quedo con ese padre y sigo terminando el prefijo
+            }
+            else
+                return lista_caminos;//si no encuentro el prefijo me vuelvo
 
-        if(i<tamanio){//encontre, debo seguir
-            nodo_act=hijos.elemento(i);//encontre, me quedo con ese padre y sigo terminando el prefijo
+            pos_act++;//avanzo de caracter
+            palabrasQueEmpiezanConRecursivo(nodo_act, pos_act, palabra, long_palabra);
         }
-        else
-            return lista_caminos;//si no encuentro el prefijo me vuelvo
-
-        pos_act++;//avanzo de caracter
-        palabrasQueEmpiezanConRecursivo(nodo_act, pos_act, palabra, long_palabra);
-        return lista_caminos;//sacar?
+        
+    return lista_caminos;
     }
 
     public void agregarPalabra(String palabra){
