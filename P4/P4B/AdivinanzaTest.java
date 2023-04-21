@@ -17,7 +17,7 @@ public class AdivinanzaTest {
 
         // lista_max=ad.secuenciaConMasPreguntas(arbolBinarioA);
 		// System.out.println("secuencia mas larga: "+lista_max.toString());
-		lista_secuencias=ad.secuenciaConMasPreguntas2(arbolBinarioA);
+		lista_secuencias=ad.secuenciaConMasPreguntasVersion2(arbolBinarioA);
 		 System.out.println("listas de recorridos de las hojas mas lejanas: \n"+lista_secuencias);
     }
 }

@@ -217,6 +217,7 @@ public class ListaDeEnterosEnlazada extends ListaDeEnteros {
 		
 	}
 	
+//recibe una lista desordenada, devuelve una ordenada (iterativo)
 public ListaDeEnterosEnlazada combinarOrdenado (ListaDeEnterosEnlazada lista_ordenada) {
 	//esta la lista con la que llamo la subrutina, la lista recibida y devuelo una nueva con ambos elementos de manera ordenada
 	//en el peor de los casos, el combinar 2 listas ordenadas de tamaño N y M nos hace recorrer la siguiente candidad de nodos: N + M 
@@ -266,6 +267,7 @@ public ListaDeEnterosEnlazada combinarOrdenado (ListaDeEnterosEnlazada lista_ord
 	return lista_nueva;
 }
 
+//recibo 2 listas y las ordeno en 1 (iterativo)
 public void combinar(ListaDeEnterosEnlazada lista_combinada, ListaDeEnterosEnlazada lista_izq, ListaDeEnterosEnlazada lista_der) {
 	//escribo dos listas de las cuales desconosco el tamaño y voy eligiendo elemento por elemento para copmbinarlas en una nueva lista
 	//hay dos opciones: ambas listas con igual cantidad de elementos /opcion 2: la lista der tiene un elemento mas
@@ -286,6 +288,8 @@ public void combinar(ListaDeEnterosEnlazada lista_combinada, ListaDeEnterosEnlaz
 		lista_combinada.agregarFinal(lista_der.proximo());	
 	
 }
+
+//tengo 1 lista y la ordeno en una nueva lista (recursivo)
 public ListaDeEnterosEnlazada mergeSort(){//metodo recursivo, dividiendo, para ordenar la lista
 	int longitud;
 	longitud=this.tamanio;

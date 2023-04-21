@@ -36,7 +36,7 @@ public class Trie extends ArbolGeneral<Character>{
 
         int reps=lista_caminos.tamanio();
         for(int i=0; i<reps; i++){
-            for(int j=longitud; j>=0; j--)
+            for(int j=longitud; j>=0; j--)//cargo en revrsa poniendo el caracter del rpefijo en ala palabra
                 lista_caminos.elemento(i).agregarInicio(prefijo.charAt(j));
         }
 

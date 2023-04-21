@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class Programa_Tablet { //vamos a probar de agregar los valor por teclado aunque diga que sea agregar manual
     public static void main(String[] args){
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
 
 
         String marca,OS,modelo;
@@ -14,15 +14,15 @@ public class Programa_Tablet { //vamos a probar de agregar los valor por teclado
        int i;
        for (i=0;i<3;i++){
            System.out.println("Ingrese la marca: ");
-           marca= scanner.next();
+           marca= in.next();
            System.out.println("Ingrese el OS: ");
-           OS= scanner.next();
+           OS= in.next();
            System.out.println("Ingrese el modelo: ");
-           modelo= scanner.next();
+           modelo= in.next();
            System.out.println("Ingrese el monto: ");
-           costo= scanner.nextDouble();
+           costo= in.nextDouble();
            System.out.println("Ingrese pulgadas: ");
-           pulgadas= scanner.nextFloat();
+           pulgadas= in.nextFloat();
            System.out.println("Carga de este dispositivo finalizada. ");
            Tablet tablet_= new Tablet(marca,modelo,OS,costo,pulgadas);
            tablet[i]=tablet_;
@@ -30,6 +30,6 @@ public class Programa_Tablet { //vamos a probar de agregar los valor por teclado
        for (i=0;i<3;i++){
            tablet[i].devolverDatos();
        }
-        scanner.close();
+       in.close();
     }
 }

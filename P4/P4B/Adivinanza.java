@@ -211,6 +211,8 @@ public class Adivinanza {
       return res;//devuelve res que tiene tanto a der como izq
     }
   }
+
+  //la que yo hice, mi favorita
         public ListaGenericaEnlazada<ListaGenericaEnlazada<String>> secuenciaConMasPreguntasVersion2(ArbolBinario<String> abinario){
             ListaGenericaEnlazada<ListaGenericaEnlazada<String>> lista_secuencias = new ListaGenericaEnlazada<ListaGenericaEnlazada<String>>();
             ListaGenericaEnlazada<String> lista_hojas = new ListaGenericaEnlazada<String>();
