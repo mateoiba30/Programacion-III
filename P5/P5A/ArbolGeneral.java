@@ -226,7 +226,8 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 				}
 				ancho_act--;//le saco de cuando contó el null
 			//	System.out.println("ancho actual: "+ancho_act);
-				cola.encolar(null);//cambio de nivel
+				if(cola.esVacia())
+					cola.encolar(null);//cambio de nivel
 				if(ancho_act>=ancho_max)
 					ancho_max=ancho_act;
 			}
