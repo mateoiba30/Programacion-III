@@ -105,17 +105,18 @@ public class Trie extends ArbolGeneral<Character>{
             ArbolGeneral<Character> nuevo_nodo = new ArbolGeneral<Character>();//o le pongo Trie que es lo mismo
             nuevo_nodo.setDato(char_act);//agergo caracter porque no estaba
             hijos.agregarEn(nuevo_nodo, i);//si en hijos no está, en hijos agrego
-            nodo_act=nuevo_nodo;//actualizo el nodo padre
+            // nodo_act=nuevo_nodo;//actualizo el nodo padre
         }
         else
             if(i==tamanio){//si qued'e a final no ingreso en la pos i, porque i es igual al tamanio, pero esa última pos es tamanio-1
                 ArbolGeneral<Character> nuevo_nodo = new ArbolGeneral<Character>();//o le pongo Trie que es lo mismo
                 nuevo_nodo.setDato(char_act);//agergo caracter porque no estaba
                 hijos.agregarFinal(nuevo_nodo);//si en hijos no está, en hijos agrego
-                nodo_act=nuevo_nodo;//actualizo el nodo padre   
+                // nodo_act=nuevo_nodo;//actualizo el nodo padre   
             }
 
             nodo_act=hijos.elemento(i);//encontre, me quedo con ese padre
+            //si me había pasado del tamanio, ahora la i es el últmo
 
         pos_act++;//avanzo de caracter
         agregarPalabraRecursivo(nodo_act, pos_act, palabra, long_palabra);

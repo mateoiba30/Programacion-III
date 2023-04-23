@@ -19,12 +19,13 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 	//ArbolGeneral() inicializa con la raíz null
 
 	public ArbolGeneral(){
-
+		this.dato = null;
+		this.hijos = new ListaGenericaEnlazada<ArbolGeneral<T>>(); //no necesario porque por defecto ya queda en null
 	}
 
 	public ArbolGeneral(T dato) {//le llega la raíz
 		this.dato = dato;
-		this.hijos = new ListaGenericaEnlazada<ArbolGeneral<T>>();
+		// this.hijos = new ListaGenericaEnlazada<ArbolGeneral<T>>(); no necesario porque por defecto ya queda en null
 	}
 
 	public ArbolGeneral(T dato, ListaGenerica<ArbolGeneral<T>> hijos) {//lista de
@@ -66,10 +67,7 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 		}
 	}
 	
-	public ListaGenericaEnlazada<T> preOrden() {
-		return null;
-	}
-
+	//POR NIVELES
 	public int altura() {
 	    ColaGenerica<ArbolGeneral<T>> cola= new ColaGenerica<ArbolGeneral<T>>();
 		ArbolGeneral<T> arbol_aux;
@@ -89,7 +87,8 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 				while (!hijos.fin()) {
 					cola.encolar(hijos.proximo());//voy encolando los hijos del actual
 				}
-				niveles++;//aumento al cambiar de lista
+				if(!this.esVacio())
+					niveles++;//aumento al cambiar de lista
 
 			}
 		}
@@ -334,4 +333,103 @@ public class ArbolGeneral<T> {//arbol con lista de hijos, cant de hijos indefini
 
 }
 
+//RECURSIVO=EN PROFUNDIDAD en preOrden
+public ListaGenerica<T> frontera(){
+	ListaGenerica<T> listaFrontera = new ListaGenericaEnlazada<T>();
+	if(!this.esVacio())
+		this.fronteraRecursiva(listaFrontera);
+	return listaFrontera;
 }
+
+private void fronteraRecursiva(ListaGenerica<T> lista){
+	if(this.esHoja())
+		lista.agregarFinal(this.getDato());//analizo raiz
+	else{
+		ListaGenerica<ArbolGeneral<T>> lHijos = this.getHijos();
+		lHijos.comenzar();
+		while (!lHijos.fin()){//mando a recursion hijos
+			lHijos.proximo().fronteraRecursiva(lista);
+		}
+	}
+}
+
+//altura recursiva
+public Integer alturaRec(){
+	if(this!=null){//= !this.esVacio()
+		if(this.esHoja())
+			return 0;
+		else{
+			ListaGenerica<ArbolGeneral<T>> hijos = this.getHijos();
+			ArbolGeneral<T> unHijo = null;
+			int maximo =0;
+			int altCalc=0;
+			hijos.comenzar();
+			while(!hijos.fin()){
+				unHijo=hijos.proximo();
+				altCalc=unHijo.alturaRec();
+				if(maximo<altCalc)
+					maximo=altCalc;
+			}
+			return 1 +maximo;
+		}
+
+	}
+	return 0;
+}
+
+
+public void preOrden(ListaGenerica<T> lista){
+	// if(this!=null) // no necesario preguntar, de última guarda null, pero no carga hijos porque no tiene
+		lista.agregarFinal(this.getDato());
+	if(!this.esHoja()){
+		ListaGenerica<ArbolGeneral<T>> lHijos = this.getHijos();
+		lHijos.comenzar();
+		while (!lHijos.fin()){//mando a recursion hijos
+			lHijos.proximo().preOrden(lista);
+		}
+	}
+}
+
+public void preOrden2(){
+	if(this==null)
+		return;
+	if(this.dato!=null)
+		System.out.println(this.dato);
+	int reps = this.hijos.tamanio();
+	for(int i=0; i<reps; i++)
+		this.hijos.elemento(i).preOrden2();
+}
+
+public void postOrden(ListaGenerica<T> lista){
+	// if(this!=null) // no necesario preguntar, de última guarda null, pero no carga hijos porque no tiene
+	if(!this.esHoja()){
+		ListaGenerica<ArbolGeneral<T>> lHijos = this.getHijos();
+		lHijos.comenzar();
+		while (!lHijos.fin()){//mando a recursion hijos
+			lHijos.proximo().postOrden(lista);
+		}
+	}
+	lista.agregarFinal(this.getDato());
+
+}
+
+public void inOrden(ListaGenerica<T> lista){
+	// if(this!=null) // no necesario preguntar, de última guarda null, pero no carga hijos porque no tiene
+		ListaGenerica<ArbolGeneral<T>> lHijos = this.getHijos();
+		lHijos.comenzar();
+		if(!this.esHoja())
+			lHijos.proximo().inOrden(lista);
+	
+		lista.agregarFinal(this.getDato());
+
+		if(!this.esHoja())
+			while (!lHijos.fin()){//mando a recursion hijos
+				lHijos.proximo().inOrden(lista);
+			}
+	
+
+}
+
+
+}
+

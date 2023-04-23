@@ -20,7 +20,7 @@ public class TrieTest {    public static void main(String[] args) {
     arbol_hijo1.setDato('a');
     arbol_hijo2.setDato('c');
     arbol_hijo3.setDato('d');
-    arbol_hijo4.setDato('e');
+    arbol_hijo4.setDato('z');
     arbol_hijo5.setDato('b');
     arbol_hijo6.setDato('f');
     arbol_hijo7.setDato('g');
@@ -50,14 +50,14 @@ public class TrieTest {    public static void main(String[] args) {
     //     /
     //   a -> b
     //  /
-    // c  -> d -> e-> null
+    // c  -> d -> z-> null
     // /
     // f -> g
     //     /
     //    h
 
-    // trie1.agregarPalabra("aateo");//falla caundo el dato (que no es el 1ro de la palabra) no se encuentra en el nivel, y el nivel no está vacío
-    // arbol_raiz.imprimirNiveles();
+    trie1.agregarPalabra("ateo");//falla caundo el dato (que no es el 1ro de la palabra) no se encuentra en el nivel, y el nivel no está vacío
+    arbol_raiz.imprimirNiveles();
 
     ListaGenerica<ListaGenerica<Character>> lista_palabras = new ListaGenericaEnlazada<ListaGenerica<Character>>();
     lista_palabras=trie1.palabrasQueEmpiezanCon("acg");//pierde todos los caraqcteres del prefijo excepto el último
@@ -69,7 +69,10 @@ public class TrieTest {    public static void main(String[] args) {
 //     int reps= prueba.tamanio();
 //     for(int i=0; i<reps; i++)
 //         System.out.println(prueba.elemento(i).toString());
- 
+
+    ColaGenerica<Integer> c=new ColaGenerica<Integer>();
+    // c.actual.getDato();
+
     in.close();
 }
     

@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class ArbolGeneralTest {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-
+        ArbolGeneral<Integer> arbol_null = new ArbolGeneral<Integer>();
         ArbolGeneral<Integer> arbol_raiz = new ArbolGeneral<Integer>();
         ArbolGeneral<Integer> arbol_hijo1 = new ArbolGeneral<Integer>();
         ArbolGeneral<Integer> arbol_hijo2 = new ArbolGeneral<Integer>();
@@ -32,7 +32,7 @@ public class ArbolGeneralTest {
         //     /
         //   2 -> 8 -> null
         //  /     / 9
-        // 4  -> 3 -> 5-> null
+        // 3  -> 4 -> 5-> null
         arbol_raiz.agregarHijo(arbol_hijo1);
         arbol_hijo1.agregarHijo(arbol_hijo2);
         arbol_hijo1.agregarHijo(arbol_hijo3);
@@ -48,12 +48,26 @@ public class ArbolGeneralTest {
         // int aux=arbol_raiz.ancho2();
         //  System.out.println("el ancho maximo del arbol "+aux);
 
-		ListaGenerica<ListaGenerica<Integer>> lista_caminos = new ListaGenericaEnlazada<ListaGenerica<Integer>>();
-        lista_caminos=arbol_raiz.todosLosCaminos();
-        int reps = lista_caminos.tamanio();
-        for(int i=0; i<reps; i++){
-            System.out.println(lista_caminos.elemento(i).toString());
-        }
+		// ListaGenerica<ListaGenerica<Integer>> lista_caminos = new ListaGenericaEnlazada<ListaGenerica<Integer>>();
+        // lista_caminos=arbol_raiz.todosLosCaminos();
+        // int reps = lista_caminos.tamanio();
+        // for(int i=0; i<reps; i++){
+        //     System.out.println(lista_caminos.elemento(i).toString());
+        // }
+
+        // ListaGenerica<Integer> lista  = new ListaGenericaEnlazada<Integer>();
+        // arbol_raiz.inOrden(lista);
+        // System.out.println(lista.toString());
+
+        // System.out.println(arbol_raiz.alturaRec());
+
+        // ArbolGeneral<Integer> arbol = new ArbolGeneral<Integer>();
+        // arbol.setDato(5);
+        // arbol.agregarHijo(arbol_hijo1);
+        // System.out.println(arbol.alturaRec());
+
+        arbol_raiz.preOrden2();
+
 
 
 
