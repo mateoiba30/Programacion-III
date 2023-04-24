@@ -23,6 +23,8 @@ public class ZigZagTest {
         resultado=cod.descifrarCodigo(arbolBinarioA, secuencias);
         System.out.println(resultado.toString());
 
+        cod.ImprimirLetrasOrdenadas(arbolBinarioA);
+
     }
     
 }

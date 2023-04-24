@@ -19,4 +19,16 @@ public class CodigoZigZag {
         }
         return respuesta;
     }
+
+    public void ImprimirLetrasOrdenadas(ArbolBinario<Character> arbol){
+        if(arbol==null)
+            return;
+        
+        if(arbol.esHoja())
+            System.out.print(arbol.getDato()+"->");
+
+        ImprimirLetrasOrdenadas(arbol.getHijoIzquierdo());
+        ImprimirLetrasOrdenadas(arbol.getHijoDerecho());
+        
+    }
 }
