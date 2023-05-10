@@ -12,9 +12,9 @@ public class procesadorTest {
 		arbolBinarioB.agregarHijoIzquierdo(hijoIzquierdoB);
 		arbolBinarioB.agregarHijoDerecho(hijoDerechoB);
 
-        // ProcesadorDeArbol p =new ProcesadorDeArbol();
-        // p.setArbol(arbolBinarioB);
-        // System.out.println(p.procesar2(1));
+        ProcesadorDeArbol p =new ProcesadorDeArbol();
+        p.setArbol(arbolBinarioB);
+        System.out.println(p.procesar3(1));
         // arbol_null=arbolBinarioB;
         // arbol_null.getHijoDerecho().setDato('x');
         // arbolBinarioB.printInorden();
@@ -29,11 +29,11 @@ public class procesadorTest {
 		arbolBinarioA.agregarHijoIzquierdo(hijoIzquierdo);
 		arbolBinarioA.agregarHijoDerecho(hijoDerecho);
 
-		Procesador p=new Procesador();
-		p.setArbol(arbolBinarioA);
-		ListaGenerica<ArbolBinario<Integer>> lista_arboles = new ListaGenericaEnlazada<ArbolBinario<Integer>>();
-		lista_arboles = p.procesarArbol();
-		System.out.println(lista_arboles.toString());
+		// Procesador p=new Procesador();
+		// p.setArbol(arbolBinarioA);
+		// ListaGenerica<ArbolBinario<Integer>> lista_arboles = new ListaGenericaEnlazada<ArbolBinario<Integer>>();
+		// lista_arboles = p.procesarArbol();
+		// System.out.println(lista_arboles.toString());
 
     }
 }

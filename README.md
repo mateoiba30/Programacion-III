@@ -1,15 +1,11 @@
 # Programación 3
 
 Este repositorio contiene las prácticas realizadas en la materia **Programación 3**.
+Módulo 1: herencia, listas, arboles binarios y generales, etc.
+Módulo 2: Grafos, eficiencia de ejecución, etc.
 
 ## Prácticas
 
-- [Practica 1](P1/)
-- [Practica 2](P2/)
-- [Practica 3](P3/)
-- [Practica 4](P4/)
-- [Practica 5](P5/)
+- [módulo 1](mod1%20estatico/)
 
-## Licencia
-
-Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+- [módulo 2](mod2%20dinamico/)

@@ -59,4 +59,27 @@ public class ProcesadorDeArbol {
         return cont;
         
     }
+    public int procesar3(int K){
+        return procesarRec(this.arbol, K);
+    }
+
+    private int procesarRec(ArbolBinario<Character> arbol, int K){
+        int cont=0;
+        if((arbol==null || arbol.esHoja()) && K==0)
+            return 1;
+        if(arbol==null)
+            return 0;
+        if ((arbol.tieneHijoIzquierdo() && !arbol.tieneHijoDerecho())||(!arbol.tieneHijoIzquierdo() && arbol.tieneHijoDerecho()))
+            K--;
+        
+        if(arbol.tieneHijoIzquierdo())
+            cont+=procesarRec(arbol.getHijoIzquierdo(), K);
+        if(arbol.tieneHijoDerecho())
+            cont+=procesarRec(arbol.getHijoDerecho(), K);
+        
+
+        return cont;
+
+    }
+
 }
