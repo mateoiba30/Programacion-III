@@ -8,4 +8,4 @@ Módulo 2: Grafos, eficiencia de ejecución, etc.
 
 - [módulo 1](mod1%20arboles,%20listas/)
 
-- [módulo 2](mod2%20grafos,%20Tn/)
+- [módulo 2](mod2%20grafos/)
