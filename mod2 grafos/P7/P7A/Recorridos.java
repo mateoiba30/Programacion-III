@@ -12,7 +12,7 @@ public class Recorridos<T> {
 
         for(int i=0; i<cantVertices; i++){//entra a preguntar por cada vertice
             if(verticesMarcados[i]==false){
-                System.out.println(grafo.vertice(i).dato()+"->");
+                // System.out.println(grafo.vertice(i).dato()+"->");
                 listaRecorrido.agregarFinal(grafo.vertice(i));//no olvidar de mandar el 1er elemento
                 dfs(i, grafo, verticesMarcados, listaRecorrido);
             }
@@ -36,7 +36,7 @@ public class Recorridos<T> {
             if(verticesMarcados[j]==false){
 
                 listaRecorrido.agregarFinal(grafo.vertice(j));
-                System.out.println(grafo.vertice(j).dato()+"->");
+                // System.out.println(grafo.vertice(j).dato()+"->");
                 dfs(j, grafo, verticesMarcados, listaRecorrido);
             }
         }
