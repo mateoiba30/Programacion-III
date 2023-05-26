@@ -63,9 +63,9 @@ public class Recorridos<T> {
                     Vertice<T> verticeAct=cola.desencolar();
                     int p=verticeAct.posicion();
                     // verticesMarcados[p]=true;//si marco acá me guarda 2 veces un vertice que sea destino de varios en otros niveles
-                    System.out.println(verticeAct.dato()+"->");
+                    // System.out.println(verticeAct.dato()+"->");
 
-                    listaRecorrido.agregarFinal(verticeAct);
+                    listaRecorrido.agregarFinal(verticeAct);//agregar el que desencolo, no antes de este while porque sino solo guarda el vertice de la posicion que diga el for principal
                     listaAdyacentes=grafo.listaDeAdyacentes(verticeAct);
                     listaAdyacentes.comenzar();//antes de recorrerla no olvidar pararme al inicio
                     
