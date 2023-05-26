@@ -40,7 +40,7 @@ public class Mapa {
         verticesMarcados[pos]=true;
         
         if(tamanio==0){
-            
+            //debería desmarcar los caminos?
             return;
         }
         
