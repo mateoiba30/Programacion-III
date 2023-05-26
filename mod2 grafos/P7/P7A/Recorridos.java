@@ -1,4 +1,6 @@
 public class Recorridos<T> {
+
+
     public ListaGenerica<Vertice<T>> dfs(Grafo<T> grafo){//recorrido en profundidas, recursicvo en preorden
         
         int cantVertices;
@@ -40,5 +42,46 @@ public class Recorridos<T> {
                 dfs(j, grafo, verticesMarcados, listaRecorrido);
             }
         }
+    }
+
+
+    public ListaGenerica<Vertice<T>> bfs(Grafo<T> grafo){
+
+        ListaGenerica<Arista<T>> listaAdyacentes=new ListaGenericaEnlazada<Arista<T>>();
+        ListaGenerica<Vertice<T>> listaRecorrido=new ListaGenericaEnlazada<Vertice<T>>();
+        ColaGenerica<Vertice<T>> cola = new ColaGenerica<Vertice<T>>();
+        int cantVertices;
+        cantVertices=grafo.listaDeVertices().tamanio();
+        boolean[] verticesMarcados = new boolean[cantVertices];
+
+        for(int i=0; i<cantVertices; i++){//debo chequear cada vertice por si está aislado del resto
+            if(verticesMarcados[i]==false){
+
+                cola.encolar(grafo.vertice(i));//encolo vertice de la lsita del grafo
+
+                while(!cola.esVacia()){//similar a un recorrido por niveles que visita los adyacentes y encola los destinos de los adyacentes
+                    Vertice<T> verticeAct=cola.desencolar();
+                    int p=verticeAct.posicion();
+                    // verticesMarcados[p]=true;//si marco acá me guarda 2 veces un vertice que sea destino de varios en otros niveles
+                    System.out.println(verticeAct.dato()+"->");
+
+                    listaRecorrido.agregarFinal(verticeAct);
+                    listaAdyacentes=grafo.listaDeAdyacentes(verticeAct);
+                    listaAdyacentes.comenzar();//antes de recorrerla no olvidar pararme al inicio
+                    
+                    while(!listaAdyacentes.fin()){
+                        Arista<T> aristaAct=listaAdyacentes.proximo();
+                        int pos=aristaAct.verticeDestino().posicion();
+                        if(verticesMarcados[pos]==false){
+                            verticesMarcados[pos]=true;//maracar aca para que al querer apilarlo por alguien mas (antes de leer ese verticeAct) no pueda
+                            Vertice<T> verticeApuntado =aristaAct.verticeDestino();
+                            cola.encolar(verticeApuntado);
+                        }
+                    }
+                }
+
+            }
+        }
+        return listaRecorrido;
     }
 }

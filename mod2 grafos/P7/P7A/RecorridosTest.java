@@ -27,7 +27,11 @@ public class RecorridosTest {
         ciudades.conectar(v7, v5, 0);
 
         ListaGenerica<Vertice<String>> listaDfs=new ListaGenericaEnlazada<Vertice<String>>();
+        ListaGenerica<Vertice<String>> listaBfs=new ListaGenericaEnlazada<Vertice<String>>();
+
         Recorridos<String> r=new Recorridos<String>();
-        listaDfs=r.dfs(ciudades);
+        // listaDfs=r.dfs(ciudades);
+        listaBfs=r.bfs(ciudades);
+
         }
     }
