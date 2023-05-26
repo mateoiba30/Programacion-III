@@ -16,7 +16,7 @@ public class Recorridos<T> {
             if(verticesMarcados[i]==false){
                 // System.out.println(grafo.vertice(i).dato()+"->");
                 listaRecorrido.agregarFinal(grafo.vertice(i));//no olvidar de mandar el 1er elemento
-                dfs(i, grafo, verticesMarcados, listaRecorrido);
+                dfsRec(i, grafo, verticesMarcados, listaRecorrido);
             }
         }
 
@@ -24,7 +24,7 @@ public class Recorridos<T> {
     }
 
 
-    private void dfs(int pos, Grafo<T> grafo, boolean[] verticesMarcados,ListaGenerica<Vertice<T>> listaRecorrido){
+    private void dfsRec(int pos, Grafo<T> grafo, boolean[] verticesMarcados,ListaGenerica<Vertice<T>> listaRecorrido){
         
         verticesMarcados[pos]=true;
         ListaGenerica<Arista<T>> listaAdyacentes =new ListaGenericaEnlazada<Arista<T>>();
@@ -39,7 +39,7 @@ public class Recorridos<T> {
 
                 listaRecorrido.agregarFinal(grafo.vertice(j));
                 // System.out.println(grafo.vertice(j).dato()+"->");
-                dfs(j, grafo, verticesMarcados, listaRecorrido);
+                dfsRec(j, grafo, verticesMarcados, listaRecorrido);
             }
         }
     }
@@ -61,7 +61,7 @@ public class Recorridos<T> {
 
                 while(!cola.esVacia()){//similar a un recorrido por niveles que visita los adyacentes y encola los destinos de los adyacentes
                     Vertice<T> verticeAct=cola.desencolar();
-                    int p=verticeAct.posicion();
+                    // int p=verticeAct.posicion();
                     // verticesMarcados[p]=true;//si marco acá me guarda 2 veces un vertice que sea destino de varios en otros niveles
                     // System.out.println(verticeAct.dato()+"->");
 
