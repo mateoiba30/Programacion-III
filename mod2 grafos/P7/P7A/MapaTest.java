@@ -26,6 +26,8 @@ public class MapaTest {
         ciudades.conectar(v6, v5, 1);
         ciudades.conectar(v7, v5, 0);
 
+        ciudades.conectar(v3, v1, 0);
+
         ListaGenerica<String> camino = new ListaGenericaEnlazada<String>();
         Mapa m=new Mapa();
         m.setMapa(ciudades);
