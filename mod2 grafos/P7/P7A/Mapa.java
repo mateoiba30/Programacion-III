@@ -24,34 +24,37 @@ public class Mapa {
       if (!this.mapaCiudades.esVacio()) {
         ListaGenerica<String> resultado = new ListaGenericaEnlazada<String>();
         boolean[] marca = new boolean[mapaCiudades.listaDeVertices().tamanio()];
-        for (int i = 0; i < mapaCiudades.listaDeVertices().tamanio(); i++)
+
+        for (int i = 0; i < mapaCiudades.listaDeVertices().tamanio(); i++)//no necesario, por default es todo false
           marca[i] = false;
-        int posicion = obtenerPosicion(ciudad1);
-        resultado.comenzar();
+
+        Vertice<String> vIni = obtenerVertice(ciudad1, mapaCiudades);
+        Vertice<String> vDes = obtenerVertice(ciudad2, mapaCiudades);
+
+        // resultado.comenzar();//no necesario porque no lo recorro
         ListaGenerica<String> auxiliar = new ListaGenericaEnlazada<String>();
-        devolverCaminoRecursivo(resultado, auxiliar, posicion, marca, ciudad2);
+        devolverCaminoRecursivo(resultado, auxiliar, vIni, marca, vDes);
         return resultado;
       } else
         return null;
     }
   
-    private void devolverCaminoRecursivo(ListaGenerica<String> resultado, ListaGenerica<String> auxiliar, int posicion,
-        boolean[] marca, String destino) {
+    private void devolverCaminoRecursivo(ListaGenerica<String> resultado, ListaGenerica<String> auxiliar, Vertice<String> vIni, boolean[] marca, Vertice<String> vDes) {
   
-      String ciudadActual = mapaCiudades.vertice(posicion).dato();
-      marca[posicion] = true;
+      String ciudadActual = vIni.dato();
+      marca[vIni.posicion()] = true;
       auxiliar.agregarFinal(ciudadActual);
   
-      if (ciudadActual == destino) {
+      if (ciudadActual.equals(vDes.dato())) {//usar equals, no ==
         copiarLista(resultado, auxiliar);
         return;
       }
   
-      ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(mapaCiudades.vertice(posicion));
-      while ((!adyacentes.fin()) && (resultado.esVacia())) {
+      ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(vIni);//no las declaro antes para no declarar al pedo
+      while ((!adyacentes.fin()) && (resultado.esVacia())) {//mejor un while que un for, me aseguro de estar preguntando con el vertice que quiero
         Arista<String> actual = adyacentes.proximo();
         if (!marca[actual.verticeDestino().posicion()])
-          devolverCaminoRecursivo(resultado, auxiliar, actual.verticeDestino().posicion(), marca, destino);
+          devolverCaminoRecursivo(resultado, auxiliar, actual.verticeDestino(), marca, vDes);
       }
     }
   
@@ -64,16 +67,17 @@ public class Mapa {
     }
   
     // encuentra el nodo que contiene a ciudad1
-    private int obtenerPosicion(String ciudad1) {
-      int i;
+    private Vertice<String> obtenerVertice(String ciudad1, Grafo<String> grafo) {//conviene pasar el grafo y no usar la variable de la clase
       Vertice<String> verticeActual = null;
-      ListaGenerica<Vertice<String>> vertices = this.mapaCiudades.listaDeVertices();
-      for (i = 0; i < vertices.tamanio() - 1; i++) {
+      ListaGenerica<Vertice<String>> vertices = grafo.listaDeVertices();
+      int i=0, reps=vertices.tamanio() - 1;
+
+      verticeActual = vertices.elemento(i);
+      while(i<reps && !verticeActual.dato().equals(ciudad1)){
+        i++;
         verticeActual = vertices.elemento(i);
-        if (verticeActual.dato() == ciudad1)
-          break;
       }
-      return verticeActual.posicion();
+      return verticeActual;
     }
 
   }

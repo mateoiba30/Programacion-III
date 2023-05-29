@@ -34,6 +34,8 @@ public class VerticeImplMatrizAdy<T> implements Vertice<T> {
 	}
 
 	
-	
+	public ListaGenerica<Arista<T>> obtenerAdyacentes(){
+		return null;
+	}
 
 }
