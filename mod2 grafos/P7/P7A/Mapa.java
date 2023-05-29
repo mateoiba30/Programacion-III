@@ -31,9 +31,7 @@ public class Mapa {
             Vertice<String> vIni = obtenerVertice(ciudad1, mapaCiudades);
             Vertice<String> vDes = obtenerVertice(ciudad2, mapaCiudades);
 
-            // resultado.comenzar();//no necesario porque no lo recorro
-            ListaGenerica<String> auxiliar = new ListaGenericaEnlazada<String>();
-            devolverCaminoRecursivo(resultado, auxiliar, vIni, marca, vDes);
+            devolverCaminoRecursivo(resultado, vIni, marca, vDes);
 
             if (!resultado.elemento(resultado.tamanio()-1).equals(ciudad2))
                 resultado= null;
@@ -43,32 +41,26 @@ public class Mapa {
 
     }
   
-    private void devolverCaminoRecursivo(ListaGenerica<String> resultado, ListaGenerica<String> auxiliar, Vertice<String> vIni, boolean[] marca, Vertice<String> vDes) {
+    private void devolverCaminoRecursivo(ListaGenerica<String> resultado, Vertice<String> vIni, boolean[] marca, Vertice<String> vDes) {
   
         String ciudadActual = vIni.dato();
-        marca[vIni.posicion()] = true;
-        auxiliar.agregarFinal(ciudadActual);
+        marca[vIni.posicion()] = true;//marco y nunca desenmarco, ya que si no pude llegar a destino en resurción con este vertice ya queda descartado
 
         if (ciudadActual.equals(vDes.dato())) {//usar equals, no ==
-            copiarLista(resultado, auxiliar);
+            resultado.agregarInicio(ciudadActual);
         }
         else{
             ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(vIni);//no las declaro antes para no declarar al pedo
             while ((!adyacentes.fin()) && (resultado.esVacia())) {//mejor un while que un for, me aseguro de estar preguntando con el vertice que quiero
                 Arista<String> actual = adyacentes.proximo();
                 if (!marca[actual.verticeDestino().posicion()])
-                    devolverCaminoRecursivo(resultado, auxiliar, actual.verticeDestino(), marca, vDes);
+                    devolverCaminoRecursivo(resultado, actual.verticeDestino(), marca, vDes);
+                if(!resultado.esVacia())
+                    resultado.agregarInicio(ciudadActual);
             }
         }
     }
   
-    private void copiarLista(ListaGenerica<String> resultado, ListaGenerica<String> auxiliar) {
-      while (!resultado.esVacia())
-        resultado.eliminarEn(0);
-      auxiliar.comenzar();
-      while (!auxiliar.fin())
-        resultado.agregarFinal(auxiliar.proximo());
-    }
   
     // encuentra el nodo que contiene a ciudad1
     private Vertice<String> obtenerVertice(String ciudad1, Grafo<String> grafo) {//conviene pasar el grafo y no usar la variable de la clase
