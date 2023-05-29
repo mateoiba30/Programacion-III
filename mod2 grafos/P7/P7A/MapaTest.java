@@ -30,7 +30,8 @@ public class MapaTest {
         Mapa m=new Mapa();
         m.setMapa(ciudades);
         camino=m.devolverCamino("Buenos Aires", "Lima");
-        System.out.println("camino: "+camino.toString());
+        if(camino!=null)
+            System.out.println("camino: "+camino.toString());
 
     }
 }
