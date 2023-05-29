@@ -1,66 +1,79 @@
 public class Mapa {
 
     private Grafo<String> mapaCiudades;
-
-    public void setMapa(Grafo<String> mapaCiudades){
-        this.mapaCiudades=mapaCiudades;
+  
+    public Grafo<String> getMapaCiudades() {
+      return mapaCiudades;
+    }
+  
+    public void setMapa(Grafo<String> mapaCiudades) {
+      this.mapaCiudades = mapaCiudades;
+    }
+  
+    public Mapa(Grafo<String> ciudades) {
+      this.mapaCiudades = ciudades;
     }
 
-    public ListaGenerica<String> devolverCamino(String ciudad1, String ciudad2){
-        ListaGenerica<String> camino = new ListaGenericaEnlazada<String>();
-        int cantVertices;
-        cantVertices=mapaCiudades.listaDeVertices().tamanio();
-        boolean[] verticesMarcados = new boolean[cantVertices];
-        for(int i=0; i<cantVertices; i++)
-            verticesMarcados[i]=false;
-
-        int pos1=0;
-        while( mapaCiudades.vertice(pos1).dato().equals(ciudad1) )//obtengo posicion de la ciudad1
-            pos1++;
-        pos1--;//la pos es un numero menos
-
-        // ListaGenerica<Arista<String>> listaAdyacentes =new ListaGenericaEnlazada<Arista<String>>();
-        // listaAdyacentes=mapaCiudades.listaDeAdyacentes(mapaCiudades.vertice(pos1));
-        // int tamanio=listaAdyacentes.tamanio();
-        // System.out.println("Adeyacentes de "+mapaCiudades.vertice(pos1).dato());
-        // for(int j=0; j<tamanio; j++){
-        //     System.out.println(listaAdyacentes.elemento(j).verticeDestino().dato());
-        // }
-
-        devolverCaminoRec(camino, pos1, ciudad2, verticesMarcados);
-        
-        return camino;
-    }
-
-    private void devolverCaminoRec(ListaGenerica<String> camino, int pos, String destino, boolean[] verticesMarcados){
-        ListaGenerica<Arista<String>> listaAdyacentes =new ListaGenericaEnlazada<Arista<String>>();
-        listaAdyacentes=mapaCiudades.listaDeAdyacentes(mapaCiudades.vertice(pos));
-        int i, tamanio=listaAdyacentes.tamanio();
-        listaAdyacentes.comenzar();
-        verticesMarcados[pos]=true;
-        
-        if(tamanio==0){
-            //debería desmarcar los caminos?
-            return;
-        }
-        
-        if(mapaCiudades.vertice(pos).dato().equals(destino)){
-            camino.agregarFinal(mapaCiudades.vertice(pos).dato());
-            return;
-        }
-
-        i=0;
-        while(i<tamanio && camino.esVacia()){
-            if(verticesMarcados[i]==false)
-                devolverCaminoRec(camino, listaAdyacentes.elemento(i).verticeDestino().posicion(), destino, verticesMarcados );
-            if(!camino.esVacia()){
-                camino.agregarFinal(listaAdyacentes.elemento(i).verticeDestino().dato());
-            }
-            i++;
-        }
-
+    public Mapa(){
 
     }
-    
-    
-}
+  
+    // variacion de recorrido BFS que retorna el camino de ciudad1 a ciudad2
+    // en forma de lista enlazada
+    public ListaGenerica<String> devolverCamino(String ciudad1, String ciudad2) {
+      if (!this.mapaCiudades.esVacio()) {
+        ListaGenerica<String> resultado = new ListaGenericaEnlazada<String>();
+        boolean[] marca = new boolean[mapaCiudades.listaDeVertices().tamanio()];
+        for (int i = 0; i < mapaCiudades.listaDeVertices().tamanio(); i++)
+          marca[i] = false;
+        int posicion = obtenerPosicion(ciudad1);
+        resultado.comenzar();
+        ListaGenerica<String> auxiliar = new ListaGenericaEnlazada<String>();
+        devolverCaminoRecursivo(resultado, auxiliar, posicion, marca, ciudad2);
+        return resultado;
+      } else
+        return null;
+    }
+  
+    private void devolverCaminoRecursivo(ListaGenerica<String> resultado, ListaGenerica<String> auxiliar, int posicion,
+        boolean[] marca, String destino) {
+  
+      String ciudadActual = mapaCiudades.vertice(posicion).dato();
+      marca[posicion] = true;
+      auxiliar.agregarFinal(ciudadActual);
+  
+      if (ciudadActual == destino) {
+        copiarLista(resultado, auxiliar);
+        return;
+      }
+  
+      ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(mapaCiudades.vertice(posicion));
+      while ((!adyacentes.fin()) && (resultado.esVacia())) {
+        Arista<String> actual = adyacentes.proximo();
+        if (!marca[actual.verticeDestino().posicion()])
+          devolverCaminoRecursivo(resultado, auxiliar, actual.verticeDestino().posicion(), marca, destino);
+      }
+    }
+  
+    private void copiarLista(ListaGenerica<String> resultado, ListaGenerica<String> auxiliar) {
+      while (!resultado.esVacia())
+        resultado.eliminarEn(0);
+      auxiliar.comenzar();
+      while (!auxiliar.fin())
+        resultado.agregarFinal(auxiliar.proximo());
+    }
+  
+    // encuentra el nodo que contiene a ciudad1
+    private int obtenerPosicion(String ciudad1) {
+      int i;
+      Vertice<String> verticeActual = null;
+      ListaGenerica<Vertice<String>> vertices = this.mapaCiudades.listaDeVertices();
+      for (i = 0; i < vertices.tamanio() - 1; i++) {
+        verticeActual = vertices.elemento(i);
+        if (verticeActual.dato() == ciudad1)
+          break;
+      }
+      return verticeActual.posicion();
+    }
+
+  }
