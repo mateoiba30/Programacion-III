@@ -21,41 +21,45 @@ public class Mapa {
     // variacion de recorrido BFS que retorna el camino de ciudad1 a ciudad2
     // en forma de lista enlazada
     public ListaGenerica<String> devolverCamino(String ciudad1, String ciudad2) {
-      if (!this.mapaCiudades.esVacio()) {
+        boolean encontre=false;
         ListaGenerica<String> resultado = new ListaGenericaEnlazada<String>();
         boolean[] marca = new boolean[mapaCiudades.listaDeVertices().tamanio()];
-
+        
         for (int i = 0; i < mapaCiudades.listaDeVertices().tamanio(); i++)//no necesario, por default es todo false
-          marca[i] = false;
+        marca[i] = false;
 
         Vertice<String> vIni = obtenerVertice(ciudad1, mapaCiudades);
         Vertice<String> vDes = obtenerVertice(ciudad2, mapaCiudades);
 
         // resultado.comenzar();//no necesario porque no lo recorro
         ListaGenerica<String> auxiliar = new ListaGenericaEnlazada<String>();
-        devolverCaminoRecursivo(resultado, auxiliar, vIni, marca, vDes);
+        devolverCaminoRecursivo(encontre, resultado, auxiliar, vIni, marca, vDes);
+
+        if (encontre ==false)
+            resultado= null;
+
         return resultado;
-      } else
-        return null;
+
     }
   
-    private void devolverCaminoRecursivo(ListaGenerica<String> resultado, ListaGenerica<String> auxiliar, Vertice<String> vIni, boolean[] marca, Vertice<String> vDes) {
+    private void devolverCaminoRecursivo(boolean encontre, ListaGenerica<String> resultado, ListaGenerica<String> auxiliar, Vertice<String> vIni, boolean[] marca, Vertice<String> vDes) {
   
-      String ciudadActual = vIni.dato();
-      marca[vIni.posicion()] = true;
-      auxiliar.agregarFinal(ciudadActual);
-  
-      if (ciudadActual.equals(vDes.dato())) {//usar equals, no ==
-        copiarLista(resultado, auxiliar);
-        return;
-      }
-  
-      ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(vIni);//no las declaro antes para no declarar al pedo
-      while ((!adyacentes.fin()) && (resultado.esVacia())) {//mejor un while que un for, me aseguro de estar preguntando con el vertice que quiero
-        Arista<String> actual = adyacentes.proximo();
-        if (!marca[actual.verticeDestino().posicion()])
-          devolverCaminoRecursivo(resultado, auxiliar, actual.verticeDestino(), marca, vDes);
-      }
+        String ciudadActual = vIni.dato();
+        marca[vIni.posicion()] = true;
+        auxiliar.agregarFinal(ciudadActual);
+
+        if (ciudadActual.equals(vDes.dato())) {//usar equals, no ==
+            encontre=true;
+            copiarLista(resultado, auxiliar);
+        }
+        else{
+            ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(vIni);//no las declaro antes para no declarar al pedo
+            while ((!adyacentes.fin()) && (resultado.esVacia())) {//mejor un while que un for, me aseguro de estar preguntando con el vertice que quiero
+                Arista<String> actual = adyacentes.proximo();
+                if (!marca[actual.verticeDestino().posicion()])
+                    devolverCaminoRecursivo(encontre, resultado, auxiliar, actual.verticeDestino(), marca, vDes);
+            }
+        }
     }
   
     private void copiarLista(ListaGenerica<String> resultado, ListaGenerica<String> auxiliar) {
@@ -71,11 +75,12 @@ public class Mapa {
       Vertice<String> verticeActual = null;
       ListaGenerica<Vertice<String>> vertices = grafo.listaDeVertices();
       int i=0, reps=vertices.tamanio() - 1;
-
+      
       verticeActual = vertices.elemento(i);
       while(i<reps && !verticeActual.dato().equals(ciudad1)){
         i++;
         verticeActual = vertices.elemento(i);
+
       }
       return verticeActual;
     }
