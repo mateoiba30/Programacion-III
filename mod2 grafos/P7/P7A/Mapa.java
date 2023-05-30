@@ -41,12 +41,9 @@ public class Mapa {
             Vertice<String> vDes = obtenerVertice(ciudad2, mapaCiudades);
 
             devolverCaminoRecursivo(mapaCiudades, resultado, vIni, marca, vDes);
-
-            // if (!resultado.elemento(resultado.tamanio()-1).equals(ciudad2))
-            //     resultado= null;
-            // return resultado;
         }
-        if(resultado.elemento(resultado.tamanio()-1).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
+        int j=resultado.tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
+        if(j>=0 && resultado.elemento(j).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
           return resultado;
         else
           return null;
@@ -98,7 +95,10 @@ public class Mapa {
             ciudadesExc.comenzar();
             devolverCaminoExceptuandoRecursivo(mapaCiudades, resultado, vIni, marca, vDes, ciudadesExc);
         }
-        if(resultado.elemento(resultado.tamanio()-1).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
+
+        //porque preguntar por j>=0 no es lo mismo que preguntar si es null?
+        int j=resultado.tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
+        if(/*resultado!=null*/j>=0 && resultado.elemento(j).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
           return resultado;
         else
           return null;
@@ -146,7 +146,8 @@ public class Mapa {
       }
       // resultado.agregarInicio(ciudad1);//AL FINAL NO ES NECESARIO//lo hago al final, porque el valor de resultado se va actualizando con otros caminos
       
-      if(resultado.elemento(resultado.tamanio()-1).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
+      int j=resultado.tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
+      if(j>=0 && resultado.elemento(j).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
         return resultado;
       else
         return null;

@@ -34,7 +34,7 @@ public class MapaTest {
 
         Mapa m=new Mapa();
         m.setMapa(ciudades);
-        camino=m.devolverCaminoExceptuando("Buenos Aires", "New York", ciudadesExc);
+        camino=m.devolverCaminoExceptuando("Buenos Aires", "New Yoork", ciudadesExc);
         if(camino!=null)//necesario preguntar siempre que devuelva null!!
             System.out.println("camino: "+camino.toString());
 
