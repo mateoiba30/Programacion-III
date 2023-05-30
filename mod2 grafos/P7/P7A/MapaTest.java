@@ -29,11 +29,13 @@ public class MapaTest {
         ciudades.conectar(v3, v1, 0);
 
         ListaGenerica<String> camino = new ListaGenericaEnlazada<String>();
+        ListaGenerica<String> ciudadesExc = new ListaGenericaEnlazada<String>();
+        ciudadesExc.agregarFinal("Madagascar");
+
         Mapa m=new Mapa();
         m.setMapa(ciudades);
-        camino=m.devolverCamino("New York", "Limaa");
-        // if(camino!=null)
-            System.out.println("camino: "+camino.toString());
+        camino=m.devolverCaminoExceptuando("Buenos Aires", "New York", ciudadesExc);
+        System.out.println("camino: "+camino.toString());
 
     }
 }

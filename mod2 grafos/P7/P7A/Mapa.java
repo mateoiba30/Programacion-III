@@ -63,7 +63,6 @@ public class Mapa {
         }
     }
   
-  
     // encuentra el nodo que contiene a ciudad1
     private Vertice<String> obtenerVertice(String ciudad1, Grafo<String> grafo) {//conviene pasar el grafo y no usar la variable de la clase
       Vertice<String> verticeActual = null;
@@ -79,4 +78,43 @@ public class Mapa {
       return verticeActual;
     }
 
+    public ListaGenerica<String> devolverCaminoExceptuando(String ciudad1, String ciudad2, ListaGenerica<String> ciudadesExc) {
+      ListaGenerica<String> resultado = new ListaGenericaEnlazada<String>();
+
+        if (!this.mapaCiudades.esVacio()) {
+            boolean[] marca = new boolean[mapaCiudades.listaDeVertices().tamanio()];
+            Vertice<String> vIni = obtenerVertice(ciudad1, mapaCiudades);
+            Vertice<String> vDes = obtenerVertice(ciudad2, mapaCiudades);
+            ciudadesExc.comenzar();
+            devolverCaminoExceptuandoRecursivo(resultado, vIni, marca, vDes, ciudadesExc);
+        }
+        return resultado;
+    }
+
+    private void devolverCaminoExceptuandoRecursivo(ListaGenerica<String> resultado, Vertice<String> vIni, boolean[] marca, Vertice<String> vDes, ListaGenerica<String> ciudadesExc) {
+      int terminar=0;
+      ciudadesExc.comenzar();//no olvidar porque me quedo en el fin de ella
+      while(!ciudadesExc.fin() && terminar==0){
+        if(vIni.dato().equals(ciudadesExc.proximo()))
+          terminar=1;
+      }
+      if(terminar==0){
+        String ciudadActual = vIni.dato();
+        marca[vIni.posicion()] = true;//marco y nunca desenmarco, ya que si no pude llegar a destino en resurción con este vertice ya queda descartado
+
+        if (ciudadActual.equals(vDes.dato())) {//usar equals, no ==
+            resultado.agregarInicio(ciudadActual);
+        }
+        else{
+            ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(vIni);//no las declaro antes para no declarar al pedo
+            while ((!adyacentes.fin()) && (resultado.esVacia())) {//mejor un while que un for, me aseguro de estar preguntando con el vertice que quiero
+                Arista<String> actual = adyacentes.proximo();
+                if (!marca[actual.verticeDestino().posicion()])
+                    devolverCaminoExceptuandoRecursivo(resultado, actual.verticeDestino(), marca, vDes, ciudadesExc);
+                if(!resultado.esVacia())
+                    resultado.agregarInicio(ciudadActual);
+            }
+      }
+    }
   }
+}
