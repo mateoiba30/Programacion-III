@@ -46,8 +46,10 @@ public class Mapa {
             //     resultado= null;
             // return resultado;
         }
-        // return null;
-        return resultado;
+        if(resultado.elemento(resultado.tamanio()-1).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
+          return resultado;
+        else
+          return null;
 
     }
   
@@ -96,7 +98,10 @@ public class Mapa {
             ciudadesExc.comenzar();
             devolverCaminoExceptuandoRecursivo(mapaCiudades, resultado, vIni, marca, vDes, ciudadesExc);
         }
-        return resultado;
+        if(resultado.elemento(resultado.tamanio()-1).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
+          return resultado;
+        else
+          return null;
     }
 
     private void devolverCaminoExceptuandoRecursivo(Grafo<String> grafo, ListaGenerica<String> resultado, Vertice<String> vIni, boolean[] marca, Vertice<String> vDes, ListaGenerica<String> ciudadesExc) {
@@ -140,10 +145,12 @@ public class Mapa {
           devolverCaminoCortoRecursivo(mapaCiudades, pesoActual, pesoMinimo, resultado, actual, vIni, marca, vDes);
       }
       // resultado.agregarInicio(ciudad1);//AL FINAL NO ES NECESARIO//lo hago al final, porque el valor de resultado se va actualizando con otros caminos
+      
       if(resultado.elemento(resultado.tamanio()-1).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
         return resultado;
       else
         return null;
+
   }
 
   private void devolverCaminoCortoRecursivo(Grafo<String> grafo, Peso pesoActual, Peso pesoMinimo, ListaGenerica<String> resultado, ListaGenerica<String> auxiliar, Vertice<String> vIni, boolean[] marca, Vertice<String> vDes) {

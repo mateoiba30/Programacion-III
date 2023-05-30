@@ -29,11 +29,14 @@ public class MapaTest {
         ciudades.conectar(v3, v1, 0);
 
         ListaGenerica<String> camino = new ListaGenericaEnlazada<String>();
+        ListaGenerica<String> ciudadesExc = new ListaGenericaEnlazada<String>();
+        ciudadesExc.agregarFinal("Lima");
 
         Mapa m=new Mapa();
         m.setMapa(ciudades);
-        camino=m.devolverCaminoCorto("Buenos Aires", "New York");
-        System.out.println("camino: "+camino.toString());
+        camino=m.devolverCaminoExceptuando("Buenos Aires", "New York", ciudadesExc);
+        if(camino!=null)//necesario preguntar siempre que devuelva null!!
+            System.out.println("camino: "+camino.toString());
 
     }
 }
