@@ -19,7 +19,7 @@ public class MapaTest {
         ciudades.agregarVertice(v7); 
 
         ciudades.conectar(v1, v3, 3);
-        ciudades.conectar(v1, v2, 20);
+        ciudades.conectar(v1, v2, 2);
         ciudades.conectar(v3, v4, 2);
         ciudades.conectar(v4, v7, 1);
         ciudades.conectar(v2, v6, 0);
@@ -34,7 +34,7 @@ public class MapaTest {
 
         Mapa m=new Mapa();
         m.setMapa(ciudades);
-        camino=m.devolverCaminoExceptuando("Buenos Aires", "New Yoork", ciudadesExc);
+        camino=m.caminoSinCargarCombustible("Buenos Aires", "New York", 5);
         if(camino!=null)//necesario preguntar siempre que devuelva null!!
             System.out.println("camino: "+camino.toString());
 
