@@ -21,8 +21,9 @@ public class Mapa {
     // variacion de recorrido BFS que retorna el camino de ciudad1 a ciudad2
     // en forma de lista enlazada
     public ListaGenerica<String> devolverCamino(String ciudad1, String ciudad2) {
+      ListaGenerica<String> resultado = new ListaGenericaEnlazada<String>();
+
         if (!this.mapaCiudades.esVacio()) {
-            ListaGenerica<String> resultado = new ListaGenericaEnlazada<String>();
             boolean[] marca = new boolean[mapaCiudades.listaDeVertices().tamanio()];
             
             for (int i = 0; i < mapaCiudades.listaDeVertices().tamanio(); i++)//no necesario, por default es todo false
@@ -33,11 +34,12 @@ public class Mapa {
 
             devolverCaminoRecursivo(resultado, vIni, marca, vDes);
 
-            if (!resultado.elemento(resultado.tamanio()-1).equals(ciudad2))
-                resultado= null;
-            return resultado;
+            // if (!resultado.elemento(resultado.tamanio()-1).equals(ciudad2))
+            //     resultado= null;
+            // return resultado;
         }
-        return null;
+        // return null;
+        return resultado;
 
     }
   

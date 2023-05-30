@@ -14,8 +14,4 @@ public interface Grafo<T> {
 	public ListaGenerica<Arista<T>> listaDeAdyacentes(Vertice<T> v);
 	public Vertice<T> vertice(int posicion); 
 
-
-
-
-
 }

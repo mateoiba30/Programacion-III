@@ -31,7 +31,7 @@ public class MapaTest {
         ListaGenerica<String> camino = new ListaGenericaEnlazada<String>();
         Mapa m=new Mapa();
         m.setMapa(ciudades);
-        camino=m.devolverCamino("Buenos Aires", "Lima");
+        camino=m.devolverCamino("New York", "Lima");
         if(camino!=null)
             System.out.println("camino: "+camino.toString());
 
