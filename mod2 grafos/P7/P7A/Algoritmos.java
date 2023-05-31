@@ -10,11 +10,11 @@ public class Algoritmos<T> {
             Peso cuadradoInt = new Peso();
             boolean[] marca = new boolean[grafo.listaDeVertices().tamanio()];//se inicia en false automaticamente
             cuadradoInt.setDato(0);
-            longitud.setDato(0);
 
             int reps=grafo.listaDeVertices().tamanio() - 1;
             int pos=0;
             while(cuadrado==false && pos<=reps){//porque no me anda con proximo?
+                longitud.setDato(0);
                 subgrafoCuadradoRecursivo(cuadradoInt, longitud, grafo, grafo.listaDeVertices().elemento(pos), grafo.listaDeVertices().proximo(), marca);
                 pos++;
                 // ya queda la ciudad desmarcada
@@ -49,5 +49,4 @@ public class Algoritmos<T> {
             }
         }
     }
-    
 }
