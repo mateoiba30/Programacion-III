@@ -1,4 +1,4 @@
-public class MapaTest {
+public class TestGeneral {
     public static void main(String[] args) {
         Vertice<String> v1 = new VerticeImplListAdy<String>("Buenos Aires");
         Vertice<String> v2 = new VerticeImplListAdy<String>("Santiago");
@@ -25,18 +25,17 @@ public class MapaTest {
         ciudades.conectar(v2, v6, 5);
         ciudades.conectar(v6, v5, 5);
         ciudades.conectar(v7, v5, 5);
+        ciudades.conectar(v5, v3, 0);//para que sea cuadrado en Lima
+        // ciudades.conectar(v7, v1, 5);//pa que sea cuadrado en bsas
 
-        ciudades.conectar(v3, v1, 0);
+        ciudades.conectar(v3, v1, 0);//pa que puedan haber mas ciclos
 
-        ListaGenerica<String> camino = new ListaGenericaEnlazada<String>();
-        ListaGenerica<String> ciudadesExc = new ListaGenericaEnlazada<String>();
-        ciudadesExc.agregarFinal("Lima");
+        Algoritmos a = new Algoritmos();
+        if(a.subgrafoCuadrado(ciudades)==true)
+            System.out.println("Grafo cuadrado\n");
+        else
+            System.out.println("Grafo NO cuadrado\n");
 
-        Mapa m=new Mapa();
-        m.setMapa(ciudades);
-        camino=m.caminoConMenorCargaDeCombustible("Buenos Aires", "New York", 5);
-        if(camino!=null)//necesario preguntar siempre que devuelva null!!
-            System.out.println("camino: "+camino.toString());
 
     }
 }
