@@ -9,8 +9,8 @@ public class Algoritmos<T> {
             Peso longitud = new Peso();
             Peso cuadradoInt = new Peso();
             boolean[] marca = new boolean[grafo.listaDeVertices().tamanio()];//se inicia en false automaticamente
-            longitud.setDato(0);
             cuadradoInt.setDato(0);
+            longitud.setDato(0);
 
             int reps=grafo.listaDeVertices().tamanio() - 1;
             int pos=0;
@@ -36,6 +36,7 @@ public class Algoritmos<T> {
             cuadrado.setDato(1);
         else{
             ListaGenerica<Arista<T>> adyacentes = grafo.listaDeAdyacentes(vAct);//no las declaro antes para no declarar al pedo
+            adyacentes.comenzar();
             while ((!adyacentes.fin()) && cuadrado.getDato()==0) {//mejor un while que un for, me aseguro de estar preguntando con el vertice que quiero
                 Arista<T> actual = adyacentes.proximo();
                 int pos=actual.verticeDestino().posicion();
