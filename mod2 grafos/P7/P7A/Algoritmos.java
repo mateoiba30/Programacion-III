@@ -55,18 +55,27 @@ public class Algoritmos<T> {
     public int getGrado(Grafo<T> grafo) {
         int gradoMax=0, gradoAct;
         if (!grafo.esVacio()) {
-            int reps=grafo.listaDeVertices().tamanio() - 1;
-            
-            for(int i=0; i<=reps; i++){
+            int t=grafo.listaDeVertices().tamanio();
+            int[] vectorAdyacencias = new int[t];//se inicializa automaticamente en cero cada pos
+
+            for(int i=0; i<t; i++){
                 Vertice<T> verticeAct=grafo.listaDeVertices().elemento(i);
                 ListaGenerica<Arista<T>> adyacentes =grafo.listaDeAdyacentes(verticeAct);
-                gradoAct=adyacentes.tamanio();//nro de salidas
+                int pos;
 
-                while(!adyacentes.fin()){//nro de entradas
+                while(!adyacentes.fin()){//cuento entradas
                     Arista<T> aristaAct = adyacentes.proximo();
-                    if(aristaAct.verticeDestino() == verticeAct)
-                        gradoAct++;
+                    pos=aristaAct.verticeDestino().posicion();
+                    vectorAdyacencias[pos]++;
                 }
+            }
+            
+            for(int i=0; i<t; i++){
+                Vertice<T> verticeAct=grafo.listaDeVertices().elemento(i);
+                ListaGenerica<Arista<T>> adyacentes =grafo.listaDeAdyacentes(verticeAct);
+                gradoAct=adyacentes.tamanio();//cuento salidas
+
+                gradoAct+=vectorAdyacencias[i];
                 
                 if(gradoAct>gradoMax)
                     gradoMax=gradoAct;
