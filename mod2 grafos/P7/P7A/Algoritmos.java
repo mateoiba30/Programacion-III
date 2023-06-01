@@ -1,3 +1,5 @@
+import java.util.Arrays;//para get grado 2
+
 public class Algoritmos<T> {
 
     public Algoritmos(){
@@ -84,4 +86,19 @@ public class Algoritmos<T> {
         }
         return gradoMax;
     }
+
+    //otra forma más eficiente
+    public int getGrado2(Grafo<T> grafo) {
+        int grados[] = new int[grafo.listaDeVertices().tamanio()];
+        for (int i = 0; i < grafo.listaDeVertices().tamanio(); i++) {
+          Vertice<T> vertice = grafo.listaDeVertices().elemento(i);
+          ListaGenerica<Arista<T>> ady = grafo.listaDeAdyacentes(vertice);
+          ady.comenzar();
+          grados[i] += ady.tamanio();
+          while (!ady.fin()) {
+            grados[ady.proximo().verticeDestino().posicion()]++;
+          }
+        }
+        return Arrays.stream(grados).max().getAsInt();
+      }
 }

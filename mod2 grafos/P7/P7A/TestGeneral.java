@@ -26,10 +26,10 @@ public class TestGeneral {
         ciudades.conectar(v6, v5, 5);
         ciudades.conectar(v7, v5, 5);
 
-        // ciudades.conectar(v5, v3, 0);//para que sea cuadrado en Lima si lo descomento
-        // ciudades.conectar(v7, v1, 5);//pa que sea cuadrado en bsas si lo descomento
-        // ciudades.conectar(v3, v2, 3);//pa que sea cuadrado en Santiago si lo descomento (necesita de v5 a v3)
-        // ciudades.conectar(v3, v1, 0);//pa que puedan haber mas ciclos no cuadrados
+        ciudades.conectar(v5, v3, 0);//para que sea cuadrado en Lima si lo descomento
+        ciudades.conectar(v7, v1, 5);//pa que sea cuadrado en bsas si lo descomento
+        ciudades.conectar(v3, v2, 3);//pa que sea cuadrado en Santiago si lo descomento (necesita de v5 a v3)
+        ciudades.conectar(v3, v1, 0);//pa que puedan haber mas ciclos no cuadrados
 
         //PA DEBUGUEAR EJ 7A CUADRADO
         // Algoritmos<String> a = new Algoritmos<String>();
