@@ -1,6 +1,8 @@
 public class Algoritmos<T> {
 
-    public Algoritmos(){}
+    public Algoritmos(){
+
+    }
     
     public boolean subgrafoCuadrado(Grafo<T> grafo){
         boolean cuadrado=false;
@@ -14,11 +16,10 @@ public class Algoritmos<T> {
             int reps=grafo.listaDeVertices().tamanio() - 1;
             int pos=0;
             while(cuadrado==false && pos<=reps){//porque no me anda con proximo?
-                longitud.setDato(0);
+                longitud.setDato(0);//100 porciento necesario, porque al volver en recursion se hace lio y puede quedar la long negativa
                 subgrafoCuadradoRecursivo(cuadradoInt, longitud, grafo, grafo.listaDeVertices().elemento(pos), grafo.listaDeVertices().proximo(), marca);
                 pos++;
                 // ya queda la ciudad desmarcada
-
             }
             if(cuadradoInt.getDato()==1)
                 cuadrado=true;
@@ -40,13 +41,38 @@ public class Algoritmos<T> {
             while ((!adyacentes.fin()) && cuadrado.getDato()==0) {//mejor un while que un for, me aseguro de estar preguntando con el vertice que quiero
                 Arista<T> actual = adyacentes.proximo();
                 int pos=actual.verticeDestino().posicion();
+                longitud.setDato(longitud.getDato() + 1);//puede ser que no entre al adyacente porque fue visitado antes, pero debo sumar porque desp paso a restar en caso de que tenga adyacente
+
                 if (!marca[pos]){
-                    longitud.setDato(longitud.getDato() + 1);
                     subgrafoCuadradoRecursivo(cuadrado, longitud, grafo, vIni, actual.verticeDestino(), marca);
                 }
                 longitud.setDato(longitud.getDato() - 1);//para poder analizar otros casos, de a 1 resto en el backtracking
                 marca[pos]=false;//para poder analizar otros casos
             }
         }
+    }
+
+    public int getGrado(Grafo<T> grafo) {
+        int gradoMax=0, gradoAct;
+        if (!grafo.esVacio()) {
+            int reps=grafo.listaDeVertices().tamanio() - 1;
+            
+            for(int i=0; i<=reps; i++){
+                Vertice<T> verticeAct=grafo.listaDeVertices().elemento(i);
+                ListaGenerica<Arista<T>> adyacentes =grafo.listaDeAdyacentes(verticeAct);
+                gradoAct=adyacentes.tamanio();//nro de salidas
+
+                while(!adyacentes.fin()){//nro de entradas
+                    Arista<T> aristaAct = adyacentes.proximo();
+                    if(aristaAct.verticeDestino() == verticeAct)
+                        gradoAct++;
+                }
+                
+                if(gradoAct>gradoMax)
+                    gradoMax=gradoAct;
+            }
+        
+        }
+        return gradoMax;
     }
 }
