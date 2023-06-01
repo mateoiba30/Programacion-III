@@ -23,7 +23,6 @@ public class Recorridos<T> {
         return listaRecorrido;
     }
 
-
     private void dfsRec(int pos, Grafo<T> grafo, boolean[] verticesMarcados,ListaGenerica<Vertice<T>> listaRecorrido){
         
         verticesMarcados[pos]=true;
@@ -43,7 +42,6 @@ public class Recorridos<T> {
             }
         }
     }
-
 
     public ListaGenerica<Vertice<T>> bfs(Grafo<T> grafo){
 

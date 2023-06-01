@@ -1,4 +1,4 @@
-public class TestGeneral {
+public class AlgoritmosTest {
     public static void main(String[] args) {
         Vertice<String> v1 = new VerticeImplListAdy<String>("Buenos Aires");
         Vertice<String> v2 = new VerticeImplListAdy<String>("Santiago");
