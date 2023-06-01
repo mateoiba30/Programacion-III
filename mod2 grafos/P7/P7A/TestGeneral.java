@@ -26,7 +26,7 @@ public class TestGeneral {
         ciudades.conectar(v6, v5, 5);
         ciudades.conectar(v7, v5, 5);
 
-        ciudades.conectar(v5, v3, 0);//para que sea cuadrado en Lima si lo descomento
+        // ciudades.conectar(v5, v3, 0);//para que sea cuadrado en Lima si lo descomento
         ciudades.conectar(v7, v1, 5);//pa que sea cuadrado en bsas si lo descomento
         ciudades.conectar(v3, v2, 3);//pa que sea cuadrado en Santiago si lo descomento (necesita de v5 a v3)
         ciudades.conectar(v3, v1, 0);//pa que puedan haber mas ciclos no cuadrados
@@ -40,7 +40,10 @@ public class TestGeneral {
 
         //pa debuguar 7b grado
         Algoritmos<String> a = new Algoritmos<String>();
-        System.out.println("grado del grafo: "+a.getGrado(ciudades));
+        if(a.tieneCiclo(ciudades)==true)
+            System.out.println("Tiene al menos un ciclo \n");
+        else
+            System.out.println("No tiene ciclos \n");
 
     }
 }
