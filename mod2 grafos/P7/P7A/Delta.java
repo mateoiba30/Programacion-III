@@ -1,3 +1,6 @@
+import java.util.Arrays;//para maxislasdistintas 2
+
+
 public class Delta<T> {
 
     public Delta(){
@@ -5,48 +8,73 @@ public class Delta<T> {
     }
 
     public int maxIslasDistintas(Grafo<String> grafo){//Seguro tiene ciclos
-        int maxIslas=0;
+        int t=grafo.listaDeVertices().tamanio();
+        Peso max = new Peso();
+        max.setDato(0);
 
         if(!grafo.esVacio()){
-            Peso longitud = new Peso();
-            boolean[] marca = new boolean[grafo.listaDeVertices().tamanio()];//se inicia en false automaticamente
-            longitud.setDato(0);//100 porciento necesario, porque al volver en recursion se hace lio y puede quedar la long negativa
-            int maxLong=0;
+            int visitadasDesde=0;//como es int, en el backtracking vuelve a su estado anterior
+            boolean[] marca = new boolean[t];//se inicia en false automaticamente
             marca[0]=true;//nadie visita a MP, puede ser que voy por un adycente a MP, que tiene otro adyacente con posible destino a MP (ese caso no es un Max)
 
             ListaGenerica<Arista<String>> adyacentes = grafo.listaDeAdyacentes(grafo.vertice(0));//muelle principal = vertice 0
             adyacentes.comenzar();
             while (!adyacentes.fin()){
                 Arista<String> actual = adyacentes.proximo();
-                longitud.setDato(1);//inicia en 1, porque el primer adyacente ya es una isla nueva
-                maxIslasDistintasRecursivo(longitud, grafo, actual.verticeDestino(), actual.verticeDestino(), marca);
-                if(longitud.getDato()>maxLong)
-                    maxLong=longitud.getDato();
+                visitadasDesde=1;//inicia en 1, porque el primer adyacente ya es una isla nueva
+                maxIslasDistintasRecursivo(max, visitadasDesde, grafo, actual.verticeDestino(), actual.verticeDestino(), marca);
             }
         }
 
-        return maxIslas;
+        return max.getDato();//devuelve el maximo de un vector
     }
     //podría mandar en recursion a longitud +1 tambien, y que sea del tipo int
-    private void maxIslasDistintasRecursivo(Peso longitud, Grafo<String> grafo, Vertice<String> islaInicio, Vertice<String> islaAct, boolean[] marca) {
-
-        if(!islaInicio.dato().equals(islaAct.dato()))//no marco en true el vertice del inicio para poder chequear el ciclo pasando po el inicio
-        marca[islaAct.posicion()] = true;
-
-        if (!(islaInicio.dato().equals(islaAct.dato())&& longitud.getDato()!=0)){//si llega a ser un grafo de enteros, me sirve equlas si uso el wrapper Integer//si volvió de donde vino y el camino fue de 4     
-            ListaGenerica<Arista<String>> adyacentes = grafo.listaDeAdyacentes(islaAct);//no las declaro antes para no declarar al pedo
-            adyacentes.comenzar();
-            while (!adyacentes.fin()) {
-                Arista<String> actual = adyacentes.proximo();
-                int pos=actual.verticeDestino().posicion();
-                longitud.setDato(longitud.getDato() + 1);//puede ser que no entre al adyacente porque fue visitado antes, pero debo sumar porque desp paso a restar en caso de que tenga adyacente
-
-                if (!marca[pos] && pos!=0){//no ir al muelle principal, me veulvo al terminar por donde vine
-                    maxIslasDistintasRecursivo(longitud, grafo, islaInicio, actual.verticeDestino(), marca);
-                }
-                longitud.setDato(longitud.getDato() - 1);//para poder analizar otros casos, de a 1 resto en el backtracking
-                marca[pos]=false;//para poder analizar otros casos
+    private void maxIslasDistintasRecursivo(Peso max, int visitadasDesde, Grafo<String> grafo, Vertice<String> islaInicio, Vertice<String> islaAct, boolean[] marca) {
+        marca[islaAct.posicion()] = true;//si marco el vertice de inicio no cambia
+   
+        ListaGenerica<Arista<String>> adyacentes = grafo.listaDeAdyacentes(islaAct);//no las declaro antes para no declarar al pedo
+        adyacentes.comenzar();
+        while (!adyacentes.fin()) {
+            Arista<String> actual = adyacentes.proximo();
+            int pos=actual.verticeDestino().posicion();
+            if (!marca[pos] && pos!=0){//no ir al muelle principal, me veulvo al terminar por donde vine
+                visitadasDesde++;
+                maxIslasDistintasRecursivo(max, visitadasDesde, grafo, islaInicio, actual.verticeDestino(), marca);
             }
+            if(visitadasDesde>max.getDato())
+                max.setDato(visitadasDesde);
         }
     }
+
+    public int maxIslasDistintas2(Grafo<T> grafo) {
+        Vertice<T> v = grafo.listaDeVertices().elemento(0);
+        int[] islas = new int[grafo.listaDeAdyacentes(v).tamanio()];
+        boolean[] marca = new boolean[grafo.listaDeVertices().tamanio()];
+        marca[0] = true;
+        int i = 0;
+        ListaGenerica<Arista<T>> ady = grafo.listaDeAdyacentes(v);
+        ady.comenzar();
+        while (!ady.fin()) {
+          Arista<T> arista = ady.proximo();
+        //   if (!marca[arista.verticeDestino().posicion()]) //no necesario
+            maxIslasDistintas3(grafo, arista.verticeDestino(), marca, islas, i);
+          
+          islas[i]++;//lo malo es que guardo 1 contador por cada vertice, mejor la anterior solucion
+          i++;//la i no representa exactamente la pósicion del vertice actual. Es como si ahora cada vertice tiene un nuevo id que es la posicion elk la lista de adyacencias del muelle principal
+        }
+        return Arrays.stream(islas).max().getAsInt();//devuelve el maximo de un vector de numeros
+      }
+    
+      private void maxIslasDistintas3(Grafo<T> grafo, Vertice<T> v, boolean[] marca, int[] islas, int i) {
+        marca[v.posicion()] = true;
+        ListaGenerica<Arista<T>> ady = grafo.listaDeAdyacentes(v);
+        ady.comenzar();
+        while (!ady.fin()) {
+          Arista<T> arista = ady.proximo();
+          if (!marca[arista.verticeDestino().posicion()]) {
+            islas[i]++;
+            maxIslasDistintas3(grafo, arista.verticeDestino(), marca, islas, i);
+          }
+        }
+      }
 }
