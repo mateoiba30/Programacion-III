@@ -49,7 +49,7 @@ public class DeltaTest {
         Delta<String> d = new Delta<String>();
         // System.out.println("La cantidad maxima de islas a visitar con 1 boleto es de: "+d.maxIslasDistintas(islas));
         RutaMinima rutaMinima = new RutaMinima();
-        rutaMinima=d.caminoMasCorto(islas, "isla 2", "isla 7");
+        rutaMinima=d.caminoMasCorto(islas, "isla 4", "isla 1");
         if(rutaMinima!=null)
             System.out.println("con "+rutaMinima.getBoletos()+" boletos, camino mas corto: "+rutaMinima.getRuta().toString());
 

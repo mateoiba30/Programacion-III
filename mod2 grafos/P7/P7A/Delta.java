@@ -138,7 +138,7 @@ public class Delta<T> {
           resultado.setBoletos(auxiliar.getBoletos());
           pesoMinimo.setDato(pesoActual.getDato());
         }
-        // pesoActual.setDato(0);
+        // pesoActual.setDato(0);//para retroceder los datos lo hago justo despues de volver del while
 
       }
       else{//no usar tamanio, usar fin() y proximo() que es mas eficiente y menos confuso
@@ -153,11 +153,13 @@ public class Delta<T> {
                   marca[pos]=false;//ahora vuelo para atras
                   pesoActual.setDato(pesoActual.getDato()-actual.peso());
                   auxiliar.getRuta().eliminarEn(auxiliar.getRuta().tamanio()-1);
-                  if(vIni.posicion()==0 && vDes.posicion()!=0)//significa que estoy en el Muelle principal
-                    auxiliar.setBoletos(auxiliar.getBoletos()-1);
+
 
               }
           }
+          if(vIni.posicion()==0 && vDes.posicion()!=0)//si elmuelle tiene muchos backtrackins significa que resta varias veces. Fuera del while pasa lo que quiero que suceda
+          //1 sola vez al volverme, y no una vez por cada camino posible que tenía
+          auxiliar.setBoletos(auxiliar.getBoletos()-1);
 
           // if(auxiliar.getRuta().tamanio()>1)//no quiero eliminar el origen de la lista en caso de tener que borrarla
           //   auxiliar.getRuta().eliminarEn(auxiliar.getRuta().tamanio()-1);//estas 3 instrucciones son necesarias para ir por otros caminos
