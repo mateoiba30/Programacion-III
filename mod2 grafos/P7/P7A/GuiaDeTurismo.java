@@ -19,6 +19,7 @@ public class GuiaDeTurismo {
 
     public ListaGenerica <String> caminoConMenorNrodeViajes(Grafo<String> grafo, String puntoInteresOrigen, String puntoInteresDestino){
         Viaje viajeRes = new Viaje();
+        viajeRes.setMenorPeso(0);
   
         if(grafo!=null && !grafo.esVacio()){
           boolean[] marca = new boolean [grafo.listaDeVertices().tamanio()];
@@ -42,10 +43,13 @@ public class GuiaDeTurismo {
         marca[vIni.posicion()] = true;//marco y nunca desenmarco, ya que si no pude llegar a destino en resurción con este vertice ya queda descartado
         viajeAct.getRuta().agregarFinal(puntoAct);//inicio agregando la siguiente, por lo cual debo agregar a Buenos aires en el algoritmo iterativo
         
+        if(viajeAct.getMenorPeso()<viajeRes.getMenorPeso())//ya se que este camino no va a funcionar
+            return;
+
         if (puntoAct.equals(vDes.dato())) {//usar equals, no ==
-          if(viajeAct.getMenorPeso() < viajeRes.getMenorPeso())  {
+          if(viajeAct.getMenorPeso() > viajeRes.getMenorPeso())  {//me debo quedar con el mayor!!
             viajeRes.setRuta(viajeAct.getRuta().copiar());
-            viajeAct.setMenorPeso(viajeAct.getMenorPeso());
+            viajeRes.setMenorPeso(viajeAct.getMenorPeso());
           }
         }
         else{//no usar tamanio, usar fin() y proximo() que es mas eficiente y menos confuso
