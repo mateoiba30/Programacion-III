@@ -27,21 +27,25 @@ public class GradoDeSeparacion {
 
                 while(!cola.esVacia()){//similar a un recorrido por niveles que visita los adyacentes y encola los destinos de los adyacentes
                     Vertice<String> verticeAct=cola.desencolar();
-                    listaAdyacentes=grafo.listaDeAdyacentes(verticeAct);
-                    listaAdyacentes.comenzar();//antes de recorrerla no olvidar pararme al inicio
-                    
-                    while(!listaAdyacentes.fin()){
-                        Arista<String> aristaAct=listaAdyacentes.proximo();
-                        int pos=aristaAct.verticeDestino().posicion();
-                        if(verticesMarcados[pos]==false){
-                            verticesMarcados[pos]=true;//maracar aca para que al querer apilarlo por alguien mas (antes de leer ese verticeAct) no pueda
-                            Vertice<String> verticeApuntado =aristaAct.verticeDestino();
-                            cola.encolar(verticeApuntado);
+                    if(verticeAct!=null){//como encolo null, chequear de no estar parado en null
+                        listaAdyacentes=grafo.listaDeAdyacentes(verticeAct);
+                        listaAdyacentes.comenzar();//antes de recorrerla no olvidar pararme al inicio
+                        
+                        while(!listaAdyacentes.fin()){
+                            Arista<String> aristaAct=listaAdyacentes.proximo();
+                            int pos=aristaAct.verticeDestino().posicion();
+                            if(verticesMarcados[pos]==false){
+                                verticesMarcados[pos]=true;//maracar aca para que al querer apilarlo por alguien mas (antes de leer ese verticeAct) no pueda
+                                Vertice<String> verticeApuntado =aristaAct.verticeDestino();
+                                cola.encolar(verticeApuntado);
+                            }
+                        }//termino un nivel
+                    }
+                    else{
+                        if(!cola.esVacia()){
+                            gradoAct++;
+                            cola.encolar(null);
                         }
-                    }//termino un nivel
-                    if(!cola.esVacia()){
-                        gradoAct++;
-                        cola.encolar(null);
                     }
                 }//termino el recorrido desde un origen
 

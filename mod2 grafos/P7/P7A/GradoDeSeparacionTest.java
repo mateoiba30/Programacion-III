@@ -23,7 +23,7 @@ public class GradoDeSeparacionTest {
         g.agregarVertice(v7);
         g.agregarVertice(v8);
         g.agregarVertice(v9);
-        g.agregarVertice(v10);
+        // g.agregarVertice(v10); //si lo comento el grado es 2, sino es 3
 
         g.conectar(v0, v1, 1);
         g.conectar(v1, v0, 1);
@@ -62,8 +62,8 @@ public class GradoDeSeparacionTest {
         g.conectar(v9, v3, 1);
 
         //si comento esta conexion, el grado debe ser cero
-        g.conectar(v6, v10, 1);
-        g.conectar(v10, v6, 1);
+        // g.conectar(v6, v10, 1);
+        // g.conectar(v10, v6, 1);
 
         GradoDeSeparacion aux = new GradoDeSeparacion();
         System.out.println("El grado de separacion maximo es: " + aux.maximoGradoDeSeparacion(g));
