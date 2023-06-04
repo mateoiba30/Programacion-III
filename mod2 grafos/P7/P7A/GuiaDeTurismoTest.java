@@ -7,6 +7,8 @@ public class GuiaDeTurismoTest {
         Vertice<String> v4 = new VerticeImplListAdy<String>("punto 4");
         Vertice<String> v5 = new VerticeImplListAdy<String>("punto 5");  
         Vertice<String> v6 = new VerticeImplListAdy<String>("punto 6");  
+        Vertice<String> v7 = new VerticeImplListAdy<String>("punto aislado");  
+
 
         Grafo<String> BsAs = new GrafoImplListAdy<String>();
         BsAs.agregarVertice(v0);
@@ -16,6 +18,8 @@ public class GuiaDeTurismoTest {
         BsAs.agregarVertice(v4);
         BsAs.agregarVertice(v5);
         BsAs.agregarVertice(v6); 
+        BsAs.agregarVertice(v7); 
+
         
         BsAs.conectar(v0, v1, 30);
         BsAs.conectar(v1, v0, 30);
@@ -49,11 +53,12 @@ public class GuiaDeTurismoTest {
 
         ListaGenerica<String> resultado = new ListaGenericaEnlazada<String>();
         GuiaDeTurismo g = new GuiaDeTurismo();
-        resultado= g.caminoConMenorNrodeViajes(BsAs, "punto 0", "punto 5");
-        if(resultado!=null)
-            System.out.println(resultado.toString());
-        else
-            System.out.println("No hay un viaje posible\n");
+        resultado= g.caminoConMenorNrodeViajes(BsAs, "punto 0", "punto aislado");
+        System.out.println(resultado.toString());//si no hay nada lo imprime vacío
+        // if(resultado!=null)
+        //     System.out.println(resultado.toString());
+        // else
+        //     System.out.println("No hay un viaje posible\n");
 
     }
 }

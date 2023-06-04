@@ -31,11 +31,13 @@ public class GuiaDeTurismo {
           caminoConMenorNrodeViajesRec(grafo, viajeAct, viajeRes, vIni, vDes, marca);
         }
   
-        int j=viajeRes.getRuta().tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
-        if(j>=0 && viajeRes.getRuta().elemento(j).equals(puntoInteresDestino))//tal vez solo tenga agregado el destino de la ciudad1
-          return viajeRes.getRuta();
-        else
-          return null;
+        //al final parece que no es necesario hacer todo esto
+        // int j=viajeRes.getRuta().tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
+        // if(j>=0 && viajeRes.getRuta().elemento(j).equals(puntoInteresDestino))//tal vez solo tenga agregado el destino de la ciudad1
+        //   return viajeRes.getRuta();
+        // else
+        //   return null;
+        return viajeRes.getRuta();
     }
       
     private void caminoConMenorNrodeViajesRec(Grafo<String> grafo, Viaje viajeAct, Viaje viajeRes, Vertice<String> vIni, Vertice<String> vDes, boolean[] marca){
