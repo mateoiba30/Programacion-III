@@ -59,6 +59,9 @@ public class GradoDeSeparacion {
                 if(gradoMax!=0 && gradoAct>gradoMax)
                     gradoMax=gradoAct;
             }
+            for(int i=0; i<cantVertices; i++){//debo desmarcar los vertices para analizar desde otro origen
+                verticesMarcados[i]=false;
+            }
         }//termino programa
 
         return gradoMax;
