@@ -56,6 +56,7 @@ public class Recorridos<T> {
             if(verticesMarcados[i]==false){
 
                 cola.encolar(grafo.vertice(i));//encolo vertice de la lsita del grafo
+                // cola.encolar(null);
 
                 while(!cola.esVacia()){//similar a un recorrido por niveles que visita los adyacentes y encola los destinos de los adyacentes
                     Vertice<T> verticeAct=cola.desencolar();
@@ -76,6 +77,10 @@ public class Recorridos<T> {
                             cola.encolar(verticeApuntado);
                         }
                     }
+                    // if(!cola.esVacia()){
+                    //     //nivle ++
+                    //     cola.encolar(null);
+                    // }
                 }
 
             }
