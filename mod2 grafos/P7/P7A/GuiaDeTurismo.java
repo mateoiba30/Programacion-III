@@ -38,11 +38,11 @@ public class GuiaDeTurismo {
     }
       
     private void caminoConMenorNrodeViajesRec(Grafo<String> grafo, Viaje viajeAct, Viaje viajeRes, Vertice<String> vIni, Vertice<String> vDes, boolean[] marca){
-        String islaAct = vIni.dato();
+        String puntoAct = vIni.dato();
         marca[vIni.posicion()] = true;//marco y nunca desenmarco, ya que si no pude llegar a destino en resurción con este vertice ya queda descartado
-        viajeAct.getRuta().agregarFinal(islaAct);//inicio agregando la siguiente, por lo cual debo agregar a Buenos aires en el algoritmo iterativo
+        viajeAct.getRuta().agregarFinal(puntoAct);//inicio agregando la siguiente, por lo cual debo agregar a Buenos aires en el algoritmo iterativo
         
-        if (islaAct.equals(vDes.dato())) {//usar equals, no ==
+        if (puntoAct.equals(vDes.dato())) {//usar equals, no ==
           if(viajeAct.getMenorPeso() < viajeRes.getMenorPeso())  {
             viajeRes.setRuta(viajeAct.getRuta().copiar());
             viajeAct.setMenorPeso(viajeAct.getMenorPeso());
@@ -55,15 +55,17 @@ public class GuiaDeTurismo {
                 Arista<String> actual = adyacentes.proximo();
                 int pos=actual.verticeDestino().posicion();
                 if (!marca[pos]){
-                    pesoActual.setDato(pesoActual.getDato()+actual.peso());
-                    caminoConMenorNrodeViajesRec(pesoMinimo, pesoActual, grafo, auxiliar, resultado, actual.verticeDestino(), vDes, marca);
+                    int menorAnterior= viajeAct.getMenorPeso();
+                    if(actual.peso() < viajeAct.getMenorPeso())
+                        viajeAct.setMenorPeso(actual.peso());
+                    
+                    caminoConMenorNrodeViajesRec(grafo, viajeAct, viajeRes, actual.verticeDestino(), vDes, marca);
                     marca[pos]=false;//ahora vuelo para atras
-                    pesoActual.setDato(pesoActual.getDato()-actual.peso());
-                    auxiliar.getRuta().eliminarEn(auxiliar.getRuta().tamanio()-1);  
+                    viajeAct.setMenorPeso(menorAnterior);
+                    viajeAct.getRuta().eliminarEn(viajeAct.getRuta().tamanio()-1);  
                 }
             }
-            if(vIni.posicion()==0 && vDes.posicion()!=0)//si elmuelle tiene muchos backtrackins significa que resta varias veces. Fuera del while pasa lo que quiero que suceda
-            auxiliar.setBoletos(auxiliar.getBoletos()-1);          
+       
         }      
     }
 }
