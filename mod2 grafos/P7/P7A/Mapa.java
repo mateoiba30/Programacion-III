@@ -96,7 +96,7 @@ public class Mapa {
             devolverCaminoExceptuandoRecursivo(mapaCiudades, resultado, vIni, marca, vDes, ciudadesExc);
         }
 
-        //porque preguntar por j>=0 no es lo mismo que preguntar si es null?
+        //porque preguntar por j>=0 no es lo mismo que preguntar si es null porque solo es null si no fue creado el objeto
         int j=resultado.tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
         if(/*resultado!=null*/j>=0 && resultado.elemento(j).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
           return resultado;
