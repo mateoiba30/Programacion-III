@@ -144,9 +144,10 @@ public class Algoritmos<T> {
                     tieneCicloRecursivo(ciclo, longitud, grafo, vIni, actual.verticeDestino(), marca);
                 }
                 longitud.setDato(longitud.getDato() - 1);//para poder analizar otros casos, de a 1 resto en el backtracking
-                marca[pos]=false;//para poder analizar otros casos
+                // marca[pos]=false;//para poder analizar otros casos
             }
         }
+        marca[vIni.posicion()]=false;
     }
 
 }

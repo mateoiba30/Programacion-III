@@ -139,10 +139,10 @@ public class MapaTest{
 		        // 	System.out.print(" ---> "+camino.proximo());
 		        // }
 		        
-		        camino=mapa.devolverCaminoCorto2("Buenos Aires", "Jacobacci");
-		        camino.comenzar();
+		        camino=mapa.caminoConMenorCargaDeCombustible("Buenos Aires", "Tokyo", 40);
+		        // camino.comenzar();
 		        System.out.println(".");
-		        System.out.println("devolver camino mas corto:");
+		        System.out.println("camino:");
 		        while (!camino.fin()) {
 		        	System.out.print(" ---> "+camino.proximo());
 		        }

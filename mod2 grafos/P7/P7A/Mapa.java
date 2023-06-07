@@ -236,13 +236,14 @@ public class Mapa {
             marca[pos]=false;
         }
     }//cuando tengo que recorrer varios caminos, debo desmarcar el vector para poder volver a pasar por ahí
+    // marca[vIni.posicion()]=false; //es lo mismo desmarcar acá
   }
 
   public ListaGenerica<String> caminoConMenorCargaDeCombustible(String ciudad1, String ciudad2, int combustible) {
     ListaGenerica<String> resultado = new ListaGenericaEnlazada<String>();
     ListaGenerica<String> actual = new ListaGenericaEnlazada<String>();
 
-      if (!this.mapaCiudades.esVacio()) {  
+      if (!this.mapaCiudades.esVacio() && this.mapaCiudades!=null) {  
           Peso recargas= new Peso();
           Peso recargasMin= new Peso();
           Peso combustibleAct= new Peso();
@@ -255,11 +256,13 @@ public class Mapa {
           Vertice<String> vDes = obtenerVertice(ciudad2, mapaCiudades);
           caminoConMenorCargaDeCombustibleRecursivo(recargasMin, recargas, combustible, mapaCiudades, combustibleAct, resultado, actual, vIni, marca, vDes);
       }
-      int j=resultado.tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
-      if(j>=0 && resultado.elemento(j).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
-        return resultado;
-      else
-        return null;
+      // int j=resultado.tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
+      // if(j>=0 && resultado.elemento(j).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
+      //   return resultado;
+      // else
+      //   return null;
+
+      return resultado;
 
   }
 
@@ -288,13 +291,15 @@ public class Mapa {
                 }
                 caminoConMenorCargaDeCombustibleRecursivo(recargasMin, recargas, combustible, grafo, combustibleAct, resultado, auxiliar, actual.verticeDestino(), marca, vDes);
             }
-            if(auxiliar.tamanio()>1)//no quiero eliminar el origen de la lista en caso de tener que borrarla
-              auxiliar.eliminarEn(auxiliar.tamanio()-1);//estas instrucciones son necesarias para ir por otros caminos
+            // if(auxiliar.tamanio()>1)//no quiero eliminar el origen de la lista en caso de tener que borrarla -> no necesario
             recargas.setDato(0); //necesario para el siguiente camino, que debo reiniciar
             combustibleAct.setDato(combustible);
-            marca[pos]=false;
+            // marca[pos]=false;
         }
     }//cuando tengo que recorrer varios caminos, debo desmarcar el vector para poder volver a pasar por ahí
+    auxiliar.eliminarEn(auxiliar.tamanio()-1);//estas instrucciones son necesarias para ir por otros caminos
+
+    marca[vIni.posicion()]=false;
   }
 
   public ListaGenerica<String> caminoSinCargarCombustible2(String ciudad1,String ciudad2, int tanqueAuto){
