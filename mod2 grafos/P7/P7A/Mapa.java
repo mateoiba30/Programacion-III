@@ -146,11 +146,13 @@ public class Mapa {
       }
       // resultado.agregarInicio(ciudad1);//AL FINAL NO ES NECESARIO//lo hago al final, porque el valor de resultado se va actualizando con otros caminos
       
-      int j=resultado.tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
-      if(j>=0 && resultado.elemento(j).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
-        return resultado;
-      else
-        return null;
+      // int j=resultado.tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
+      // if(j>=0 && resultado.elemento(j).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
+      //   return resultado;
+      // else
+      //   return null;
+
+      return resultado;
 
   }
 
@@ -183,6 +185,7 @@ public class Mapa {
             marca[pos]=false;
         }
     }//cuando tengo que recorrer varios caminos, debo desmarcar el vector para poder volver a pasar por ahí
+    // marca[vIni.posicion()] = true;
   }
 
   public ListaGenerica<String> caminoSinCargarCombustible(String ciudad1, String ciudad2, int combustible) {
@@ -293,4 +296,110 @@ public class Mapa {
         }
     }//cuando tengo que recorrer varios caminos, debo desmarcar el vector para poder volver a pasar por ahí
   }
+
+  public ListaGenerica<String> caminoSinCargarCombustible2(String ciudad1,String ciudad2, int tanqueAuto){
+		ListaGenerica<String> resultado= new ListaGenericaEnlazada<String>();
+		if ((mapaCiudades!=null)&&(!mapaCiudades.esVacio())) {
+			ListaGenerica<Vertice<String>> vertices= mapaCiudades.listaDeVertices();
+			Vertice<String> vInicial= null;
+			Vertice<String> vFinal=null;
+			vertices.comenzar();
+			while (!vertices.fin()) {
+				Vertice<String> vAct=vertices.proximo();
+				if (vAct.dato().equals(ciudad1)) {
+					vInicial=vAct;
+				}
+				else if (vAct.dato().equals(ciudad2)) {
+					vFinal=vAct;
+				}		
+			}
+			// si s ecumple empezamos a recorrer
+			if (((vInicial!=null)&&(vFinal!=null))){
+				ListaGenerica<String> caminoAct=new ListaGenericaEnlazada<String>();
+				boolean[] visitados= new boolean[mapaCiudades.listaDeVertices().tamanio()];
+				caminoSinCargarCombustible2(vInicial,vFinal,caminoAct,resultado,visitados,mapaCiudades,tanqueAuto);
+			}
+		}
+		return resultado;
+	}
+	
+	private void caminoSinCargarCombustible2(Vertice<String>vAct,Vertice<String>vFinal,ListaGenerica<String> caminoAct,ListaGenerica<String>resultado,boolean[] visitados, Grafo<String>g, int naftaActual) {
+		visitados[vAct.posicion()]=true;
+		caminoAct.agregarFinal(vAct.dato());
+		if(vAct.dato().equals(vFinal.dato()))// si llego al destino es pq tenia nafta
+			{ copiarLista(caminoAct, resultado);	
+		}
+		//recorro
+		ListaGenerica<Arista<String>> adyacentes=g.listaDeAdyacentes(vAct);
+		adyacentes.comenzar();
+		while (!adyacentes.fin()) {
+			Arista<String> aristaAct=adyacentes.proximo();
+			if (naftaActual-aristaAct.peso()>0) {
+				Vertice<String> vSig=aristaAct.verticeDestino();
+				if(!visitados[vSig.posicion()]) {
+					caminoSinCargarCombustible2(vSig,vFinal,caminoAct,resultado,visitados,g,naftaActual-aristaAct.peso());
+				}
+			}
+		}
+		visitados[vAct.posicion()]=false;
+		caminoAct.eliminarEn(caminoAct.tamanio()-1);
+	}
+
+  public ListaGenerica<String> devolverCaminoCorto2(String ciudad1, String ciudad2) {
+    ListaGenerica<String> resultado = new ListaGenericaEnlazada<String>();
+    ListaGenerica<String> actual = new ListaGenericaEnlazada<String>();
+    Peso pesoActual= new Peso();
+    Peso pesoMinimo= new Peso();
+    pesoMinimo.setDato(9999);
+
+      if (!this.mapaCiudades.esVacio() && this.mapaCiudades!=null) {
+          boolean[] marca = new boolean[mapaCiudades.listaDeVertices().tamanio()];
+          Vertice<String> vIni = obtenerVertice(ciudad1, mapaCiudades);
+          Vertice<String> vDes = obtenerVertice(ciudad2, mapaCiudades);
+          devolverCaminoCortoRecursivo2(mapaCiudades, pesoActual, pesoMinimo, resultado, actual, vIni, marca, vDes);
+      }
+      // resultado.agregarInicio(ciudad1);//AL FINAL NO ES NECESARIO//lo hago al final, porque el valor de resultado se va actualizando con otros caminos
+      
+      // int j=resultado.tamanio()-1;//tal vez el dato no se encontro, pero la lista tiene elementos. O la lista es vacia
+      // if(j>=0 && resultado.elemento(j).equals(ciudad2))//tal vez solo tenga agregado el destino de la ciudad1
+      //   return resultado;
+      // else
+      //   return null;
+      
+      return resultado;
+
+  }
+
+  private void devolverCaminoCortoRecursivo2(Grafo<String> grafo, Peso pesoActual, Peso pesoMinimo, ListaGenerica<String> resultado, ListaGenerica<String> auxiliar, Vertice<String> vIni, boolean[] marca, Vertice<String> vDes) {
+  
+    String ciudadActual = vIni.dato();
+    marca[vIni.posicion()] = true;//marco y nunca desenmarco, ya que si no pude llegar a destino en resurción con este vertice ya queda descartado
+    auxiliar.agregarFinal(ciudadActual);//inicio agregando la siguiente, por lo cual debo agregar a Buenos aires en el algoritmo iterativo
+
+    if (ciudadActual.equals(vDes.dato())) {//usar equals, no ==
+      if(pesoActual.getDato()<pesoMinimo.getDato())  {
+        copiarLista(resultado, auxiliar);
+        pesoMinimo.setDato(pesoActual.getDato());
+        pesoActual.setDato(0);
+      }
+    }
+    else{//no usar tamanio, usar fin() y proximo() que es mas eficiente y menos confuso
+        ListaGenerica<Arista<String>> adyacentes = grafo.listaDeAdyacentes(vIni);//no las declaro antes para no declarar al pedo
+        while (!adyacentes.fin()) {//mejor un while que un for, me aseguro de estar preguntando con el vertice que quiero //no pregunto que resultado no sea vacio porque sino me corta la primera vez
+            Arista<String> actual = adyacentes.proximo();
+            int pos=actual.verticeDestino().posicion();
+            if (!marca[pos]){
+                pesoActual.setDato(pesoActual.getDato()+actual.peso());
+                devolverCaminoCortoRecursivo2(grafo, pesoActual, pesoMinimo, resultado, auxiliar, actual.verticeDestino(), marca, vDes);
+            }
+            if(auxiliar.tamanio()>1)//no quiero eliminar el origen de la lista en caso de tener que borrarla
+              auxiliar.eliminarEn(auxiliar.tamanio()-1);//estas 3 instrucciones son necesarias para ir por otros caminos
+            // Lactual.eliminarEn(actual.tamanio()-1);//no necesaria porque no calculo el peso con ella
+            pesoActual.setDato(0); //necesario cuando tengo 2 listas de camino, que devo reiniciar
+            // marca[pos]=false;
+        }
+    }//cuando tengo que recorrer varios caminos, debo desmarcar el vector para poder volver a pasar por ahí
+    marca[vIni.posicion()] = false;
+  }
+
 }

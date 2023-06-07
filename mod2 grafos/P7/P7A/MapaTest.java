@@ -42,72 +42,85 @@ public class MapaTest{
 		        Vertice<String> bariloche = new VerticeImplListAdy<>("Bariloche");
 
 		        // Añadir vértices al grafo
-		        grafo.agregarVertice(buenosAires);
+		        // grafo.agregarVertice(buenosAires);
 		        grafo.agregarVertice(jacobacci);
+		        // grafo.agregarVertice(madrid);
+		        // grafo.agregarVertice(bariloche);
+		        // grafo.agregarVertice(brasil);
+		        // grafo.agregarVertice(tokyo);
+		        // grafo.agregarVertice(sydney);
+		        // grafo.agregarVertice(newYork);
+		        // grafo.agregarVertice(berlin);
+		        // grafo.agregarVertice(dubai);
+		        // grafo.agregarVertice(rome);
+		        // grafo.agregarVertice(london);
+		        // grafo.agregarVertice(paris);
+		        // grafo.agregarVertice(toronto);
+		        // grafo.agregarVertice(mexicoCity);
+		        // grafo.agregarVertice(africa);
+		        // grafo.agregarVertice(beijing);
+		        // grafo.agregarVertice(seoul);
+		        // grafo.agregarVertice(laPlata);
+
+		        // (conexiones entre ciudades)
+		        // grafo.conectar(dubai, bariloche,30);
+		        // grafo.conectar(bariloche, rome,30);
+		        // grafo.conectar(rome, jacobacci,4);
+		        // grafo.conectar(buenosAires, madrid,30);
+		        // grafo.conectar(buenosAires, africa,10);
+		        // grafo.conectar(madrid, jacobacci,10);
+		        // grafo.conectar(madrid, buenosAires,10);
+		        // grafo.conectar(brasil, laPlata,10);
+		        // grafo.conectar(brasil, seoul,230);
+		        // grafo.conectar(brasil, beijing,40);
+		        // grafo.conectar(tokyo, berlin,70);
+		        // grafo.conectar(sydney, brasil,60);
+		        // grafo.conectar(newYork, london,150);
+		        // grafo.conectar(newYork, mexicoCity,60);
+		        // grafo.conectar(jacobacci, rome,5);
+		        // grafo.conectar(jacobacci, dubai,30);
+		        // grafo.conectar(jacobacci, madrid,10);
+		        // grafo.conectar(berlin, toronto,20);
+		        // grafo.conectar(berlin, seoul,50);
+		        // grafo.conectar(dubai, jacobacci,20);
+		        // grafo.conectar(dubai, tokyo,10);
+		        // grafo.conectar(london, paris,10);
+		        // grafo.conectar(london, beijing,40);
+		        // grafo.conectar(london, newYork,60);
+		        // grafo.conectar(paris, toronto,30);
+		        // grafo.conectar(paris, london,10);
+		        // grafo.conectar(toronto, paris,210);
+		        // grafo.conectar(mexicoCity, africa,30);
+		        // grafo.conectar(mexicoCity, newYork,400);
+		        // grafo.conectar(africa, buenosAires,20);
+		        // grafo.conectar(africa, sydney,10);
+		        // grafo.conectar(africa, mexicoCity,3);
+		        // grafo.conectar(beijing, brasil,10);
+		        // grafo.conectar(beijing, london,360);
+		        // grafo.conectar(seoul, berlin,90);
+
+		        grafo.agregarVertice(buenosAires);
 		        grafo.agregarVertice(madrid);
-		        grafo.agregarVertice(bariloche);
-		        grafo.agregarVertice(brasil);
 		        grafo.agregarVertice(tokyo);
 		        grafo.agregarVertice(sydney);
 		        grafo.agregarVertice(newYork);
-		        grafo.agregarVertice(berlin);
-		        grafo.agregarVertice(dubai);
-		        grafo.agregarVertice(rome);
-		        grafo.agregarVertice(london);
-		        grafo.agregarVertice(paris);
-		        grafo.agregarVertice(toronto);
-		        grafo.agregarVertice(mexicoCity);
-		        grafo.agregarVertice(africa);
-		        grafo.agregarVertice(beijing);
-		        grafo.agregarVertice(seoul);
-		        grafo.agregarVertice(laPlata);
 
-		        // (conexiones entre ciudades)
-		        grafo.conectar(dubai, bariloche,30);
-		        grafo.conectar(bariloche, rome,30);
-		        grafo.conectar(rome, jacobacci,4);
-		        grafo.conectar(buenosAires, madrid,30);
-		        grafo.conectar(buenosAires, africa,10);
-		        grafo.conectar(madrid, jacobacci,10);
-		        grafo.conectar(madrid, buenosAires,10);
-		        grafo.conectar(brasil, laPlata,10);
-		        grafo.conectar(brasil, seoul,230);
-		        grafo.conectar(brasil, beijing,40);
-		        grafo.conectar(tokyo, berlin,70);
-		        grafo.conectar(sydney, brasil,60);
-		        grafo.conectar(newYork, london,150);
-		        grafo.conectar(newYork, mexicoCity,60);
-		        grafo.conectar(jacobacci, rome,5);
-		        grafo.conectar(jacobacci, dubai,30);
-		        grafo.conectar(jacobacci, madrid,10);
-		        grafo.conectar(berlin, toronto,20);
-		        grafo.conectar(berlin, seoul,50);
-		        grafo.conectar(dubai, jacobacci,20);
-		        grafo.conectar(dubai, tokyo,10);
-		        grafo.conectar(london, paris,10);
-		        grafo.conectar(london, beijing,40);
-		        grafo.conectar(london, newYork,60);
-		        grafo.conectar(paris, toronto,30);
-		        grafo.conectar(paris, london,10);
-		        grafo.conectar(toronto, paris,210);
-		        grafo.conectar(mexicoCity, africa,30);
-		        grafo.conectar(mexicoCity, newYork,400);
-		        grafo.conectar(africa, buenosAires,20);
-		        grafo.conectar(africa, sydney,10);
-		        grafo.conectar(africa, mexicoCity,3);
-		        grafo.conectar(beijing, brasil,10);
-		        grafo.conectar(beijing, london,360);
-		        grafo.conectar(seoul, berlin,90);
 		        
+		        grafo.conectar(buenosAires, madrid, 10);
+		        grafo.conectar(buenosAires, sydney, 10);
+		        grafo.conectar(madrid, tokyo, 10);
+		        grafo.conectar(sydney, newYork, 10);
+		        grafo.conectar(newYork, tokyo, 10);
+
 		        
-		        
-		        ListaGenerica<String> ciudadesExceptuadas = new ListaGenericaEnlazada<String>();
-		        ciudadesExceptuadas.agregarFinal("Madrid");
-		        ciudadesExceptuadas.agregarFinal("Mexico City");
+		        // ListaGenerica<String> ciudadesExceptuadas = new ListaGenericaEnlazada<String>();
+		        // ciudadesExceptuadas.agregarFinal("Madrid");
+		        // ciudadesExceptuadas.agregarFinal("Mexico City");
 
 		        // Crea el objeto Mapa y le pasa el grafo
 		        Mapa mapa = new Mapa(grafo);		        
-		        ListaGenerica<String> camino = mapa.devolverCamino("Buenos Aires", "Berlin");
+		        ListaGenerica<String> camino = new ListaGenericaEnlazada<String>();
+				// mapa.devolverCamino("Buenos Aires", "Berlin");
 		        
 		        // camino.comenzar();
 		        // System.out.println("devolver camino cualquiera:");
@@ -126,7 +139,7 @@ public class MapaTest{
 		        // 	System.out.print(" ---> "+camino.proximo());
 		        // }
 		        
-		        camino=mapa.devolverCaminoCorto("Buenos Aires", "New York");
+		        camino=mapa.devolverCaminoCorto2("Buenos Aires", "Jacobacci");
 		        camino.comenzar();
 		        System.out.println(".");
 		        System.out.println("devolver camino mas corto:");
