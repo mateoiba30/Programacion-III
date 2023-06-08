@@ -173,32 +173,8 @@ public class Delta<T> {
     
     
   }
-
-
-  public int maxIslasDistintasBFS(Grafo<String> grafo){//Seguro tiene ciclos
-    int t=grafo.listaDeVertices().tamanio();
-    Peso max = new Peso();
-    max.setDato(0);
-
-    if(!grafo.esVacio()){
-        int visitadasDesde=0;//como es int, en el backtracking vuelve a su estado anterior
-        boolean[] marca = new boolean[t];//se inicia en false automaticamente
-        marca[0]=true;//nadie visita a MP, puede ser que voy por un adycente a MP, que tiene otro adyacente con posible destino a MP (ese caso no es un Max)
-
-        ListaGenerica<Arista<String>> adyacentes = grafo.listaDeAdyacentes(grafo.vertice(0));//muelle principal = vertice 0
-        adyacentes.comenzar();
-        while (!adyacentes.fin()){
-            Arista<String> actual = adyacentes.proximo();//podría preguntar que no esté visitado, aunque si ya lo está, sus adyacentes tmb, y solo me queda un recorrido de 1 isla que no me cqmbia mi resultado al buscar el maximo (SI ME CAMBIA SI BUSCO EL MINIMO)
-            visitadasDesde=1;//inicia en 1, porque el primer adyacente ya es una isla nueva
-            maxIslasDistintasBFS(visitadasDesde, grafo, actual.verticeDestino(), marca);
-        }
-    }
-
-    return max.getDato();//devuelve el maximo de un vector
-}
 //podría mandar en recursion a longitud +1 tambien, y que sea del tipo int
-public int maxIslasDistintasBFS(int visitadosDesde, Grafo<String> grafo, Vertice<String> vAdyacente, boolean[] marca){
-  int gradoMax=-1;
+public int maxIslasDistintasBFS(Grafo<String> grafo){
 
   ListaGenerica<Arista<String>> listaAdyacentes=new ListaGenericaEnlazada<Arista<String>>();
   ListaGenerica<Arista<String>> listaVertices=new ListaGenericaEnlazada<Arista<String>>();
@@ -206,58 +182,54 @@ public int maxIslasDistintasBFS(int visitadosDesde, Grafo<String> grafo, Vertice
   int cantVertices;
   cantVertices=grafo.listaDeVertices().tamanio();
   boolean[] verticesMarcados = new boolean[cantVertices];
-  listaVertices=vAdyacente.listaDeAdyacentes();
+  listaVertices=grafo.listaDeAdyacentes(grafo.vertice(0));
   listaVertices.comenzar();
+  int contadorVisitados, maxVisitados=0;
+  verticesMarcados[0]=true;//marco para no visitar a MP
 
-  while(!listaVertices.fin() && gradoMax!=0){//debo chequear cada vertice por si está aislado del resto, mientras que sea conexo
-      Vertice<String> vInicio = listaVertices.proximo();
-      int gradoAct=0;
+  while(!listaVertices.fin()){//debo chequear cada vertice adyacente a MP, hago bfs en cada adyacente
+      Vertice<String> vInicio = listaVertices.proximo().verticeDestino();
 
       if(verticesMarcados[vInicio.posicion()]==false){
+          contadorVisitados=1;//ya la adyacente al muelle es una
+          verticesMarcados[vInicio.posicion()]=true;//pero voy a llegar a ella a traves de sus adyacentes
 
           cola.encolar(vInicio);
-          cola.encolar(null);
+          // cola.encolar(null);
 
-          while(!cola.esVacia()){//similar a un recorrido por niveles que visita los adyacentes y encola los destinos de los adyacentes
+          while(!cola.esVacia()){
               Vertice<String> verticeAct=cola.desencolar();
-              if(verticeAct!=null){//como encolo null, chequear de no estar parado en null
+              if(verticeAct!=null){
                   listaAdyacentes=grafo.listaDeAdyacentes(verticeAct);
-                  listaAdyacentes.comenzar();//antes de recorrerla no olvidar pararme al inicio
+                  int aux=listaAdyacentes.tamanio();//pa debugugear
+                  listaAdyacentes.comenzar();
                   
                   while(!listaAdyacentes.fin()){
                       Arista<String> aristaAct=listaAdyacentes.proximo();
                       int pos=aristaAct.verticeDestino().posicion();
                       if(verticesMarcados[pos]==false){
-                          verticesMarcados[pos]=true;//maracar aca para que al querer apilarlo por alguien mas (antes de leer ese verticeAct) no pueda
+                          contadorVisitados++;
+                          verticesMarcados[pos]=true;
                           Vertice<String> verticeApuntado =aristaAct.verticeDestino();
                           cola.encolar(verticeApuntado);
                       }
                   }//termino un nivel
               }
-              else{
-                  if(!cola.esVacia()){
-                      gradoAct++;
-                      cola.encolar(null);
-                  }
-              }
-          }//termino el recorrido desde un origen
+              // else{
+              //     if(!cola.esVacia()){
+              //         cola.encolar(null);
+              //     }
+              // }
 
-          int i=0;
-          while(i<cantVertices && gradoMax!=0){
-              if(verticesMarcados[i]==false)
-                  gradoMax=0;
-              i++;
           }
+          if(contadorVisitados>maxVisitados)
+            maxVisitados=contadorVisitados;
+      }//termino el recorrido desde un origen
 
-          if(gradoMax!=0 && gradoAct>gradoMax)
-              gradoMax=gradoAct;
-      }
-      for(int i=0; i<cantVertices; i++){//debo desmarcar los vertices para analizar desde otro origen
-          verticesMarcados[i]=false;
-      }
+      //no desmarco en este programa
   }//termino programa
 
-  return gradoMax;
+  return maxVisitados;
 }
 }
 
