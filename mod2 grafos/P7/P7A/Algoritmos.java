@@ -9,33 +9,29 @@ public class Algoritmos<T> {
     public boolean subgrafoCuadrado(Grafo<T> grafo){
         boolean cuadrado=false;
 
-        if (!grafo.esVacio()) {
-            Peso longitud = new Peso();
+        if (grafo!=null && !grafo.esVacio()) {
             Peso cuadradoInt = new Peso();
             boolean[] marca = new boolean[grafo.listaDeVertices().tamanio()];//se inicia en false automaticamente
             cuadradoInt.setDato(0);
 
             int reps=grafo.listaDeVertices().tamanio() - 1;
             int pos=0;
-            while(cuadrado==false && pos<=reps){//porque no me anda con proximo?
-                longitud.setDato(0);//100 porciento necesario, porque al volver en recursion se hace lio y puede quedar la long negativa
-                subgrafoCuadradoRecursivo(cuadradoInt, longitud, grafo, grafo.listaDeVertices().elemento(pos), grafo.listaDeVertices().proximo(), marca);
+            while(cuadrado==false && pos<=reps){
+                subgrafoCuadradoRecursivo(cuadradoInt, 0, grafo, grafo.listaDeVertices().elemento(pos), grafo.listaDeVertices().proximo(), marca);
                 pos++;
-                // ya queda la ciudad desmarcada
             }
             if(cuadradoInt.getDato()==1)
                 cuadrado=true;
         }
-        
         return cuadrado;
         }
     
-    private void subgrafoCuadradoRecursivo(Peso cuadrado, Peso longitud, Grafo<T> grafo, Vertice<T> vIni, Vertice<T> vAct, boolean[] marca) {
+    private void subgrafoCuadradoRecursivo(Peso cuadrado, int longitud, Grafo<T> grafo, Vertice<T> vIni, Vertice<T> vAct, boolean[] marca) {
 
         if(!vIni.dato().equals(vAct.dato()))//no marco en true el vertice del inicio para poder chequear el ciclo pasando po el inicio
             marca[vAct.posicion()] = true;
 
-        if (vIni.dato().equals(vAct.dato())&& longitud.getDato()==4)//si llega a ser un grafo de enteros, me sirve equlas si uso el wrapper Integer//si volvió de donde vino y el camino fue de 4
+        if (vIni.dato().equals(vAct.dato())&& longitud==4)//si llega a ser un grafo de enteros, me sirve equlas si uso el wrapper Integer//si volvió de donde vino y el camino fue de 4
             cuadrado.setDato(1);
         else{
             ListaGenerica<Arista<T>> adyacentes = grafo.listaDeAdyacentes(vAct);//no las declaro antes para no declarar al pedo
@@ -43,20 +39,16 @@ public class Algoritmos<T> {
             while ((!adyacentes.fin()) && cuadrado.getDato()==0) {//mejor un while que un for, me aseguro de estar preguntando con el vertice que quiero
                 Arista<T> actual = adyacentes.proximo();
                 int pos=actual.verticeDestino().posicion();
-                longitud.setDato(longitud.getDato() + 1);//puede ser que no entre al adyacente porque fue visitado antes, pero debo sumar porque desp paso a restar en caso de que tenga adyacente
-
-                if (!marca[pos]){
-                    subgrafoCuadradoRecursivo(cuadrado, longitud, grafo, vIni, actual.verticeDestino(), marca);
-                }
-                longitud.setDato(longitud.getDato() - 1);//para poder analizar otros casos, de a 1 resto en el backtracking
-                marca[pos]=false;//para poder analizar otros casos
+                if (!marca[pos])
+                    subgrafoCuadradoRecursivo(cuadrado, longitud+1, grafo, vIni, actual.verticeDestino(), marca);
             }
         }
+        marca[vAct.posicion()]=false;//para poder analizar otros casos
     }
 
     public int getGrado(Grafo<T> grafo) {
         int gradoMax=0, gradoAct;
-        if (!grafo.esVacio()) {
+        if (!grafo.esVacio() && grafo!=null) {
             int t=grafo.listaDeVertices().tamanio();
             int[] vectorAdyacencias = new int[t];//se inicializa automaticamente en cero cada pos
 
@@ -104,8 +96,7 @@ public class Algoritmos<T> {
     public boolean tieneCiclo(Grafo<T> grafo){//como ver si es cuadrado, pero si llego al origen simplemente chequeo que no sea en la 1ra vez que entro a al funcion
     boolean ciclo=false;
 
-    if (!grafo.esVacio()) {
-        Peso longitud = new Peso();
+    if (!grafo.esVacio() && grafo!=null) {
         Peso cicloInt = new Peso();
         boolean[] marca = new boolean[grafo.listaDeVertices().tamanio()];//se inicia en false automaticamente
         cicloInt.setDato(0);
@@ -113,10 +104,8 @@ public class Algoritmos<T> {
         int reps=grafo.listaDeVertices().tamanio() - 1;
         int pos=0;
         while(ciclo==false && pos<=reps){//porque no me anda con proximo?
-            longitud.setDato(0);//100 porciento necesario, porque al volver en recursion se hace lio y puede quedar la long negativa
-            tieneCicloRecursivo(cicloInt, longitud, grafo, grafo.listaDeVertices().elemento(pos), grafo.listaDeVertices().proximo(), marca);
+            tieneCicloRecursivo(cicloInt, 0, grafo, grafo.listaDeVertices().elemento(pos), grafo.listaDeVertices().proximo(), marca);
             pos++;
-            // ya queda la ciudad desmarcada
         }
         if(cicloInt.getDato()==1)
             ciclo=true;
@@ -125,12 +114,12 @@ public class Algoritmos<T> {
     return ciclo;
     }
     
-    private void tieneCicloRecursivo(Peso ciclo, Peso longitud, Grafo<T> grafo, Vertice<T> vIni, Vertice<T> vAct, boolean[] marca) {
+    private void tieneCicloRecursivo(Peso ciclo, int longitud, Grafo<T> grafo, Vertice<T> vIni, Vertice<T> vAct, boolean[] marca) {
 
         if(!vIni.dato().equals(vAct.dato()))//no marco en true el vertice del inicio para poder chequear el ciclo pasando po el inicio
             marca[vAct.posicion()] = true;
 
-        if (vIni.dato().equals(vAct.dato())&& longitud.getDato()!=0)//si llega a ser un grafo de enteros, me sirve equlas si uso el wrapper Integer//si volvió de donde vino y el camino fue de 4
+        if (vIni.dato().equals(vAct.dato())&& longitud!=0)//si llega a ser un grafo de enteros, me sirve equlas si uso el wrapper Integer//si volvió de donde vino y el camino fue de 4
             ciclo.setDato(1);
         else{
             ListaGenerica<Arista<T>> adyacentes = grafo.listaDeAdyacentes(vAct);//no las declaro antes para no declarar al pedo
@@ -138,13 +127,9 @@ public class Algoritmos<T> {
             while ((!adyacentes.fin()) && ciclo.getDato()==0) {//mejor un while que un for, me aseguro de estar preguntando con el vertice que quiero
                 Arista<T> actual = adyacentes.proximo();
                 int pos=actual.verticeDestino().posicion();
-                longitud.setDato(longitud.getDato() + 1);//puede ser que no entre al adyacente porque fue visitado antes, pero debo sumar porque desp paso a restar en caso de que tenga adyacente
-
                 if (!marca[pos]){
-                    tieneCicloRecursivo(ciclo, longitud, grafo, vIni, actual.verticeDestino(), marca);
+                    tieneCicloRecursivo(ciclo, longitud+1, grafo, vIni, actual.verticeDestino(), marca);
                 }
-                longitud.setDato(longitud.getDato() - 1);//para poder analizar otros casos, de a 1 resto en el backtracking
-                // marca[pos]=false;//para poder analizar otros casos
             }
         }
         marca[vIni.posicion()]=false;
