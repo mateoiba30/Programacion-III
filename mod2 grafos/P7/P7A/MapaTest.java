@@ -107,53 +107,20 @@ public class MapaTest{
 
 		        
 		        grafo.conectar(buenosAires, madrid, 10);
+				grafo.conectar(madrid, buenosAires, 10);//bucle
+
 		        grafo.conectar(buenosAires, sydney, 10);
 		        grafo.conectar(madrid, tokyo, 10);
 		        grafo.conectar(sydney, newYork, 10);
 		        grafo.conectar(newYork, tokyo, 10);
+				grafo.conectar(newYork, buenosAires, 10);//bulce
 
-		        
-		        // ListaGenerica<String> ciudadesExceptuadas = new ListaGenericaEnlazada<String>();
-		        // ciudadesExceptuadas.agregarFinal("Madrid");
-		        // ciudadesExceptuadas.agregarFinal("Mexico City");
-
-		        // Crea el objeto Mapa y le pasa el grafo
 		        Mapa mapa = new Mapa(grafo);		        
 		        ListaGenerica<String> camino = new ListaGenericaEnlazada<String>();
-				// mapa.devolverCamino("Buenos Aires", "Berlin");
-		        
-		        // camino.comenzar();
-		        // System.out.println("devolver camino cualquiera:");
-		        // while (!camino.fin()) {
-		        //     System.out.print(" ---> "+camino.proximo());
-		        // }
 
-		        // // Busca un camino desde Bogotá a Roma exceptuando las ciudades especificadas
-		        // camino = mapa.devolverCaminoExceptuando("Buenos Aires", "Berlin", ciudadesExceptuadas);
-
-		        // // Imprime el camino
-		        // camino.comenzar();
-		        // System.out.println(".");
-		        // System.out.println("devolver camino exceptuando:");
-		        // while (!camino.fin()) {
-		        // 	System.out.print(" ---> "+camino.proximo());
-		        // }
+		        camino=mapa.devolverCamino("Buenos Aires", "Jacobacci");
+		        System.out.print(" camino: "+camino.toString());
 		        
-		        camino=mapa.caminoConMenorCargaDeCombustible("Buenos Aires", "Tokyo", 40);
-		        // camino.comenzar();
-		        System.out.println(".");
-		        System.out.println("camino:");
-		        while (!camino.fin()) {
-		        	System.out.print(" ---> "+camino.proximo());
-		        }
-		        
-		        // camino=mapa.caminoSinCargarCombustible("Buenos Aires", "London",500);
-		        // camino.comenzar();
-		        // System.out.println(".");
-		        // System.out.println("camino con 500 litros:");
-		        // while (!camino.fin()) {
-		        // 	System.out.print(" ---> "+camino.proximo());
-		        // }
 
 		    }
 
