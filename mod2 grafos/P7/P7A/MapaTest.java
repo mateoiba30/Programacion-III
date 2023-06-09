@@ -118,7 +118,7 @@ public class MapaTest{
 		        Mapa mapa = new Mapa(grafo);		        
 		        ListaGenerica<String> camino = new ListaGenericaEnlazada<String>();
 
-		        camino=mapa.devolverCamino("Buenos Aires", "Jacobacci");
+		        camino=mapa.caminoConMenorCargaDeCombustible("Buenos Aires", "Tokyo", 50);
 		        System.out.print(" camino: "+camino.toString());
 		        
 
