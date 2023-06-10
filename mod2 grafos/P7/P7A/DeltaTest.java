@@ -32,26 +32,25 @@ public class DeltaTest {
 
        islas.conectar(v1, v2, 1);//rama derecha
        islas.conectar(v2, v1, 1);
-    //    islas.conectar(v2, v3, 1);
-    //    islas.conectar(v3, v2, 1);
-    //    islas.conectar(v1, v3, 1);
-    //    islas.conectar(v3, v1, 1);
+       islas.conectar(v2, v3, 1);
+       islas.conectar(v3, v2, 1);
+       islas.conectar(v1, v3, 1);
+       islas.conectar(v3, v1, 1);
 
        islas.conectar(v4, v5, 1);//rama izquierda
        islas.conectar(v5, v4, 1);
-    //    islas.conectar(v4, v6, 1);
-    //    islas.conectar(v6, v4, 1);
-    //    islas.conectar(v5, v6, 1);
-    //    islas.conectar(v6, v5, 1);
-    //    islas.conectar(v5, v7, 1);
-    //    islas.conectar(v7, v5, 1);
+       islas.conectar(v4, v6, 1);
+       islas.conectar(v6, v4, 1);
+       islas.conectar(v5, v6, 1);
+       islas.conectar(v6, v5, 1);
+       islas.conectar(v5, v7, 1);
+       islas.conectar(v7, v5, 1);
 
         Delta<String> d = new Delta<String>();
-        System.out.println("La cantidad maxima de islas a visitar con 1 boleto es de: "+d.maxIslasDistintasBFS(islas));
-        // RutaMinima rutaMinima = new RutaMinima();
-        // rutaMinima=d.caminoMasCorto(islas, "isla 4", "isla 1");
-        // if(rutaMinima!=null)
-        //     System.out.println("con "+rutaMinima.getBoletos()+" boletos, camino mas corto: "+rutaMinima.getRuta().toString());
+        // System.out.println("La cantidad maxima de islas a visitar con 1 boleto es de: "+d.maxIslasDistintasBFS(islas));
+        RutaMinima rutaMinima = new RutaMinima();
+        rutaMinima=d.caminoMasCorto(islas, "isla 1", "isla 7");
+        System.out.println("con "+rutaMinima.getBoletos()+" boletos, camino mas corto: "+rutaMinima.getRuta().toString());
 
     }
 }
