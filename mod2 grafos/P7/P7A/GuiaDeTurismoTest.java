@@ -53,8 +53,8 @@ public class GuiaDeTurismoTest {
 
         ListaGenerica<String> resultado = new ListaGenericaEnlazada<String>();
         GuiaDeTurismo g = new GuiaDeTurismo();
-        resultado= g.caminoConMenorNrodeViajes(BsAs, "punto 0", "punto aislado");
-        System.out.println(resultado.toString());//si no hay nada lo imprime vacío
+        resultado= g.caminoConMenorNrodeViajes(BsAs, "punto 0", "punto 3");
+        System.out.println("camino: "+resultado.toString());//si no hay nada lo imprime vacío
         // if(resultado!=null)
         //     System.out.println(resultado.toString());
         // else
