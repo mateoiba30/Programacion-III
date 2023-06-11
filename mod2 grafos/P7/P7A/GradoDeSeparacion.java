@@ -39,7 +39,7 @@ public class GradoDeSeparacion {
                                 Vertice<String> verticeApuntado =aristaAct.verticeDestino();
                                 cola.encolar(verticeApuntado);
                             }
-                        }//termino un nivel
+                        }//termino adyacentes de alguno (no necesariamente un nivel)
                     }
                     else{
                         if(!cola.esVacia()){
@@ -55,7 +55,6 @@ public class GradoDeSeparacion {
                         gradoMax=0;
                     i++;
                 }
-
                 if(gradoMax!=0 && gradoAct>gradoMax)
                     gradoMax=gradoAct;
             }

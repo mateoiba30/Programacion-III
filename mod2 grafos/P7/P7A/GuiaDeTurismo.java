@@ -14,7 +14,6 @@ public class GuiaDeTurismo {
           verticeActual = vertices.elemento(i);
   
         }
-
         if(!verticeActual.dato().equals(ciudad1))
           return null;
         return verticeActual;

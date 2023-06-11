@@ -100,12 +100,11 @@ public class Algoritmos<T> {
         Peso cicloInt = new Peso();
         boolean[] marca = new boolean[grafo.listaDeVertices().tamanio()];//se inicia en false automaticamente
         cicloInt.setDato(0);
+        Vertice<T> v;
 
-        int reps=grafo.listaDeVertices().tamanio() - 1;
-        int pos=0;
-        while(ciclo==false && pos<=reps){//porque no me anda con proximo?
-            tieneCicloRecursivo(cicloInt, 0, grafo, grafo.listaDeVertices().elemento(pos), grafo.listaDeVertices().proximo(), marca);
-            pos++;
+        while(ciclo==false && !grafo.listaDeVertices().fin()){//porque no me anda con proximo?
+            v=grafo.listaDeVertices().proximo();
+            tieneCicloRecursivo(cicloInt, 0, grafo, v, v, marca);
         }
         if(cicloInt.getDato()==1)
             ciclo=true;
