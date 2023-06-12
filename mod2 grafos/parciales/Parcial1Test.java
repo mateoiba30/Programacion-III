@@ -1,37 +1,48 @@
 public class Parcial1Test {
     public static void main(String[] args) {
-        Vertice<String> v1 = new VerticeImplListAdy<String>("Buenos Aires");
-        Vertice<String> v2 = new VerticeImplListAdy<String>("Santiago");
-        Vertice<String> v3 = new VerticeImplListAdy<String>("Lima");
-        Vertice<String> v4 = new VerticeImplListAdy<String>("London");
-        Vertice<String> v5 = new VerticeImplListAdy<String>("New York");
-        Vertice<String> v6 = new VerticeImplListAdy<String>("Madagascar");  
-        Vertice<String> v7 = new VerticeImplListAdy<String>("Miameee");  
+        Ciudad cAux= new Ciudad();
+        cAux.setNombre("Buenos Aires");
+        cAux.setLimDias(5);
+        Vertice<Ciudad> v0 = new VerticeImplListAdy<Ciudad>(cAux);
 
+        Ciudad cAux2= new Ciudad();
+        cAux2.setLimDias(6);
+        cAux2.setNombre("La Plata");
+        Vertice<Ciudad> v1 = new VerticeImplListAdy<Ciudad>(cAux2);
 
-        Grafo<String> ciudades = new GrafoImplListAdy<String>();
+        Ciudad cAux3= new Ciudad();
+        cAux3.setNombre("Escobar");
+        cAux3.setLimDias(7);
+        Vertice<Ciudad> v2 = new VerticeImplListAdy<Ciudad>(cAux3);
+
+        Ciudad cAux4= new Ciudad();
+        cAux4.setNombre("Bariloche");
+        cAux4.setLimDias(2);
+        Vertice<Ciudad> v3 = new VerticeImplListAdy<Ciudad>(cAux4);
+
+        Grafo<Ciudad> ciudades = new GrafoImplListAdy<Ciudad>();
+        ciudades.agregarVertice(v0);
         ciudades.agregarVertice(v1);
         ciudades.agregarVertice(v2);
         ciudades.agregarVertice(v3);
-        ciudades.agregarVertice(v4);
-        ciudades.agregarVertice(v5);
-        ciudades.agregarVertice(v6);
-        ciudades.agregarVertice(v7); 
 
-        ciudades.conectar(v1, v3, 1);
-        ciudades.conectar(v1, v2, 2);
-        ciudades.conectar(v3, v4, 3);
-        ciudades.conectar(v4, v7, 4);
-        ciudades.conectar(v2, v6, 5);
-        ciudades.conectar(v6, v5, 5);//6 sin adyacentes
-        ciudades.conectar(v7, v5, 5);
+        ciudades.conectar(v0, v1, 2);
+        ciudades.conectar(v1, v0, 2);
 
-        // ciudades.conectar(v5, v3, 0);//para que sea cuadrado en Lima si lo descomento
-        // ciudades.conectar(v7, v1, 5);//pa que sea cuadrado en bsas si lo descomento
-        // ciudades.conectar(v3, v2, 3);//pa que sea cuadrado en Santiago si lo descomento (necesita de v5 a v3)
-        ciudades.conectar(v3, v1, 0);//pa que puedan haber mas ciclos no cuadrados
+        ciudades.conectar(v1, v2, 3);
+        ciudades.conectar(v2, v1, 3);
 
+        ciudades.conectar(v0, v2, 4);
+        ciudades.conectar(v0, v2, 4);
 
+        ciudades.conectar(v2, v3, 4);
+        ciudades.conectar(v3, v2, 4);
+
+        ciudades.conectar(v1, v3, 4);
+        ciudades.conectar(v3, v1, 4);
+
+        parcial1 p = new parcial1();
+        System.out.println("maximo tiempo en dias es de: "+p.resolver(ciudades, "Buenos Aires", "La Plata", 4));
 
     }
 }

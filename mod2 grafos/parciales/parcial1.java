@@ -18,7 +18,19 @@ public class parcial1 {
         else
             return null;
     }
+    // private Vertice<Ciudad> obtenerVertice(Grafo<Ciudad> grafo, String ciudad1) {//conviene pasar el grafo y no usar la variable de la clase
+    //   Vertice<Ciudad> verticeActual = null;
+    //   ListaGenerica<Vertice<Ciudad>> vertices = grafo.listaDeVertices();
+    //   int i=0, reps=vertices.tamanio() - 1;
+      
+    //   verticeActual = vertices.elemento(i);
+    //   while(i<reps && !verticeActual.dato().getNombre().equals(ciudad1)){
+    //     i++;
+    //     verticeActual = vertices.elemento(i);
 
+    //   }
+    //   return verticeActual;
+    // }
     public int resolver (Grafo<Ciudad> grafo, String origen, String destino, int maxControles){
         Dias diasMax=new Dias();
 
