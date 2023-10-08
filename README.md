@@ -1,10 +1,10 @@
 # Programación 3
 
-Este repositorio contiene las prácticas realizadas en la materia **Programación 3**.
-Módulo 1: herencia, listas, arboles binarios y generales, etc.
-Módulo 2: Grafos, eficiencia de ejecución, etc.
+This repository contains the practices carried out in the subject **Programming 3**.
+Module 1: inheritance, lists, binary and general trees, etc.
+Module 2: Graphs, execution efficiency, etc.
 
-## Prácticas
+## Practices
 
 - [módulo 1](mod1%20arboles,%20listas/)
 
