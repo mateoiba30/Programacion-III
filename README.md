@@ -11,3 +11,5 @@ Module 2: Graphs, execution efficiency, etc.
 - [módulo 2][def]
 
 [def]: mod2%20grafos/
+
+Here are the [assigments](consignas)
